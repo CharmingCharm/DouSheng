@@ -1,4 +1,4 @@
-module github.com/RaymondCode/simple-demo
+module github.com/CharmingCharm/DouSheng
 
 go 1.17
 
