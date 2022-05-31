@@ -2,7 +2,7 @@ namespace go user
 
 struct BaseResp {
     1:required i64       status_code
-    2:optional string    status_message
+    2:required string    status_message
     3:required i64       service_time
 }
 
@@ -21,6 +21,7 @@ struct CreateUserRequest {
 
 struct CreateUserResponse {
     1:required BaseResp  base_resp
+    2:required i64       user_id
 }
 
 struct CheckUserRequest {
@@ -30,6 +31,7 @@ struct CheckUserRequest {
 
 struct CheckUserResponse {
     1:required BaseResp  base_resp
+    2:required i64       user_id
 }
 
 struct GetUserInfoRequest {
@@ -53,8 +55,8 @@ struct UpdateUserFollowResponse {
 }
 
 service UserService {
-    CreateUserResponse createUser(CreateUserRequest req)
-    CheckUserResponse checkUser(CheckUserRequest req)
-    GetUserInfoResponse getUserInfo(GetUserInfoRequest req)
-    UpdateUserFollowResponse updateUserFollow(UpdateUserFollowRequest req)
+    CreateUserResponse CreateUser(CreateUserRequest req)
+    CheckUserResponse CheckUser(CheckUserRequest req)
+    GetUserInfoResponse GetUserInfo(GetUserInfoRequest req)
+    UpdateUserFollowResponse UpdateUserFollow(UpdateUserFollowRequest req)
 }

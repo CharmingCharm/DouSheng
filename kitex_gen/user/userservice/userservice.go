@@ -4,7 +4,7 @@ package userservice
 
 import (
 	"context"
-	"github.com/CharmingCharm/DouSheng/idl/kitex_gen/user"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/user"
 	"github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 )
@@ -19,10 +19,10 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "UserService"
 	handlerType := (*user.UserService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"createUser":       kitex.NewMethodInfo(createUserHandler, newUserServiceCreateUserArgs, newUserServiceCreateUserResult, false),
-		"checkUser":        kitex.NewMethodInfo(checkUserHandler, newUserServiceCheckUserArgs, newUserServiceCheckUserResult, false),
-		"getUserInfo":      kitex.NewMethodInfo(getUserInfoHandler, newUserServiceGetUserInfoArgs, newUserServiceGetUserInfoResult, false),
-		"updateUserFollow": kitex.NewMethodInfo(updateUserFollowHandler, newUserServiceUpdateUserFollowArgs, newUserServiceUpdateUserFollowResult, false),
+		"CreateUser":       kitex.NewMethodInfo(createUserHandler, newUserServiceCreateUserArgs, newUserServiceCreateUserResult, false),
+		"CheckUser":        kitex.NewMethodInfo(checkUserHandler, newUserServiceCheckUserArgs, newUserServiceCheckUserResult, false),
+		"GetUserInfo":      kitex.NewMethodInfo(getUserInfoHandler, newUserServiceGetUserInfoArgs, newUserServiceGetUserInfoResult, false),
+		"UpdateUserFollow": kitex.NewMethodInfo(updateUserFollowHandler, newUserServiceUpdateUserFollowArgs, newUserServiceUpdateUserFollowResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "user",
@@ -124,7 +124,7 @@ func (p *kClient) CreateUser(ctx context.Context, req *user.CreateUserRequest) (
 	var _args user.UserServiceCreateUserArgs
 	_args.Req = req
 	var _result user.UserServiceCreateUserResult
-	if err = p.c.Call(ctx, "createUser", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "CreateUser", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -134,7 +134,7 @@ func (p *kClient) CheckUser(ctx context.Context, req *user.CheckUserRequest) (r 
 	var _args user.UserServiceCheckUserArgs
 	_args.Req = req
 	var _result user.UserServiceCheckUserResult
-	if err = p.c.Call(ctx, "checkUser", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "CheckUser", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -144,7 +144,7 @@ func (p *kClient) GetUserInfo(ctx context.Context, req *user.GetUserInfoRequest)
 	var _args user.UserServiceGetUserInfoArgs
 	_args.Req = req
 	var _result user.UserServiceGetUserInfoResult
-	if err = p.c.Call(ctx, "getUserInfo", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "GetUserInfo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -154,7 +154,7 @@ func (p *kClient) UpdateUserFollow(ctx context.Context, req *user.UpdateUserFoll
 	var _args user.UserServiceUpdateUserFollowArgs
 	_args.Req = req
 	var _result user.UserServiceUpdateUserFollowResult
-	if err = p.c.Call(ctx, "updateUserFollow", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "UpdateUserFollow", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

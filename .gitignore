@@ -21,3 +21,7 @@
 go.work
 
 .idea
+
+
+internal/api/api
+internal/*/output

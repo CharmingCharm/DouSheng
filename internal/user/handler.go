@@ -2,7 +2,12 @@ package main
 
 import (
 	"context"
-	"github.com/CharmingCharm/DouSheng/idl/kitex_gen/user"
+	"fmt"
+
+	"github.com/CharmingCharm/DouSheng/internal/user/pack"
+	"github.com/CharmingCharm/DouSheng/internal/user/service"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/user"
+	"github.com/CharmingCharm/DouSheng/pkg/status"
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.
@@ -11,7 +16,26 @@ type UserServiceImpl struct{}
 // CreateUser implements the UserServiceImpl interface.
 func (s *UserServiceImpl) CreateUser(ctx context.Context, req *user.CreateUserRequest) (resp *user.CreateUserResponse, err error) {
 	// TODO: Your code here...
-	return
+	resp = new(user.CreateUserResponse)
+
+	fmt.Println(req)
+
+	if len(req.Username) == 0 || len(req.Password) == 0 {
+		fmt.Println("user/handler: 1")
+		resp.BaseResp = pack.BuildBaseResp(status.ParamErr)
+		return resp, nil
+	}
+
+	userId, err := service.NewCreateUserService(ctx).CreateUser(req)
+	if err != nil {
+		fmt.Println("user/handler: 2")
+		resp.BaseResp = pack.BuildBaseResp(status.ConvertErrorToStatus(err))
+		return resp, nil
+	}
+	fmt.Println("user/handler: 3")
+	resp.UserId = userId
+	resp.BaseResp = pack.BuildBaseResp(status.Success)
+	return resp, nil
 }
 
 // CheckUser implements the UserServiceImpl interface.

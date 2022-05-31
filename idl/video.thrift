@@ -2,7 +2,7 @@ namespace go video
 
 struct BaseResp {
     1:required i64       status_code
-    2:optional string    status_message
+    2:required string    status_message
     3:required i64       service_time
 }
 
@@ -48,7 +48,7 @@ struct LoadVideosResponse {
 
 struct PublishVideoRequest {
     1:required i64      my_id
-    2:required byte     data
+    2:required string   data_url
     3:required string   title
 }
 
