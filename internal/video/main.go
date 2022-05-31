@@ -1,12 +1,12 @@
 package main
 
 import (
-	action "action/actionservice"
 	"log"
+	video "video/videoservice"
 )
 
 func main() {
-	svr := action.NewServer(new(ActionServiceImpl))
+	svr := video.NewServer(new(VideoServiceImpl))
 
 	err := svr.Run()
 

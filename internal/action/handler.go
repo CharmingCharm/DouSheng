@@ -1,8 +1,8 @@
 package main
 
 import (
+	"action"
 	"context"
-	"github.com/CharmingCharm/DouSheng/idl/kitex_gen/action"
 )
 
 // ActionServiceImpl implements the last service interface defined in the IDL.
@@ -46,6 +46,12 @@ func (s *ActionServiceImpl) GetUserFollowList(ctx context.Context, req *action.G
 
 // GetUserFollowerList implements the ActionServiceImpl interface.
 func (s *ActionServiceImpl) GetUserFollowerList(ctx context.Context, req *action.GetUserFollowerListRequest) (resp *action.GetUserFollowerListResponse, err error) {
+	// TODO: Your code here...
+	return
+}
+
+// CheckRelation implements the ActionServiceImpl interface.
+func (s *ActionServiceImpl) CheckRelation(ctx context.Context, req *action.CheckRelationRequest) (resp *action.CheckRelationResponse, err error) {
 	// TODO: Your code here...
 	return
 }

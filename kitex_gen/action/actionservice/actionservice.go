@@ -4,7 +4,7 @@ package actionservice
 
 import (
 	"context"
-	"github.com/CharmingCharm/DouSheng/idl/kitex_gen/action"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/action"
 	"github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 )
@@ -26,6 +26,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"updateRelationship":  kitex.NewMethodInfo(updateRelationshipHandler, newActionServiceUpdateRelationshipArgs, newActionServiceUpdateRelationshipResult, false),
 		"getUserFollowList":   kitex.NewMethodInfo(getUserFollowListHandler, newActionServiceGetUserFollowListArgs, newActionServiceGetUserFollowListResult, false),
 		"getUserFollowerList": kitex.NewMethodInfo(getUserFollowerListHandler, newActionServiceGetUserFollowerListArgs, newActionServiceGetUserFollowerListResult, false),
+		"CheckRelation":       kitex.NewMethodInfo(checkRelationHandler, newActionServiceCheckRelationArgs, newActionServiceCheckRelationResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "action",
@@ -167,6 +168,24 @@ func newActionServiceGetUserFollowerListResult() interface{} {
 	return action.NewActionServiceGetUserFollowerListResult()
 }
 
+func checkRelationHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*action.ActionServiceCheckRelationArgs)
+	realResult := result.(*action.ActionServiceCheckRelationResult)
+	success, err := handler.(action.ActionService).CheckRelation(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newActionServiceCheckRelationArgs() interface{} {
+	return action.NewActionServiceCheckRelationArgs()
+}
+
+func newActionServiceCheckRelationResult() interface{} {
+	return action.NewActionServiceCheckRelationResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -242,6 +261,16 @@ func (p *kClient) GetUserFollowerList(ctx context.Context, req *action.GetUserFo
 	_args.Req = req
 	var _result action.ActionServiceGetUserFollowerListResult
 	if err = p.c.Call(ctx, "getUserFollowerList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CheckRelation(ctx context.Context, req *action.CheckRelationRequest) (r *action.CheckRelationResponse, err error) {
+	var _args action.ActionServiceCheckRelationArgs
+	_args.Req = req
+	var _result action.ActionServiceCheckRelationResult
+	if err = p.c.Call(ctx, "CheckRelation", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

@@ -105,6 +105,16 @@ struct GetUserFollowerListResponse {
     2:required list<User>   user_list
 }
 
+struct CheckRelationRequest {
+    1:required i64 my_id
+    2:required i64 u_id
+}
+
+struct CheckRelationResponse {
+    1:required BaseResp base_resp
+    2:required bool     is_follow
+}
+
 service ActionService {
     UpdateFavoriteResponse updateFavorite(UpdateFavoriteRequest req)
     GetFavoriteVideosResponse getFavoriteVideos(GetFavoriteVideosRequest req)
@@ -113,4 +123,5 @@ service ActionService {
     UpdateRelationshipResponse updateRelationship(UpdateRelationshipRequest req)
     GetUserFollowListResponse getUserFollowList(GetUserFollowListRequest req)
     GetUserFollowerListResponse getUserFollowerList(GetUserFollowerListRequest req)
+    CheckRelationResponse CheckRelation(CheckRelationRequest req)
 }

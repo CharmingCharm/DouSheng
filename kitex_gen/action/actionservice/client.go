@@ -4,7 +4,7 @@ package actionservice
 
 import (
 	"context"
-	"github.com/CharmingCharm/DouSheng/idl/kitex_gen/action"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/action"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
 )
@@ -18,6 +18,7 @@ type Client interface {
 	UpdateRelationship(ctx context.Context, req *action.UpdateRelationshipRequest, callOptions ...callopt.Option) (r *action.UpdateRelationshipResponse, err error)
 	GetUserFollowList(ctx context.Context, req *action.GetUserFollowListRequest, callOptions ...callopt.Option) (r *action.GetUserFollowListResponse, err error)
 	GetUserFollowerList(ctx context.Context, req *action.GetUserFollowerListRequest, callOptions ...callopt.Option) (r *action.GetUserFollowerListResponse, err error)
+	CheckRelation(ctx context.Context, req *action.CheckRelationRequest, callOptions ...callopt.Option) (r *action.CheckRelationResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -82,4 +83,9 @@ func (p *kActionServiceClient) GetUserFollowList(ctx context.Context, req *actio
 func (p *kActionServiceClient) GetUserFollowerList(ctx context.Context, req *action.GetUserFollowerListRequest, callOptions ...callopt.Option) (r *action.GetUserFollowerListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetUserFollowerList(ctx, req)
+}
+
+func (p *kActionServiceClient) CheckRelation(ctx context.Context, req *action.CheckRelationRequest, callOptions ...callopt.Option) (r *action.CheckRelationResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CheckRelation(ctx, req)
 }

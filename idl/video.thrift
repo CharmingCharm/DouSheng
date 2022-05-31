@@ -85,10 +85,10 @@ struct UpdateCommentCountResponse {
 }
 
 service VideoService {
-    GetVideoListResponse getVideoList(GetVideoListRequest req)
-    LoadVideosResponse loadVideos(LoadVideosRequest req)
-    PublishVideoResponse publishVideo(PublishVideoRequest req)
-    GetPublishedVideosResponse getPublishedVideos(GetPublishedVideosRequest req)
-    UpdateFavoriteCountResponse updateFavoriteCount(UpdateFavoriteCountRequest req)
-    UpdateCommentCountResponse updateCommentCount(UpdateCommentCountRequest req)
+    GetVideoListResponse GetVideoList(GetVideoListRequest req)
+    LoadVideosResponse LoadVideos(LoadVideosRequest req)
+    PublishVideoResponse PublishVideo(PublishVideoRequest req)
+    GetPublishedVideosResponse GetPublishedVideos(GetPublishedVideosRequest req)
+    UpdateFavoriteCountResponse UpdateFavoriteCount(UpdateFavoriteCountRequest req)
+    UpdateCommentCountResponse UpdateCommentCount(UpdateCommentCountRequest req)
 }
