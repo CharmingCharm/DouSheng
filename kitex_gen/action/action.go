@@ -5988,7 +5988,7 @@ func (p *ActionServiceClient) UpdateFavorite(ctx context.Context, req *UpdateFav
 	var _args ActionServiceUpdateFavoriteArgs
 	_args.Req = req
 	var _result ActionServiceUpdateFavoriteResult
-	if err = p.Client_().Call(ctx, "updateFavorite", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "UpdateFavorite", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -5998,7 +5998,7 @@ func (p *ActionServiceClient) GetFavoriteVideos(ctx context.Context, req *GetFav
 	var _args ActionServiceGetFavoriteVideosArgs
 	_args.Req = req
 	var _result ActionServiceGetFavoriteVideosResult
-	if err = p.Client_().Call(ctx, "getFavoriteVideos", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "GetFavoriteVideos", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -6008,7 +6008,7 @@ func (p *ActionServiceClient) UpdateComment(ctx context.Context, req *UpdateComm
 	var _args ActionServiceUpdateCommentArgs
 	_args.Req = req
 	var _result ActionServiceUpdateCommentResult
-	if err = p.Client_().Call(ctx, "updateComment", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "UpdateComment", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -6018,7 +6018,7 @@ func (p *ActionServiceClient) GetCommentLists(ctx context.Context, req *GetComme
 	var _args ActionServiceGetCommentListsArgs
 	_args.Req = req
 	var _result ActionServiceGetCommentListsResult
-	if err = p.Client_().Call(ctx, "getCommentLists", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "GetCommentLists", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -6028,7 +6028,7 @@ func (p *ActionServiceClient) UpdateRelationship(ctx context.Context, req *Updat
 	var _args ActionServiceUpdateRelationshipArgs
 	_args.Req = req
 	var _result ActionServiceUpdateRelationshipResult
-	if err = p.Client_().Call(ctx, "updateRelationship", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "UpdateRelationship", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -6038,7 +6038,7 @@ func (p *ActionServiceClient) GetUserFollowList(ctx context.Context, req *GetUse
 	var _args ActionServiceGetUserFollowListArgs
 	_args.Req = req
 	var _result ActionServiceGetUserFollowListResult
-	if err = p.Client_().Call(ctx, "getUserFollowList", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "GetUserFollowList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -6048,7 +6048,7 @@ func (p *ActionServiceClient) GetUserFollowerList(ctx context.Context, req *GetU
 	var _args ActionServiceGetUserFollowerListArgs
 	_args.Req = req
 	var _result ActionServiceGetUserFollowerListResult
-	if err = p.Client_().Call(ctx, "getUserFollowerList", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "GetUserFollowerList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -6084,13 +6084,13 @@ func (p *ActionServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFunc
 
 func NewActionServiceProcessor(handler ActionService) *ActionServiceProcessor {
 	self := &ActionServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self.AddToProcessorMap("updateFavorite", &actionServiceProcessorUpdateFavorite{handler: handler})
-	self.AddToProcessorMap("getFavoriteVideos", &actionServiceProcessorGetFavoriteVideos{handler: handler})
-	self.AddToProcessorMap("updateComment", &actionServiceProcessorUpdateComment{handler: handler})
-	self.AddToProcessorMap("getCommentLists", &actionServiceProcessorGetCommentLists{handler: handler})
-	self.AddToProcessorMap("updateRelationship", &actionServiceProcessorUpdateRelationship{handler: handler})
-	self.AddToProcessorMap("getUserFollowList", &actionServiceProcessorGetUserFollowList{handler: handler})
-	self.AddToProcessorMap("getUserFollowerList", &actionServiceProcessorGetUserFollowerList{handler: handler})
+	self.AddToProcessorMap("UpdateFavorite", &actionServiceProcessorUpdateFavorite{handler: handler})
+	self.AddToProcessorMap("GetFavoriteVideos", &actionServiceProcessorGetFavoriteVideos{handler: handler})
+	self.AddToProcessorMap("UpdateComment", &actionServiceProcessorUpdateComment{handler: handler})
+	self.AddToProcessorMap("GetCommentLists", &actionServiceProcessorGetCommentLists{handler: handler})
+	self.AddToProcessorMap("UpdateRelationship", &actionServiceProcessorUpdateRelationship{handler: handler})
+	self.AddToProcessorMap("GetUserFollowList", &actionServiceProcessorGetUserFollowList{handler: handler})
+	self.AddToProcessorMap("GetUserFollowerList", &actionServiceProcessorGetUserFollowerList{handler: handler})
 	self.AddToProcessorMap("CheckRelation", &actionServiceProcessorCheckRelation{handler: handler})
 	return self
 }
@@ -6121,7 +6121,7 @@ func (p *actionServiceProcessorUpdateFavorite) Process(ctx context.Context, seqI
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("updateFavorite", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("UpdateFavorite", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6133,8 +6133,8 @@ func (p *actionServiceProcessorUpdateFavorite) Process(ctx context.Context, seqI
 	result := ActionServiceUpdateFavoriteResult{}
 	var retval *UpdateFavoriteResponse
 	if retval, err2 = p.handler.UpdateFavorite(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing updateFavorite: "+err2.Error())
-		oprot.WriteMessageBegin("updateFavorite", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing UpdateFavorite: "+err2.Error())
+		oprot.WriteMessageBegin("UpdateFavorite", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6142,7 +6142,7 @@ func (p *actionServiceProcessorUpdateFavorite) Process(ctx context.Context, seqI
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("updateFavorite", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("UpdateFavorite", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -6169,7 +6169,7 @@ func (p *actionServiceProcessorGetFavoriteVideos) Process(ctx context.Context, s
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("getFavoriteVideos", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("GetFavoriteVideos", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6181,8 +6181,8 @@ func (p *actionServiceProcessorGetFavoriteVideos) Process(ctx context.Context, s
 	result := ActionServiceGetFavoriteVideosResult{}
 	var retval *GetFavoriteVideosResponse
 	if retval, err2 = p.handler.GetFavoriteVideos(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing getFavoriteVideos: "+err2.Error())
-		oprot.WriteMessageBegin("getFavoriteVideos", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetFavoriteVideos: "+err2.Error())
+		oprot.WriteMessageBegin("GetFavoriteVideos", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6190,7 +6190,7 @@ func (p *actionServiceProcessorGetFavoriteVideos) Process(ctx context.Context, s
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("getFavoriteVideos", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("GetFavoriteVideos", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -6217,7 +6217,7 @@ func (p *actionServiceProcessorUpdateComment) Process(ctx context.Context, seqId
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("updateComment", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("UpdateComment", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6229,8 +6229,8 @@ func (p *actionServiceProcessorUpdateComment) Process(ctx context.Context, seqId
 	result := ActionServiceUpdateCommentResult{}
 	var retval *UpdateCommentResponse
 	if retval, err2 = p.handler.UpdateComment(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing updateComment: "+err2.Error())
-		oprot.WriteMessageBegin("updateComment", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing UpdateComment: "+err2.Error())
+		oprot.WriteMessageBegin("UpdateComment", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6238,7 +6238,7 @@ func (p *actionServiceProcessorUpdateComment) Process(ctx context.Context, seqId
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("updateComment", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("UpdateComment", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -6265,7 +6265,7 @@ func (p *actionServiceProcessorGetCommentLists) Process(ctx context.Context, seq
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("getCommentLists", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("GetCommentLists", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6277,8 +6277,8 @@ func (p *actionServiceProcessorGetCommentLists) Process(ctx context.Context, seq
 	result := ActionServiceGetCommentListsResult{}
 	var retval *GetCommentListsResponse
 	if retval, err2 = p.handler.GetCommentLists(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing getCommentLists: "+err2.Error())
-		oprot.WriteMessageBegin("getCommentLists", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCommentLists: "+err2.Error())
+		oprot.WriteMessageBegin("GetCommentLists", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6286,7 +6286,7 @@ func (p *actionServiceProcessorGetCommentLists) Process(ctx context.Context, seq
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("getCommentLists", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("GetCommentLists", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -6313,7 +6313,7 @@ func (p *actionServiceProcessorUpdateRelationship) Process(ctx context.Context, 
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("updateRelationship", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("UpdateRelationship", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6325,8 +6325,8 @@ func (p *actionServiceProcessorUpdateRelationship) Process(ctx context.Context, 
 	result := ActionServiceUpdateRelationshipResult{}
 	var retval *UpdateRelationshipResponse
 	if retval, err2 = p.handler.UpdateRelationship(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing updateRelationship: "+err2.Error())
-		oprot.WriteMessageBegin("updateRelationship", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing UpdateRelationship: "+err2.Error())
+		oprot.WriteMessageBegin("UpdateRelationship", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6334,7 +6334,7 @@ func (p *actionServiceProcessorUpdateRelationship) Process(ctx context.Context, 
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("updateRelationship", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("UpdateRelationship", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -6361,7 +6361,7 @@ func (p *actionServiceProcessorGetUserFollowList) Process(ctx context.Context, s
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("getUserFollowList", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("GetUserFollowList", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6373,8 +6373,8 @@ func (p *actionServiceProcessorGetUserFollowList) Process(ctx context.Context, s
 	result := ActionServiceGetUserFollowListResult{}
 	var retval *GetUserFollowListResponse
 	if retval, err2 = p.handler.GetUserFollowList(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing getUserFollowList: "+err2.Error())
-		oprot.WriteMessageBegin("getUserFollowList", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetUserFollowList: "+err2.Error())
+		oprot.WriteMessageBegin("GetUserFollowList", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6382,7 +6382,7 @@ func (p *actionServiceProcessorGetUserFollowList) Process(ctx context.Context, s
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("getUserFollowList", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("GetUserFollowList", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -6409,7 +6409,7 @@ func (p *actionServiceProcessorGetUserFollowerList) Process(ctx context.Context,
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("getUserFollowerList", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("GetUserFollowerList", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6421,8 +6421,8 @@ func (p *actionServiceProcessorGetUserFollowerList) Process(ctx context.Context,
 	result := ActionServiceGetUserFollowerListResult{}
 	var retval *GetUserFollowerListResponse
 	if retval, err2 = p.handler.GetUserFollowerList(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing getUserFollowerList: "+err2.Error())
-		oprot.WriteMessageBegin("getUserFollowerList", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetUserFollowerList: "+err2.Error())
+		oprot.WriteMessageBegin("GetUserFollowerList", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -6430,7 +6430,7 @@ func (p *actionServiceProcessorGetUserFollowerList) Process(ctx context.Context,
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("getUserFollowerList", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("GetUserFollowerList", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -6593,7 +6593,7 @@ func (p *ActionServiceUpdateFavoriteArgs) ReadField1(iprot thrift.TProtocol) err
 
 func (p *ActionServiceUpdateFavoriteArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("updateFavorite_args"); err != nil {
+	if err = oprot.WriteStructBegin("UpdateFavorite_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -6761,7 +6761,7 @@ func (p *ActionServiceUpdateFavoriteResult) ReadField0(iprot thrift.TProtocol) e
 
 func (p *ActionServiceUpdateFavoriteResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("updateFavorite_result"); err != nil {
+	if err = oprot.WriteStructBegin("UpdateFavorite_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -6931,7 +6931,7 @@ func (p *ActionServiceGetFavoriteVideosArgs) ReadField1(iprot thrift.TProtocol) 
 
 func (p *ActionServiceGetFavoriteVideosArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getFavoriteVideos_args"); err != nil {
+	if err = oprot.WriteStructBegin("GetFavoriteVideos_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -7099,7 +7099,7 @@ func (p *ActionServiceGetFavoriteVideosResult) ReadField0(iprot thrift.TProtocol
 
 func (p *ActionServiceGetFavoriteVideosResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getFavoriteVideos_result"); err != nil {
+	if err = oprot.WriteStructBegin("GetFavoriteVideos_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -7269,7 +7269,7 @@ func (p *ActionServiceUpdateCommentArgs) ReadField1(iprot thrift.TProtocol) erro
 
 func (p *ActionServiceUpdateCommentArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("updateComment_args"); err != nil {
+	if err = oprot.WriteStructBegin("UpdateComment_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -7437,7 +7437,7 @@ func (p *ActionServiceUpdateCommentResult) ReadField0(iprot thrift.TProtocol) er
 
 func (p *ActionServiceUpdateCommentResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("updateComment_result"); err != nil {
+	if err = oprot.WriteStructBegin("UpdateComment_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -7607,7 +7607,7 @@ func (p *ActionServiceGetCommentListsArgs) ReadField1(iprot thrift.TProtocol) er
 
 func (p *ActionServiceGetCommentListsArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getCommentLists_args"); err != nil {
+	if err = oprot.WriteStructBegin("GetCommentLists_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -7775,7 +7775,7 @@ func (p *ActionServiceGetCommentListsResult) ReadField0(iprot thrift.TProtocol) 
 
 func (p *ActionServiceGetCommentListsResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getCommentLists_result"); err != nil {
+	if err = oprot.WriteStructBegin("GetCommentLists_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -7945,7 +7945,7 @@ func (p *ActionServiceUpdateRelationshipArgs) ReadField1(iprot thrift.TProtocol)
 
 func (p *ActionServiceUpdateRelationshipArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("updateRelationship_args"); err != nil {
+	if err = oprot.WriteStructBegin("UpdateRelationship_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -8113,7 +8113,7 @@ func (p *ActionServiceUpdateRelationshipResult) ReadField0(iprot thrift.TProtoco
 
 func (p *ActionServiceUpdateRelationshipResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("updateRelationship_result"); err != nil {
+	if err = oprot.WriteStructBegin("UpdateRelationship_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -8283,7 +8283,7 @@ func (p *ActionServiceGetUserFollowListArgs) ReadField1(iprot thrift.TProtocol) 
 
 func (p *ActionServiceGetUserFollowListArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getUserFollowList_args"); err != nil {
+	if err = oprot.WriteStructBegin("GetUserFollowList_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -8451,7 +8451,7 @@ func (p *ActionServiceGetUserFollowListResult) ReadField0(iprot thrift.TProtocol
 
 func (p *ActionServiceGetUserFollowListResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getUserFollowList_result"); err != nil {
+	if err = oprot.WriteStructBegin("GetUserFollowList_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -8621,7 +8621,7 @@ func (p *ActionServiceGetUserFollowerListArgs) ReadField1(iprot thrift.TProtocol
 
 func (p *ActionServiceGetUserFollowerListArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getUserFollowerList_args"); err != nil {
+	if err = oprot.WriteStructBegin("GetUserFollowerList_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -8789,7 +8789,7 @@ func (p *ActionServiceGetUserFollowerListResult) ReadField0(iprot thrift.TProtoc
 
 func (p *ActionServiceGetUserFollowerListResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getUserFollowerList_result"); err != nil {
+	if err = oprot.WriteStructBegin("GetUserFollowerList_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {

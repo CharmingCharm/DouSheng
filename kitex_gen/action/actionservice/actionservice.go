@@ -19,13 +19,13 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "ActionService"
 	handlerType := (*action.ActionService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"updateFavorite":      kitex.NewMethodInfo(updateFavoriteHandler, newActionServiceUpdateFavoriteArgs, newActionServiceUpdateFavoriteResult, false),
-		"getFavoriteVideos":   kitex.NewMethodInfo(getFavoriteVideosHandler, newActionServiceGetFavoriteVideosArgs, newActionServiceGetFavoriteVideosResult, false),
-		"updateComment":       kitex.NewMethodInfo(updateCommentHandler, newActionServiceUpdateCommentArgs, newActionServiceUpdateCommentResult, false),
-		"getCommentLists":     kitex.NewMethodInfo(getCommentListsHandler, newActionServiceGetCommentListsArgs, newActionServiceGetCommentListsResult, false),
-		"updateRelationship":  kitex.NewMethodInfo(updateRelationshipHandler, newActionServiceUpdateRelationshipArgs, newActionServiceUpdateRelationshipResult, false),
-		"getUserFollowList":   kitex.NewMethodInfo(getUserFollowListHandler, newActionServiceGetUserFollowListArgs, newActionServiceGetUserFollowListResult, false),
-		"getUserFollowerList": kitex.NewMethodInfo(getUserFollowerListHandler, newActionServiceGetUserFollowerListArgs, newActionServiceGetUserFollowerListResult, false),
+		"UpdateFavorite":      kitex.NewMethodInfo(updateFavoriteHandler, newActionServiceUpdateFavoriteArgs, newActionServiceUpdateFavoriteResult, false),
+		"GetFavoriteVideos":   kitex.NewMethodInfo(getFavoriteVideosHandler, newActionServiceGetFavoriteVideosArgs, newActionServiceGetFavoriteVideosResult, false),
+		"UpdateComment":       kitex.NewMethodInfo(updateCommentHandler, newActionServiceUpdateCommentArgs, newActionServiceUpdateCommentResult, false),
+		"GetCommentLists":     kitex.NewMethodInfo(getCommentListsHandler, newActionServiceGetCommentListsArgs, newActionServiceGetCommentListsResult, false),
+		"UpdateRelationship":  kitex.NewMethodInfo(updateRelationshipHandler, newActionServiceUpdateRelationshipArgs, newActionServiceUpdateRelationshipResult, false),
+		"GetUserFollowList":   kitex.NewMethodInfo(getUserFollowListHandler, newActionServiceGetUserFollowListArgs, newActionServiceGetUserFollowListResult, false),
+		"GetUserFollowerList": kitex.NewMethodInfo(getUserFollowerListHandler, newActionServiceGetUserFollowerListArgs, newActionServiceGetUserFollowerListResult, false),
 		"CheckRelation":       kitex.NewMethodInfo(checkRelationHandler, newActionServiceCheckRelationArgs, newActionServiceCheckRelationResult, false),
 	}
 	extra := map[string]interface{}{
@@ -200,7 +200,7 @@ func (p *kClient) UpdateFavorite(ctx context.Context, req *action.UpdateFavorite
 	var _args action.ActionServiceUpdateFavoriteArgs
 	_args.Req = req
 	var _result action.ActionServiceUpdateFavoriteResult
-	if err = p.c.Call(ctx, "updateFavorite", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "UpdateFavorite", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -210,7 +210,7 @@ func (p *kClient) GetFavoriteVideos(ctx context.Context, req *action.GetFavorite
 	var _args action.ActionServiceGetFavoriteVideosArgs
 	_args.Req = req
 	var _result action.ActionServiceGetFavoriteVideosResult
-	if err = p.c.Call(ctx, "getFavoriteVideos", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "GetFavoriteVideos", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -220,7 +220,7 @@ func (p *kClient) UpdateComment(ctx context.Context, req *action.UpdateCommentRe
 	var _args action.ActionServiceUpdateCommentArgs
 	_args.Req = req
 	var _result action.ActionServiceUpdateCommentResult
-	if err = p.c.Call(ctx, "updateComment", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "UpdateComment", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -230,7 +230,7 @@ func (p *kClient) GetCommentLists(ctx context.Context, req *action.GetCommentLis
 	var _args action.ActionServiceGetCommentListsArgs
 	_args.Req = req
 	var _result action.ActionServiceGetCommentListsResult
-	if err = p.c.Call(ctx, "getCommentLists", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "GetCommentLists", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -240,7 +240,7 @@ func (p *kClient) UpdateRelationship(ctx context.Context, req *action.UpdateRela
 	var _args action.ActionServiceUpdateRelationshipArgs
 	_args.Req = req
 	var _result action.ActionServiceUpdateRelationshipResult
-	if err = p.c.Call(ctx, "updateRelationship", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "UpdateRelationship", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -250,7 +250,7 @@ func (p *kClient) GetUserFollowList(ctx context.Context, req *action.GetUserFoll
 	var _args action.ActionServiceGetUserFollowListArgs
 	_args.Req = req
 	var _result action.ActionServiceGetUserFollowListResult
-	if err = p.c.Call(ctx, "getUserFollowList", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "GetUserFollowList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -260,7 +260,7 @@ func (p *kClient) GetUserFollowerList(ctx context.Context, req *action.GetUserFo
 	var _args action.ActionServiceGetUserFollowerListArgs
 	_args.Req = req
 	var _result action.ActionServiceGetUserFollowerListResult
-	if err = p.c.Call(ctx, "getUserFollowerList", &_args, &_result); err != nil {
+	if err = p.c.Call(ctx, "GetUserFollowerList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

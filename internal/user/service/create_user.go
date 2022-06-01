@@ -39,24 +39,20 @@ func NewCreateUserService(ctx context.Context) *CreateUserService {
 func (s *CreateUserService) CreateUser(req *user.CreateUserRequest) (int64, error) {
 	user, err := db.GetUserByUsername(s.ctx, req.Username)
 	if err != nil {
-		fmt.Println("Error 1")
 		return -1, err
 	}
 	if user != nil {
-		fmt.Println("Error 2: User already exists")
 		return -1, status.UserAlreadyExistErr
 	}
 
 	h := md5.New()
 	if _, err = io.WriteString(h, req.Password); err != nil {
-		fmt.Println("Error 3")
 		return -1, err
 	}
 	password := fmt.Sprintf("%x", h.Sum(nil))
 	var userId int64
 	userId, err = db.CreateUser(s.ctx, req.Username, password)
 	if err != nil {
-		fmt.Println("Error 4")
 		return -1, nil
 	}
 	return userId, err

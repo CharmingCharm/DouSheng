@@ -21,18 +21,15 @@ func (s *UserServiceImpl) CreateUser(ctx context.Context, req *user.CreateUserRe
 	fmt.Println(req)
 
 	if len(req.Username) == 0 || len(req.Password) == 0 {
-		fmt.Println("user/handler: 1")
 		resp.BaseResp = pack.BuildBaseResp(status.ParamErr)
 		return resp, nil
 	}
 
 	userId, err := service.NewCreateUserService(ctx).CreateUser(req)
 	if err != nil {
-		fmt.Println("user/handler: 2")
 		resp.BaseResp = pack.BuildBaseResp(status.ConvertErrorToStatus(err))
 		return resp, nil
 	}
-	fmt.Println("user/handler: 3")
 	resp.UserId = userId
 	resp.BaseResp = pack.BuildBaseResp(status.Success)
 	return resp, nil

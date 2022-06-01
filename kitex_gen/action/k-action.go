@@ -4803,7 +4803,7 @@ func (p *ActionServiceUpdateFavoriteArgs) FastWrite(buf []byte) int {
 
 func (p *ActionServiceUpdateFavoriteArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "updateFavorite_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "UpdateFavorite_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -4814,7 +4814,7 @@ func (p *ActionServiceUpdateFavoriteArgs) FastWriteNocopy(buf []byte, binaryWrit
 
 func (p *ActionServiceUpdateFavoriteArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("updateFavorite_args")
+	l += bthrift.Binary.StructBeginLength("UpdateFavorite_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -4928,7 +4928,7 @@ func (p *ActionServiceUpdateFavoriteResult) FastWrite(buf []byte) int {
 
 func (p *ActionServiceUpdateFavoriteResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "updateFavorite_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "UpdateFavorite_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -4939,7 +4939,7 @@ func (p *ActionServiceUpdateFavoriteResult) FastWriteNocopy(buf []byte, binaryWr
 
 func (p *ActionServiceUpdateFavoriteResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("updateFavorite_result")
+	l += bthrift.Binary.StructBeginLength("UpdateFavorite_result")
 	if p != nil {
 		l += p.field0Length()
 	}
@@ -5057,7 +5057,7 @@ func (p *ActionServiceGetFavoriteVideosArgs) FastWrite(buf []byte) int {
 
 func (p *ActionServiceGetFavoriteVideosArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "getFavoriteVideos_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "GetFavoriteVideos_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -5068,7 +5068,7 @@ func (p *ActionServiceGetFavoriteVideosArgs) FastWriteNocopy(buf []byte, binaryW
 
 func (p *ActionServiceGetFavoriteVideosArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("getFavoriteVideos_args")
+	l += bthrift.Binary.StructBeginLength("GetFavoriteVideos_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -5182,7 +5182,7 @@ func (p *ActionServiceGetFavoriteVideosResult) FastWrite(buf []byte) int {
 
 func (p *ActionServiceGetFavoriteVideosResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "getFavoriteVideos_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "GetFavoriteVideos_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -5193,7 +5193,7 @@ func (p *ActionServiceGetFavoriteVideosResult) FastWriteNocopy(buf []byte, binar
 
 func (p *ActionServiceGetFavoriteVideosResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("getFavoriteVideos_result")
+	l += bthrift.Binary.StructBeginLength("GetFavoriteVideos_result")
 	if p != nil {
 		l += p.field0Length()
 	}
@@ -5311,7 +5311,7 @@ func (p *ActionServiceUpdateCommentArgs) FastWrite(buf []byte) int {
 
 func (p *ActionServiceUpdateCommentArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "updateComment_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "UpdateComment_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -5322,7 +5322,7 @@ func (p *ActionServiceUpdateCommentArgs) FastWriteNocopy(buf []byte, binaryWrite
 
 func (p *ActionServiceUpdateCommentArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("updateComment_args")
+	l += bthrift.Binary.StructBeginLength("UpdateComment_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -5436,7 +5436,7 @@ func (p *ActionServiceUpdateCommentResult) FastWrite(buf []byte) int {
 
 func (p *ActionServiceUpdateCommentResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "updateComment_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "UpdateComment_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -5447,7 +5447,7 @@ func (p *ActionServiceUpdateCommentResult) FastWriteNocopy(buf []byte, binaryWri
 
 func (p *ActionServiceUpdateCommentResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("updateComment_result")
+	l += bthrift.Binary.StructBeginLength("UpdateComment_result")
 	if p != nil {
 		l += p.field0Length()
 	}
@@ -5565,7 +5565,7 @@ func (p *ActionServiceGetCommentListsArgs) FastWrite(buf []byte) int {
 
 func (p *ActionServiceGetCommentListsArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "getCommentLists_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "GetCommentLists_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -5576,7 +5576,7 @@ func (p *ActionServiceGetCommentListsArgs) FastWriteNocopy(buf []byte, binaryWri
 
 func (p *ActionServiceGetCommentListsArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("getCommentLists_args")
+	l += bthrift.Binary.StructBeginLength("GetCommentLists_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -5690,7 +5690,7 @@ func (p *ActionServiceGetCommentListsResult) FastWrite(buf []byte) int {
 
 func (p *ActionServiceGetCommentListsResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "getCommentLists_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "GetCommentLists_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -5701,7 +5701,7 @@ func (p *ActionServiceGetCommentListsResult) FastWriteNocopy(buf []byte, binaryW
 
 func (p *ActionServiceGetCommentListsResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("getCommentLists_result")
+	l += bthrift.Binary.StructBeginLength("GetCommentLists_result")
 	if p != nil {
 		l += p.field0Length()
 	}
@@ -5819,7 +5819,7 @@ func (p *ActionServiceUpdateRelationshipArgs) FastWrite(buf []byte) int {
 
 func (p *ActionServiceUpdateRelationshipArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "updateRelationship_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "UpdateRelationship_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -5830,7 +5830,7 @@ func (p *ActionServiceUpdateRelationshipArgs) FastWriteNocopy(buf []byte, binary
 
 func (p *ActionServiceUpdateRelationshipArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("updateRelationship_args")
+	l += bthrift.Binary.StructBeginLength("UpdateRelationship_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -5944,7 +5944,7 @@ func (p *ActionServiceUpdateRelationshipResult) FastWrite(buf []byte) int {
 
 func (p *ActionServiceUpdateRelationshipResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "updateRelationship_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "UpdateRelationship_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -5955,7 +5955,7 @@ func (p *ActionServiceUpdateRelationshipResult) FastWriteNocopy(buf []byte, bina
 
 func (p *ActionServiceUpdateRelationshipResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("updateRelationship_result")
+	l += bthrift.Binary.StructBeginLength("UpdateRelationship_result")
 	if p != nil {
 		l += p.field0Length()
 	}
@@ -6073,7 +6073,7 @@ func (p *ActionServiceGetUserFollowListArgs) FastWrite(buf []byte) int {
 
 func (p *ActionServiceGetUserFollowListArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "getUserFollowList_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "GetUserFollowList_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -6084,7 +6084,7 @@ func (p *ActionServiceGetUserFollowListArgs) FastWriteNocopy(buf []byte, binaryW
 
 func (p *ActionServiceGetUserFollowListArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("getUserFollowList_args")
+	l += bthrift.Binary.StructBeginLength("GetUserFollowList_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -6198,7 +6198,7 @@ func (p *ActionServiceGetUserFollowListResult) FastWrite(buf []byte) int {
 
 func (p *ActionServiceGetUserFollowListResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "getUserFollowList_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "GetUserFollowList_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -6209,7 +6209,7 @@ func (p *ActionServiceGetUserFollowListResult) FastWriteNocopy(buf []byte, binar
 
 func (p *ActionServiceGetUserFollowListResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("getUserFollowList_result")
+	l += bthrift.Binary.StructBeginLength("GetUserFollowList_result")
 	if p != nil {
 		l += p.field0Length()
 	}
@@ -6327,7 +6327,7 @@ func (p *ActionServiceGetUserFollowerListArgs) FastWrite(buf []byte) int {
 
 func (p *ActionServiceGetUserFollowerListArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "getUserFollowerList_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "GetUserFollowerList_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -6338,7 +6338,7 @@ func (p *ActionServiceGetUserFollowerListArgs) FastWriteNocopy(buf []byte, binar
 
 func (p *ActionServiceGetUserFollowerListArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("getUserFollowerList_args")
+	l += bthrift.Binary.StructBeginLength("GetUserFollowerList_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -6452,7 +6452,7 @@ func (p *ActionServiceGetUserFollowerListResult) FastWrite(buf []byte) int {
 
 func (p *ActionServiceGetUserFollowerListResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "getUserFollowerList_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "GetUserFollowerList_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -6463,7 +6463,7 @@ func (p *ActionServiceGetUserFollowerListResult) FastWriteNocopy(buf []byte, bin
 
 func (p *ActionServiceGetUserFollowerListResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("getUserFollowerList_result")
+	l += bthrift.Binary.StructBeginLength("GetUserFollowerList_result")
 	if p != nil {
 		l += p.field0Length()
 	}

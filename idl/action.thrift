@@ -116,12 +116,12 @@ struct CheckRelationResponse {
 }
 
 service ActionService {
-    UpdateFavoriteResponse updateFavorite(UpdateFavoriteRequest req)
-    GetFavoriteVideosResponse getFavoriteVideos(GetFavoriteVideosRequest req)
-    UpdateCommentResponse updateComment(UpdateCommentRequest req)
-    GetCommentListsResponse getCommentLists(GetCommentListsRequest req)
-    UpdateRelationshipResponse updateRelationship(UpdateRelationshipRequest req)
-    GetUserFollowListResponse getUserFollowList(GetUserFollowListRequest req)
-    GetUserFollowerListResponse getUserFollowerList(GetUserFollowerListRequest req)
+    UpdateFavoriteResponse UpdateFavorite(UpdateFavoriteRequest req)
+    GetFavoriteVideosResponse GetFavoriteVideos(GetFavoriteVideosRequest req)
+    UpdateCommentResponse UpdateComment(UpdateCommentRequest req)
+    GetCommentListsResponse GetCommentLists(GetCommentListsRequest req)
+    UpdateRelationshipResponse UpdateRelationship(UpdateRelationshipRequest req)
+    GetUserFollowListResponse GetUserFollowList(GetUserFollowListRequest req)
+    GetUserFollowerListResponse GetUserFollowerList(GetUserFollowerListRequest req)
     CheckRelationResponse CheckRelation(CheckRelationRequest req)
 }
