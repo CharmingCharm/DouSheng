@@ -13,6 +13,20 @@ const (
 	RegisterErrCode         = 10004
 	UserNotExistErrCode     = 10005
 	UserAlreadyExistErrCode = 10006
+	ActionTypeErrCode       = 10007
+	TokenErrCode            = 10008
+)
+
+const (
+	SuccessMsg             = "Success"
+	ServiceErrMsg          = "Service is unable to start successfully"
+	ParamErrMsg            = "Wrong Parameter has been given"
+	LoginErrMsg            = "Wrong username or password"
+	RegisterErrMsg         = "Register Error"
+	UserNotExistErrMsg     = "User does not exists"
+	UserAlreadyExistErrMsg = "User already exists"
+	ActionTypeErrMsg       = "Action invalid"
+	TokenErrMsg            = "Token invalid"
 )
 
 type Status struct {
@@ -34,13 +48,15 @@ func (s Status) UpdateMessage(msg string) Status {
 }
 
 var (
-	Success             = NewStatus(SuccessCode, "Success")
-	ServiceErr          = NewStatus(ServiceErrCode, "Service is unable to start successfully")
-	ParamErr            = NewStatus(ParamErrCode, "Wrong Parameter has been given")
-	LoginErr            = NewStatus(LoginErrCode, "Wrong username or password")
-	RegisterErr         = NewStatus(RegisterErrCode, "Register Error")
-	UserNotExistErr     = NewStatus(UserNotExistErrCode, "User does not exists")
-	UserAlreadyExistErr = NewStatus(UserAlreadyExistErrCode, "User already exists")
+	Success             = NewStatus(SuccessCode, SuccessMsg)
+	ServiceErr          = NewStatus(ServiceErrCode, ServiceErrMsg)
+	ParamErr            = NewStatus(ParamErrCode, ParamErrMsg)
+	LoginErr            = NewStatus(LoginErrCode, LoginErrMsg)
+	RegisterErr         = NewStatus(RegisterErrCode, RegisterErrMsg)
+	UserNotExistErr     = NewStatus(UserNotExistErrCode, UserNotExistErrMsg)
+	UserAlreadyExistErr = NewStatus(UserAlreadyExistErrCode, UserAlreadyExistErrMsg)
+	ActionTypeErr       = NewStatus(ActionTypeErrCode, ActionTypeErrMsg)
+	TokenErr            = NewStatus(TokenErrCode, TokenErrMsg)
 )
 
 // ConvertErr convert error to Errno

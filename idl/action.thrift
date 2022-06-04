@@ -9,8 +9,8 @@ struct BaseResp {
 struct User {
     1:required i64       id
     2:required string    name
-    3:optional i64       follow_count
-    4:optional i64       follower_count
+    3:required i64       follow_count
+    4:required i64       follower_count
     5:required bool      is_follow
 }
 

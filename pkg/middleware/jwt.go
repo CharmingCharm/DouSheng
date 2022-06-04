@@ -1,6 +1,8 @@
 package middleware
 
 import (
+	"github.com/CharmingCharm/DouSheng/pkg/constants"
+	"github.com/CharmingCharm/DouSheng/pkg/status"
 	"github.com/golang-jwt/jwt/v4"
 )
 
@@ -10,14 +12,16 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-// 根据用户名生成jwt
 func GenToken(username string, id int64) (string, error) {
 	claims := Claims{
 		Username: username,
 		Id:       id,
 	}
 	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString([]byte("golang"))
-	return token, err
+	if err != nil {
+		return constants.DefaultErrString, status.TokenErr
+	}
+	return token, nil
 }
 
 func ParseToken(token string) (*Claims, error) {
@@ -27,11 +31,11 @@ func ParseToken(token string) (*Claims, error) {
 	})
 
 	if err != nil {
-		return nil, err
+		return nil, status.TokenErr
 	}
 
 	if tokenClaims == nil {
-		return nil, err
+		return nil, status.TokenErr
 	}
 
 	claims, ok := tokenClaims.Claims.(*Claims)
@@ -40,5 +44,5 @@ func ParseToken(token string) (*Claims, error) {
 		return claims, nil
 	}
 
-	return nil, err
+	return nil, status.TokenErr
 }

@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/CharmingCharm/DouSheng/pkg/constants"
 
@@ -17,7 +16,6 @@ type User struct {
 	Password      string `json:"password"`
 	FollowCount   int64  `json:"follow_count"`
 	FollowerCount int64  `json:"follower_count"`
-	IsFollow      bool   `json:"is_follow"`
 }
 
 func (u *User) TableName() string {
@@ -27,10 +25,9 @@ func (u *User) TableName() string {
 // CreateUser create user info
 func CreateUser(ctx context.Context, name string, password string) (user_id int64, err error) {
 	// TODO
-	user := User{Name: name, Password: password, FollowCount: 0, FollowerCount: 0, IsFollow: false}
+	user := User{Name: name, Password: password, FollowCount: 0, FollowerCount: 0}
 	res := DB.WithContext(ctx).Create(&user)
 	if res.Error != nil {
-		fmt.Println(res.Error.Error())
 		return -1, res.Error
 	}
 	return int64(user.ID), nil
@@ -39,46 +36,74 @@ func CreateUser(ctx context.Context, name string, password string) (user_id int6
 func GetUserByUsername(ctx context.Context, username string) (*User, error) {
 	// TODO
 	user := User{}
-	fmt.Println(user)
 	res := DB.Where(&User{Name: username}).First(&user)
-	fmt.Println(user)
 	if res.Error != nil {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return nil, nil
 		}
-		fmt.Println(res.Error.Error())
 		return nil, res.Error
 	}
 	return &user, nil
 }
 
-// CreateUser create user info
 func GetUserById(ctx context.Context, user_id int64) (*User, error) {
 	// TODO
-	return nil, nil
+	user := User{}
+	res := DB.Where(&User{Id: user_id}).First(&user)
+	if res.Error != nil {
+		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+		return nil, res.Error
+	}
+	return &user, nil
 }
 
 func GetUserListByIds(ctx context.Context, user_id []int64) ([]*User, error) {
 	//TODO
-	return nil, nil
+	users := make([]*User, 0)
+	res := DB.Find(&users, user_id)
+	if res.Error != nil {
+		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+		return nil, res.Error
+	}
+	return users, nil
 }
 
 func UserFollowCountPlus(ctx context.Context, user_id int64) error {
 	// TODO
+	res := DB.Where(&User{Id: user_id}).Update("follow_count", gorm.Expr("follow_count + 1"))
+	if res.Error != nil {
+		return res.Error
+	}
 	return nil
 }
 
 func UserFollowCountSubtract(ctx context.Context, user_id int64) error {
 	// TODO
+	res := DB.Where(&User{Id: user_id}).Update("follow_count", gorm.Expr("follow_count - 1"))
+	if res.Error != nil {
+		return res.Error
+	}
 	return nil
 }
 
 func UserFollowerCountPlus(ctx context.Context, user_id int64) error {
 	// TODO
+	res := DB.Where(&User{Id: user_id}).Update("follower_count", gorm.Expr("follower_count + 1"))
+	if res.Error != nil {
+		return res.Error
+	}
 	return nil
 }
 
 func UserFollowerCountSubtract(ctx context.Context, user_id int64) error {
 	// TODO
+	res := DB.Where(&User{Id: user_id}).Update("follower_count", gorm.Expr("follower_count - 1"))
+	if res.Error != nil {
+		return res.Error
+	}
 	return nil
 }

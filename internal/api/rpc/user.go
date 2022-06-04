@@ -40,3 +40,18 @@ func CreateUser(ctx context.Context, req *user.CreateUserRequest) (*user.CreateU
 	resp, err := userClient.CreateUser(ctx, req)
 	return resp, err
 }
+
+func CheckUser(ctx context.Context, req *user.CheckUserRequest) (*user.CheckUserResponse, error) {
+	resp, err := userClient.CheckUser(ctx, req)
+	return resp, err
+}
+
+func GetUserInfo(ctx context.Context, req *user.GetUserInfoRequest) (*user.GetUserInfoResponse, error) {
+	resp, err := userClient.GetUserInfo(ctx, req)
+	return resp, err
+}
+
+func UpdateUserFollow(ctx context.Context, req *user.UpdateUserFollowRequest) (*user.UpdateUserFollowResponse, error) {
+	resp, err := userClient.UpdateUserFollow(ctx, req)
+	return resp, err
+}

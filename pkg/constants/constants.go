@@ -1,5 +1,9 @@
 package constants
 
+import (
+	"github.com/CharmingCharm/DouSheng/pkg/status"
+)
+
 const (
 	UserTableName     = "user"
 	VideoTableName    = "video"
@@ -21,4 +25,12 @@ const (
 	// EtcdAddress = ""
 	// CPURateLimit float64 = 80.0
 	// DefaultLimit         = 10
+
+	DefaultStatusCode  = status.ServiceErrCode
+	DefaultStatusMsg   = status.ServiceErrMsg
+	DefaultErrPosInt64 = -1
+	DefaultErrString   = ""
+	DefaultUser = user.User{
+		
+	}
 )
