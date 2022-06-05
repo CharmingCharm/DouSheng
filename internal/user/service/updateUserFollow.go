@@ -35,20 +35,20 @@ func (s *UpdateUserFollowService) UpdateUserFollow(req *user.UpdateUserFollowReq
 	var err error
 	if req.ActionType == 1 {
 		err = db.UserFollowCountPlus(s.ctx, req.UserId)
-		if err == nil {
+		if err != nil {
 			return err
 		}
 		err = db.UserFollowerCountPlus(s.ctx, req.ToUserId)
-		if err == nil {
+		if err != nil {
 			return err
 		}
 	} else if req.ActionType == 2 {
 		db.UserFollowCountSubtract(s.ctx, req.UserId)
-		if err == nil {
+		if err != nil {
 			return err
 		}
 		db.UserFollowerCountSubtract(s.ctx, req.ToUserId)
-		if err == nil {
+		if err != nil {
 			return err
 		}
 	} else {

@@ -1,15 +1,15 @@
-package pack
+package response
 
 import (
 	"errors"
 	"time"
 
-	"github.com/CharmingCharm/DouSheng/kitex_gen/user"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/base"
 	"github.com/CharmingCharm/DouSheng/pkg/status"
 )
 
 // BuildBaseResp build baseResp from error
-func BuildBaseResp(err error) *user.BaseResp {
+func BuildBaseResp(err error) *base.BaseResp {
 	if err == nil {
 		return baseResp(status.Success)
 	}
@@ -23,6 +23,6 @@ func BuildBaseResp(err error) *user.BaseResp {
 	return baseResp(st)
 }
 
-func baseResp(st status.Status) *user.BaseResp {
-	return &user.BaseResp{StatusCode: st.StatusCode, StatusMessage: st.StatusMsg, ServiceTime: time.Now().Unix()}
+func baseResp(st status.Status) *base.BaseResp {
+	return &base.BaseResp{StatusCode: st.StatusCode, StatusMessage: st.StatusMsg, ServiceTime: time.Now().Unix()}
 }

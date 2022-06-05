@@ -6,6 +6,7 @@ import (
 	"github.com/CharmingCharm/DouSheng/pkg/status"
 
 	"github.com/CharmingCharm/DouSheng/internal/user/db"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/base"
 	"github.com/CharmingCharm/DouSheng/kitex_gen/user"
 )
 
@@ -19,7 +20,7 @@ func NewGetUserInfoService(ctx context.Context) *GetUserInfoService {
 }
 
 // CreateUser create user info.
-func (s *GetUserInfoService) GetUserInfo(req *user.GetUserInfoRequest) (*user.User, error) {
+func (s *GetUserInfoService) GetUserInfo(req *user.GetUserInfoRequest) (*base.User, error) {
 	user_data, err := db.GetUserById(s.ctx, req.UserId)
 	if err != nil {
 		return nil, err
@@ -28,7 +29,7 @@ func (s *GetUserInfoService) GetUserInfo(req *user.GetUserInfoRequest) (*user.Us
 		return nil, status.UserNotExistErr
 	}
 
-	user := user.User{
+	user := base.User{
 		Id:            user_data.Id,
 		Name:          user_data.Name,
 		FollowCount:   user_data.FollowCount,

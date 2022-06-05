@@ -2,12 +2,14 @@ package controller
 
 import (
 	"context"
-	"net/http"
+	"strconv"
 
 	"github.com/CharmingCharm/DouSheng/internal/api/rpc"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/base"
 	"github.com/CharmingCharm/DouSheng/kitex_gen/user"
 	"github.com/CharmingCharm/DouSheng/pkg/constants"
 	"github.com/CharmingCharm/DouSheng/pkg/middleware"
+	"github.com/CharmingCharm/DouSheng/pkg/send"
 	"github.com/CharmingCharm/DouSheng/pkg/status"
 
 	"github.com/gin-gonic/gin"
@@ -18,40 +20,34 @@ import (
 // test data: username=zhanglei, password=douyin
 
 type UserRegisterResponse struct {
-	StatusCode int64  `json:"status_code"`
-	StatusMsg  string `json:"status_msg"`
-	Token      string `json:"token"`
-	UserID     int64  `json:"user_id"`
+	constants.Response
+	Token  string `json:"token"`
+	UserID int64  `json:"user_id"`
 }
 
 type UserLoginResponse struct {
-	StatusCode int64  `json:"status_code"`
-	StatusMsg  string `json:"status_msg"`
-	Token      string `json:"token"`
-	UserID     int64  `json:"user_id"`
+	constants.Response
+	Token  string `json:"token"`
+	UserID int64  `json:"user_id"`
 }
 
-// type UserInfoResponse struct {
-// 	StatusCode int64     `json:"status_code"`
-// 	StatusMsg  string    `json:"status_msg"`
-// 	User       user.User `json:"user"`
-// }
+type UserInfoResponse struct {
+	constants.Response
+	User base.User `json:"user"`
+}
 
 func Register(c *gin.Context) {
 	username := c.Query("username")
 	password := c.Query("password")
 
 	res := UserRegisterResponse{
-		StatusCode: constants.DefaultStatusCode,
-		StatusMsg:  constants.DefaultStatusMsg,
-		UserID:     constants.DefaultErrPosInt64,
-		Token:      constants.DefaultErrString,
+		UserID: constants.DefaultErrPosInt64,
+		Token:  constants.DefaultErrString,
 	}
 
 	if len(username) == 0 || len(password) == 0 {
-		res.StatusCode = status.ParamErr.StatusCode
-		res.StatusMsg = status.ParamErr.StatusMsg
-		c.JSON(http.StatusOK, res)
+		send.SendStatus(c, status.ParamErr, &res)
+		return
 	}
 
 	resp, err := rpc.CreateUser(context.Background(), &user.CreateUserRequest{
@@ -60,31 +56,24 @@ func Register(c *gin.Context) {
 	})
 
 	if err != nil {
-		st := status.ConvertErrorToStatus(err)
-		res.StatusCode = st.StatusCode
-		res.StatusMsg = st.StatusMsg
-		c.JSON(http.StatusOK, res)
+		send.SendStatus(c, err, &res)
+		return
 	}
 
 	token, err := middleware.GenToken(username, resp.UserId)
 
 	if err != nil {
-		st := status.ConvertErrorToStatus(err)
-		res.StatusCode = st.StatusCode
-		res.StatusMsg = st.StatusMsg
-		c.JSON(http.StatusOK, res)
+		send.SendStatus(c, err, &res)
 		return
 	}
 
-	res.StatusCode = resp.BaseResp.StatusCode
-	res.StatusMsg = resp.BaseResp.StatusMessage
-	if res.StatusCode != status.SuccessCode {
-		c.JSON(http.StatusOK, res)
+	if resp.BaseResp.StatusCode != status.SuccessCode {
+		send.SendResp(c, *resp.BaseResp, &res)
 		return
 	}
 	res.UserID = resp.UserId
 	res.Token = token
-	c.JSON(http.StatusOK, res)
+	send.SendResp(c, *resp.BaseResp, &res)
 
 	// if _, exist := usersLoginInfo[token]; exist {
 	// 	c.JSON(http.StatusOK, UserLoginResponse{
@@ -131,16 +120,14 @@ func Login(c *gin.Context) {
 	password := c.Query("password")
 
 	res := UserLoginResponse{
-		StatusCode: constants.DefaultStatusCode,
-		StatusMsg:  constants.DefaultStatusMsg,
-		UserID:     constants.DefaultErrPosInt64,
-		Token:      constants.DefaultErrString,
+		UserID: constants.DefaultErrPosInt64,
+		Token:  constants.DefaultErrString,
 	}
+	res.StatusCode = constants.DefaultStatusCode
+	res.StatusMsg = constants.DefaultStatusMsg
 
 	if len(username) == 0 || len(password) == 0 {
-		res.StatusCode = status.ParamErr.StatusCode
-		res.StatusMsg = status.ParamErr.StatusMsg
-		c.JSON(http.StatusOK, res)
+		send.SendStatus(c, status.ParamErr, &res)
 		return
 	}
 
@@ -149,55 +136,79 @@ func Login(c *gin.Context) {
 		Password: password,
 	})
 	if err != nil {
-		st := status.ConvertErrorToStatus(err)
-		res.StatusCode = st.StatusCode
-		res.StatusMsg = st.StatusMsg
-		c.JSON(http.StatusOK, res)
+		send.SendStatus(c, err, &res)
 		return
 	}
 
 	token, err := middleware.GenToken(username, resp.UserId)
 	if err != nil {
-		st := status.ConvertErrorToStatus(err)
-		res.StatusCode = st.StatusCode
-		res.StatusMsg = st.StatusMsg
-		c.JSON(http.StatusOK, res)
+		send.SendStatus(c, err, &res)
 		return
 	}
-	res.StatusCode = resp.BaseResp.StatusCode
-	res.StatusMsg = resp.BaseResp.StatusMessage
-	if res.StatusCode != status.SuccessCode {
-		c.JSON(http.StatusOK, res)
+
+	if resp.BaseResp.StatusCode != status.SuccessCode {
+		send.SendResp(c, *resp.BaseResp, &res)
 		return
 	}
 	res.UserID = resp.UserId
 	res.Token = token
-	c.JSON(http.StatusOK, res)
-
+	send.SendResp(c, *resp.BaseResp, &res)
 }
 
 func UserInfo(c *gin.Context) {
-	// token := c.Query("token")
 
-	// res := UserInfoResponse{
-	// 	StatusCode: constants.DefaultStatusCode,
-	// 	StatusMsg: constants.DefaultStatusMsg,
-	// 	// User:	constants.D
-	// }
+	res := UserInfoResponse{
+		User: base.User{
+			Id:            constants.DefaultErrPosInt64,
+			Name:          constants.DefaultErrString,
+			FollowCount:   0,
+			FollowerCount: 0,
+			IsFollow:      false,
+		},
+	}
+	res.StatusCode = constants.DefaultStatusCode
+	res.StatusMsg = constants.DefaultStatusMsg
 
-	// claims, err := middleware.ParseToken(token)
-	// if err != nil {
+	uIdInString := c.Query("user_id")
+	token := c.Query("token")
 
-	// }
-	// myId = claims.Id
-	// fmt.Println(myId)
+	if uIdInString == "" || token == "" {
+		send.SendStatus(c, status.ParamErr, &res)
+		return
+	}
 
-	// if user, exist := usersLoginInfo[token]; exist {
-	// 	c.JSON(http.StatusOK, UserResponse{
-	// 		Response: Response{StatusCode: 0},
-	// 		User:     user,
-	// 	})
-	// } else {
-	c.JSON(http.StatusOK, nil)
-	// }
+	uId, err := strconv.ParseInt(uIdInString, 10, 64)
+
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+
+	claims, err := middleware.ParseToken(token)
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+
+	myId := claims.Id
+	if myId == uId {
+		myId = -1
+	}
+
+	resp, err := rpc.GetUserInfo(context.Background(), &user.GetUserInfoRequest{
+		UserId: uId,
+		MyId:   myId,
+	})
+
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+
+	if resp.BaseResp.StatusCode != status.SuccessCode {
+		send.SendResp(c, *resp.BaseResp, &res)
+		return
+	}
+	res.User = *resp.User
+	send.SendResp(c, *resp.BaseResp, &res)
 }

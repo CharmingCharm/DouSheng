@@ -74,7 +74,7 @@ func GetUserListByIds(ctx context.Context, user_id []int64) ([]*User, error) {
 
 func UserFollowCountPlus(ctx context.Context, user_id int64) error {
 	// TODO
-	res := DB.Where(&User{Id: user_id}).Update("follow_count", gorm.Expr("follow_count + 1"))
+	res := DB.Model(&User{}).Where("Id = ?", user_id).UpdateColumn("follow_count", gorm.Expr("follow_count + ?", 1))
 	if res.Error != nil {
 		return res.Error
 	}
@@ -83,7 +83,7 @@ func UserFollowCountPlus(ctx context.Context, user_id int64) error {
 
 func UserFollowCountSubtract(ctx context.Context, user_id int64) error {
 	// TODO
-	res := DB.Where(&User{Id: user_id}).Update("follow_count", gorm.Expr("follow_count - 1"))
+	res := DB.Model(&User{}).Where("Id = ?", user_id).UpdateColumn("follow_count", gorm.Expr("follow_count - ?", 1))
 	if res.Error != nil {
 		return res.Error
 	}
@@ -92,7 +92,7 @@ func UserFollowCountSubtract(ctx context.Context, user_id int64) error {
 
 func UserFollowerCountPlus(ctx context.Context, user_id int64) error {
 	// TODO
-	res := DB.Where(&User{Id: user_id}).Update("follower_count", gorm.Expr("follower_count + 1"))
+	res := DB.Model(&User{}).Where("Id = ?", user_id).UpdateColumn("follower_count", gorm.Expr("follower_count + ?", 1))
 	if res.Error != nil {
 		return res.Error
 	}
@@ -101,7 +101,7 @@ func UserFollowerCountPlus(ctx context.Context, user_id int64) error {
 
 func UserFollowerCountSubtract(ctx context.Context, user_id int64) error {
 	// TODO
-	res := DB.Where(&User{Id: user_id}).Update("follower_count", gorm.Expr("follower_count - 1"))
+	res := DB.Model(&User{}).Where("Id = ?", user_id).UpdateColumn("follower_count", gorm.Expr("follower_count - ?", 1))
 	if res.Error != nil {
 		return res.Error
 	}
