@@ -30,6 +30,12 @@ const (
 	DefaultStatusMsg   = status.ServiceErrMsg
 	DefaultErrPosInt64 = -1
 	DefaultErrString   = ""
+	// minio监听的地址
+	MinIOEndpoint = "127.0.0.1:9000"
+	// minio的用户名
+	MinIOId = ""
+	// minio的密码
+	MinIOSecret = ""
 )
 
 type Response struct {

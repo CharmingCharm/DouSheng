@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-
 	"github.com/CharmingCharm/DouSheng/kitex_gen/video"
 )
 
@@ -19,5 +18,6 @@ func NewPublishVideoService(ctx context.Context) *PublishVideoService {
 func (s *PublishVideoService) PublishVideo(req *video.PublishVideoRequest) error {
 	// TODO
 	// db.CreateVideo
+
 	return nil
 }

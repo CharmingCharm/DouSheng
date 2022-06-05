@@ -1,6 +1,11 @@
 package controller
 
 import (
+	"github.com/CharmingCharm/DouSheng/internal/api/ostg"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/video"
+	"github.com/CharmingCharm/DouSheng/pkg/constants"
+	"github.com/CharmingCharm/DouSheng/pkg/middleware"
+	"github.com/CharmingCharm/DouSheng/pkg/send"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,10 +18,32 @@ type VideoListResponse struct {
 
 // Publish check token then save upload file to public directory
 func Publish(c *gin.Context) {
-	// token := c.PostForm("token")
+	res := video.PublishVideoResponse{}
+	token := c.PostForm("token")
+	claims, err := middleware.ParseToken(token)
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+
+	myId := claims.Id
 
 	// if _, exist := usersLoginInfo[token]; !exist {
-	c.JSON(http.StatusOK, Response{StatusCode: 1, StatusMsg: "User doesn't exist"})
+	file, fileHeader, err := c.Request.FormFile("data")
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+	// 上传文件到minio
+	err = ostg.UploadVideo(fileHeader.Filename, fileHeader)
+
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+	playUrl := constants.MinIOEndpoint + "/video/" + fileHeader.Filename
+	// TODO:调用RPC服务往video表里插入记录
+
 	return
 	// }
 
