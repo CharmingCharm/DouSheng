@@ -39,8 +39,7 @@ func Init() {
 	if err = DB.Use(gormopentracing.New()); err != nil {
 		panic(err)
 	}
-
-	err = DB.AutoMigrate(&User{})
+	err = DB.AutoMigrate(&Video{})
 	if err != nil {
 		panic(err)
 	}

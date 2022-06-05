@@ -58,6 +58,7 @@ func (s *UserServiceImpl) CheckUser(ctx context.Context, req *user.CheckUserRequ
 func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.GetUserInfoRequest) (resp *user.GetUserInfoResponse, err error) {
 	// TODO: Your code here...
 	resp = new(user.GetUserInfoResponse)
+
 	user, err := service.NewGetUserInfoService(ctx).GetUserInfo(req)
 	if err != nil {
 		resp.BaseResp = response.BuildBaseResp(status.ConvertErrorToStatus(err))
@@ -72,6 +73,7 @@ func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.GetUserInfo
 func (s *UserServiceImpl) UpdateUserFollow(ctx context.Context, req *user.UpdateUserFollowRequest) (resp *user.UpdateUserFollowResponse, err error) {
 	// TODO: Your code here...
 	resp = new(user.UpdateUserFollowResponse)
+
 	err = service.NewUpdateUserFollowService(ctx).UpdateUserFollow(req)
 	if err != nil {
 		resp.BaseResp = response.BuildBaseResp(status.ConvertErrorToStatus(err))
