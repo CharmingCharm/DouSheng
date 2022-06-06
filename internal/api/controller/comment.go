@@ -90,7 +90,6 @@ func CommentAction(c *gin.Context) {
 	}
 
 	resp, err := rpc.UpdateComment(context.Background(), &commentReq)
-	// fmt.Println(err)
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
@@ -131,7 +130,6 @@ func CommentList(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	resp, err := rpc.GetCommentList(context.Background(), &action.GetCommentListRequest{
 		MyId:    myId,
 		VideoId: vId,

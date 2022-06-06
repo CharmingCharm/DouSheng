@@ -36,9 +36,9 @@ const (
 	// minio监听的地址
 	MinIOEndpoint = "127.0.0.1:9000"
 	// minio的用户名
-	MinIOId = ""
+	MinIOId = "minioadmin"
 	// minio的密码
-	MinIOSecret = ""
+	MinIOSecret = "minioadmin"
 )
 
 type Response struct {

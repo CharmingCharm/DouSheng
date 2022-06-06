@@ -9,7 +9,7 @@ struct CreateUserRequest {
 
 struct CreateUserResponse {
     1:required base.BaseResp  base_resp
-    2:required i64       user_id
+    2:optional i64       user_id
 }
 
 struct CheckUserRequest {
@@ -19,7 +19,7 @@ struct CheckUserRequest {
 
 struct CheckUserResponse {
     1:required base.BaseResp  base_resp
-    2:required i64       user_id
+    2:optional i64       user_id
 }
 
 struct GetUserInfoRequest {
@@ -29,7 +29,7 @@ struct GetUserInfoRequest {
 
 struct GetUserInfoResponse {
     1:required base.BaseResp  base_resp
-    2:required base.User      user
+    2:optional base.User      user
 }
 
 struct UpdateUserFollowRequest {

@@ -5,7 +5,6 @@ import (
 
 	"github.com/CharmingCharm/DouSheng/internal/action/db"
 	"github.com/CharmingCharm/DouSheng/internal/action/rpc"
-	"github.com/CharmingCharm/DouSheng/pkg/status"
 
 	"github.com/CharmingCharm/DouSheng/kitex_gen/action"
 	"github.com/CharmingCharm/DouSheng/kitex_gen/base"
@@ -40,9 +39,6 @@ func (s *GetFavoriteVideosService) GetFavoriteVideos(req *action.GetFavoriteVide
 	})
 	if err != nil {
 		return nil, err
-	}
-	if resp.BaseResp.StatusCode != status.SuccessCode {
-		return nil, status.NewStatus(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
 	}
 
 	return resp.Videos, nil

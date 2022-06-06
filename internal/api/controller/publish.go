@@ -3,6 +3,10 @@ package controller
 import (
 	"context"
 	"strconv"
+	"strings"
+	"time"
+
+	"github.com/CharmingCharm/DouSheng/internal/api/ostg"
 
 	"github.com/CharmingCharm/DouSheng/internal/api/rpc"
 
@@ -18,7 +22,7 @@ import (
 
 type VideoListResponse struct {
 	constants.Response
-	VideoList []*base.Video `json:"video_list"`
+	VideoList []*base.Video `json:"video_list,omitempty"`
 }
 
 // Publish check token then save upload file to public directory
@@ -38,35 +42,29 @@ func Publish(c *gin.Context) {
 	}
 
 	myId := claims.Id
+	username := claims.Username
 
-	/************** Uncheck **************/
-	// if _, exist := usersLoginInfo[token]; !exist {
-	// file, fileHeader, err := c.Request.FormFile("data")
-	_, _, err = c.Request.FormFile("data")
-	// fmt.Println(file)
-	// fmt.Println(fileHeader)
+	_, fileHeader, err := c.Request.FormFile("data")
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
 	}
-	// // 上传文件到minio
-	// err = ostg.UploadVideo(fileHeader.Filename, fileHeader)
+	timestamp := strconv.FormatInt(time.Now().Unix(), 10)
+	split := strings.Split(fileHeader.Filename, ".")
+	fileType := split[len(split)-1]
+	err = ostg.UploadVideo(timestamp+"."+fileType, username, fileHeader)
 
-	// if err != nil {
-	// 	send.SendStatus(c, err, &res)
-	// 	return
-	// }
-	// playUrl := constants.MinIOEndpoint + "/video/" + fileHeader.Filename
-	// fmt.Println(playUrl)
-	// TODO:调用RPC服务往video表里插入记录
-	/************** Uncheck **************/
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+	playUrl := constants.MinIOEndpoint + "/video/" + timestamp + "." + fileType
 
 	resp, err := rpc.PublishVideo(context.Background(), &video.PublishVideoRequest{
 		MyId:    myId,
-		DataUrl: "https://www.w3schools.com/html/movie.mp4", // Uncheck
+		DataUrl: playUrl, // Uncheck
 		Title:   title,
 	})
-
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
@@ -104,9 +102,7 @@ func Publish(c *gin.Context) {
 
 // PublishList all users have same publish video list
 func PublishList(c *gin.Context) {
-	res := VideoListResponse{
-		VideoList: make([]*base.Video, 0),
-	}
+	res := VideoListResponse{}
 
 	token := c.Query("token")
 	uIdInString := c.Query("user_id")
@@ -141,11 +137,6 @@ func PublishList(c *gin.Context) {
 
 	if err != nil {
 		send.SendStatus(c, err, &res)
-		return
-	}
-
-	if resp.BaseResp.StatusCode != status.SuccessCode {
-		send.SendResp(c, *resp.BaseResp, &res)
 		return
 	}
 	res.VideoList = resp.VideoList

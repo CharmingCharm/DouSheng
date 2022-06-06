@@ -3133,7 +3133,6 @@ func (p *CheckRelationResponse) FastRead(buf []byte) (int, error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetBaseResp bool = false
-	var issetIsFollow bool = false
 	_, l, err = bthrift.Binary.ReadStructBegin(buf)
 	offset += l
 	if err != nil {
@@ -3172,7 +3171,6 @@ func (p *CheckRelationResponse) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetIsFollow = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -3202,11 +3200,6 @@ func (p *CheckRelationResponse) FastRead(buf []byte) (int, error) {
 
 	if !issetBaseResp {
 		fieldId = 1
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetIsFollow {
-		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return offset, nil
@@ -3244,8 +3237,7 @@ func (p *CheckRelationResponse) FastReadField2(buf []byte) (int, error) {
 		return offset, err
 	} else {
 		offset += l
-
-		p.IsFollow = v
+		p.IsFollow = &v
 
 	}
 	return offset, nil
@@ -3290,10 +3282,12 @@ func (p *CheckRelationResponse) fastWriteField1(buf []byte, binaryWriter bthrift
 
 func (p *CheckRelationResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "is_follow", thrift.BOOL, 2)
-	offset += bthrift.Binary.WriteBool(buf[offset:], p.IsFollow)
+	if p.IsSetIsFollow() {
+		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "is_follow", thrift.BOOL, 2)
+		offset += bthrift.Binary.WriteBool(buf[offset:], *p.IsFollow)
 
-	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+		offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+	}
 	return offset
 }
 
@@ -3307,10 +3301,12 @@ func (p *CheckRelationResponse) field1Length() int {
 
 func (p *CheckRelationResponse) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("is_follow", thrift.BOOL, 2)
-	l += bthrift.Binary.BoolLength(p.IsFollow)
+	if p.IsSetIsFollow() {
+		l += bthrift.Binary.FieldBeginLength("is_follow", thrift.BOOL, 2)
+		l += bthrift.Binary.BoolLength(*p.IsFollow)
 
-	l += bthrift.Binary.FieldEndLength()
+		l += bthrift.Binary.FieldEndLength()
+	}
 	return l
 }
 
@@ -3514,7 +3510,6 @@ func (p *CheckFavoriteResponse) FastRead(buf []byte) (int, error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetBaseResp bool = false
-	var issetIsFavorite bool = false
 	_, l, err = bthrift.Binary.ReadStructBegin(buf)
 	offset += l
 	if err != nil {
@@ -3553,7 +3548,6 @@ func (p *CheckFavoriteResponse) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetIsFavorite = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -3583,11 +3577,6 @@ func (p *CheckFavoriteResponse) FastRead(buf []byte) (int, error) {
 
 	if !issetBaseResp {
 		fieldId = 1
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetIsFavorite {
-		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return offset, nil
@@ -3625,8 +3614,7 @@ func (p *CheckFavoriteResponse) FastReadField2(buf []byte) (int, error) {
 		return offset, err
 	} else {
 		offset += l
-
-		p.IsFavorite = v
+		p.IsFavorite = &v
 
 	}
 	return offset, nil
@@ -3671,10 +3659,12 @@ func (p *CheckFavoriteResponse) fastWriteField1(buf []byte, binaryWriter bthrift
 
 func (p *CheckFavoriteResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "is_favorite", thrift.BOOL, 2)
-	offset += bthrift.Binary.WriteBool(buf[offset:], p.IsFavorite)
+	if p.IsSetIsFavorite() {
+		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "is_favorite", thrift.BOOL, 2)
+		offset += bthrift.Binary.WriteBool(buf[offset:], *p.IsFavorite)
 
-	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+		offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+	}
 	return offset
 }
 
@@ -3688,10 +3678,12 @@ func (p *CheckFavoriteResponse) field1Length() int {
 
 func (p *CheckFavoriteResponse) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("is_favorite", thrift.BOOL, 2)
-	l += bthrift.Binary.BoolLength(p.IsFavorite)
+	if p.IsSetIsFavorite() {
+		l += bthrift.Binary.FieldBeginLength("is_favorite", thrift.BOOL, 2)
+		l += bthrift.Binary.BoolLength(*p.IsFavorite)
 
-	l += bthrift.Binary.FieldEndLength()
+		l += bthrift.Binary.FieldEndLength()
+	}
 	return l
 }
 

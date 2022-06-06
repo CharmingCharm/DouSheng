@@ -98,9 +98,6 @@ func FavoriteList(c *gin.Context) {
 	}
 
 	myId := claims.Id
-	if myId == uId {
-		myId = -1
-	}
 
 	resp, err := rpc.GetFavoriteVideos(context.Background(), &action.GetFavoriteVideosRequest{
 		UserId: uId,

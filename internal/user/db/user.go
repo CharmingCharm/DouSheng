@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"errors"
-
 	"github.com/CharmingCharm/DouSheng/pkg/constants"
 
 	"gorm.io/gorm"
@@ -30,7 +29,7 @@ func CreateUser(ctx context.Context, name string, password string) (user_id int6
 	if res.Error != nil {
 		return -1, res.Error
 	}
-	return int64(user.ID), nil
+	return int64(user.Id), nil
 }
 
 func GetUserByUsername(ctx context.Context, username string) (*User, error) {

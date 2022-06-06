@@ -16,7 +16,6 @@ type UserServiceImpl struct{}
 func (s *UserServiceImpl) CreateUser(ctx context.Context, req *user.CreateUserRequest) (resp *user.CreateUserResponse, err error) {
 	// TODO: Your code here...
 	resp = new(user.CreateUserResponse)
-	resp.UserId = -1
 
 	if len(req.Username) == 0 || len(req.Password) == 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
@@ -29,7 +28,7 @@ func (s *UserServiceImpl) CreateUser(ctx context.Context, req *user.CreateUserRe
 		return resp, nil
 	}
 	resp.BaseResp = response.BuildBaseResp(status.Success)
-	resp.UserId = userId
+	resp.UserId = &userId
 	return resp, nil
 }
 
@@ -37,7 +36,6 @@ func (s *UserServiceImpl) CreateUser(ctx context.Context, req *user.CreateUserRe
 func (s *UserServiceImpl) CheckUser(ctx context.Context, req *user.CheckUserRequest) (resp *user.CheckUserResponse, err error) {
 	// TODO: Your code here...
 	resp = new(user.CheckUserResponse)
-	resp.UserId = -1
 
 	if len(req.Username) == 0 || len(req.Password) == 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
@@ -50,7 +48,7 @@ func (s *UserServiceImpl) CheckUser(ctx context.Context, req *user.CheckUserRequ
 		return resp, nil
 	}
 	resp.BaseResp = response.BuildBaseResp(status.Success)
-	resp.UserId = userId
+	resp.UserId = &userId
 	return resp, nil
 }
 

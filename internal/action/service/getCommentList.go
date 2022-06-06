@@ -35,7 +35,6 @@ func (s *GetCommentListService) GetCommentList(req *action.GetCommentListRequest
 		return nil, err
 	}
 	commentList := make([]*base.Comment, len(commentDBList))
-
 	for index, c := range commentDBList {
 		resp, err := rpc.GetUserInfo(s.ctx, &user.GetUserInfoRequest{
 			UserId: c.UserId,

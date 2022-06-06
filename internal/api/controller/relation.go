@@ -2,7 +2,6 @@ package controller
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 
 	"github.com/CharmingCharm/DouSheng/internal/api/rpc"
@@ -18,7 +17,7 @@ import (
 
 type UserListResponse struct {
 	constants.Response
-	UserList []*base.User `json:"user_list"`
+	UserList []*base.User `json:"user_list,omitempty"`
 }
 
 // RelationAction no practical effect, just check if token is valid
@@ -41,7 +40,6 @@ func RelationAction(c *gin.Context) {
 	}
 
 	actionType64, err := strconv.ParseInt(actionTypeString, 10, 32)
-	fmt.Println(actionType64)
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
@@ -69,7 +67,6 @@ func RelationAction(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	send.SendResp(c, *resp.BaseResp, &res)
 }
 

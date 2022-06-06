@@ -225,7 +225,6 @@ func (p *CreateUserResponse) FastRead(buf []byte) (int, error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetBaseResp bool = false
-	var issetUserId bool = false
 	_, l, err = bthrift.Binary.ReadStructBegin(buf)
 	offset += l
 	if err != nil {
@@ -264,7 +263,6 @@ func (p *CreateUserResponse) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetUserId = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -294,11 +292,6 @@ func (p *CreateUserResponse) FastRead(buf []byte) (int, error) {
 
 	if !issetBaseResp {
 		fieldId = 1
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetUserId {
-		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return offset, nil
@@ -336,8 +329,7 @@ func (p *CreateUserResponse) FastReadField2(buf []byte) (int, error) {
 		return offset, err
 	} else {
 		offset += l
-
-		p.UserId = v
+		p.UserId = &v
 
 	}
 	return offset, nil
@@ -382,10 +374,12 @@ func (p *CreateUserResponse) fastWriteField1(buf []byte, binaryWriter bthrift.Bi
 
 func (p *CreateUserResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user_id", thrift.I64, 2)
-	offset += bthrift.Binary.WriteI64(buf[offset:], p.UserId)
+	if p.IsSetUserId() {
+		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user_id", thrift.I64, 2)
+		offset += bthrift.Binary.WriteI64(buf[offset:], *p.UserId)
 
-	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+		offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+	}
 	return offset
 }
 
@@ -399,10 +393,12 @@ func (p *CreateUserResponse) field1Length() int {
 
 func (p *CreateUserResponse) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("user_id", thrift.I64, 2)
-	l += bthrift.Binary.I64Length(p.UserId)
+	if p.IsSetUserId() {
+		l += bthrift.Binary.FieldBeginLength("user_id", thrift.I64, 2)
+		l += bthrift.Binary.I64Length(*p.UserId)
 
-	l += bthrift.Binary.FieldEndLength()
+		l += bthrift.Binary.FieldEndLength()
+	}
 	return l
 }
 
@@ -606,7 +602,6 @@ func (p *CheckUserResponse) FastRead(buf []byte) (int, error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetBaseResp bool = false
-	var issetUserId bool = false
 	_, l, err = bthrift.Binary.ReadStructBegin(buf)
 	offset += l
 	if err != nil {
@@ -645,7 +640,6 @@ func (p *CheckUserResponse) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetUserId = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -675,11 +669,6 @@ func (p *CheckUserResponse) FastRead(buf []byte) (int, error) {
 
 	if !issetBaseResp {
 		fieldId = 1
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetUserId {
-		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return offset, nil
@@ -717,8 +706,7 @@ func (p *CheckUserResponse) FastReadField2(buf []byte) (int, error) {
 		return offset, err
 	} else {
 		offset += l
-
-		p.UserId = v
+		p.UserId = &v
 
 	}
 	return offset, nil
@@ -763,10 +751,12 @@ func (p *CheckUserResponse) fastWriteField1(buf []byte, binaryWriter bthrift.Bin
 
 func (p *CheckUserResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user_id", thrift.I64, 2)
-	offset += bthrift.Binary.WriteI64(buf[offset:], p.UserId)
+	if p.IsSetUserId() {
+		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user_id", thrift.I64, 2)
+		offset += bthrift.Binary.WriteI64(buf[offset:], *p.UserId)
 
-	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+		offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+	}
 	return offset
 }
 
@@ -780,10 +770,12 @@ func (p *CheckUserResponse) field1Length() int {
 
 func (p *CheckUserResponse) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("user_id", thrift.I64, 2)
-	l += bthrift.Binary.I64Length(p.UserId)
+	if p.IsSetUserId() {
+		l += bthrift.Binary.FieldBeginLength("user_id", thrift.I64, 2)
+		l += bthrift.Binary.I64Length(*p.UserId)
 
-	l += bthrift.Binary.FieldEndLength()
+		l += bthrift.Binary.FieldEndLength()
+	}
 	return l
 }
 
@@ -987,7 +979,6 @@ func (p *GetUserInfoResponse) FastRead(buf []byte) (int, error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetBaseResp bool = false
-	var issetUser bool = false
 	_, l, err = bthrift.Binary.ReadStructBegin(buf)
 	offset += l
 	if err != nil {
@@ -1026,7 +1017,6 @@ func (p *GetUserInfoResponse) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetUser = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -1056,11 +1046,6 @@ func (p *GetUserInfoResponse) FastRead(buf []byte) (int, error) {
 
 	if !issetBaseResp {
 		fieldId = 1
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetUser {
-		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return offset, nil
@@ -1141,9 +1126,11 @@ func (p *GetUserInfoResponse) fastWriteField1(buf []byte, binaryWriter bthrift.B
 
 func (p *GetUserInfoResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user", thrift.STRUCT, 2)
-	offset += p.User.FastWriteNocopy(buf[offset:], binaryWriter)
-	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+	if p.IsSetUser() {
+		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user", thrift.STRUCT, 2)
+		offset += p.User.FastWriteNocopy(buf[offset:], binaryWriter)
+		offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+	}
 	return offset
 }
 
@@ -1157,9 +1144,11 @@ func (p *GetUserInfoResponse) field1Length() int {
 
 func (p *GetUserInfoResponse) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("user", thrift.STRUCT, 2)
-	l += p.User.BLength()
-	l += bthrift.Binary.FieldEndLength()
+	if p.IsSetUser() {
+		l += bthrift.Binary.FieldBeginLength("user", thrift.STRUCT, 2)
+		l += p.User.BLength()
+		l += bthrift.Binary.FieldEndLength()
+	}
 	return l
 }
 

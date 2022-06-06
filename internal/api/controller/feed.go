@@ -33,9 +33,7 @@ func Feed(c *gin.Context) {
 	token := c.Query("token")
 	lastTimeString := c.Query("last_time")
 
-	req := video.LoadVideosRequest{
-		MyId: -1,
-	}
+	req := video.LoadVideosRequest{}
 
 	if len(lastTimeString) != 0 {
 		lastTime, err := strconv.ParseInt(lastTimeString, 10, 64)
@@ -66,5 +64,6 @@ func Feed(c *gin.Context) {
 	if resp.NextTime != nil {
 		res.NextTime = *resp.NextTime
 	}
+
 	send.SendResp(c, *resp.BaseResp, &res)
 }

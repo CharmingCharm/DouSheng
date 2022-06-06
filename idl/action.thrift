@@ -82,7 +82,7 @@ struct CheckRelationRequest {
 
 struct CheckRelationResponse {
     1:required base.BaseResp base_resp
-    2:required bool     is_follow
+    2:optional bool     is_follow
 }
 
 struct CheckFavoriteRequest {
@@ -92,7 +92,7 @@ struct CheckFavoriteRequest {
 
 struct CheckFavoriteResponse {
     1:required base.BaseResp base_resp
-    2:required bool     is_favorite
+    2:optional bool     is_favorite
 }
 
 service ActionService {

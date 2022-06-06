@@ -61,7 +61,7 @@ func (s *GetPublishedVideosService) GetPublishedVideos(req *video.GetPublishedVi
 			if favoriteInfo.BaseResp.StatusCode != status.SuccessCode {
 				return nil, status.NewStatus(favoriteInfo.BaseResp.StatusCode, favoriteInfo.BaseResp.StatusMessage)
 			}
-			flag = favoriteInfo.IsFavorite
+			flag = *favoriteInfo.IsFavorite
 		}
 
 		videoList[index] = &base.Video{

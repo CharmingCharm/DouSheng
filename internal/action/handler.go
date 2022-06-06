@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 
 	action "github.com/CharmingCharm/DouSheng/kitex_gen/action"
 
@@ -89,7 +88,6 @@ func (s *ActionServiceImpl) UpdateComment(ctx context.Context, req *action.Updat
 	}
 	resp.BaseResp = response.BuildBaseResp(status.Success)
 	resp.Comment = comment
-	fmt.Println(resp)
 	return resp, nil
 }
 
@@ -215,7 +213,7 @@ func (s *ActionServiceImpl) CheckRelation(ctx context.Context, req *action.Check
 		return resp, nil
 	}
 	resp.BaseResp = response.BuildBaseResp(status.Success)
-	resp.IsFollow = flag
+	resp.IsFollow = &flag
 	return resp, nil
 }
 
@@ -240,6 +238,6 @@ func (s *ActionServiceImpl) CheckFavorite(ctx context.Context, req *action.Check
 		return resp, nil
 	}
 	resp.BaseResp = response.BuildBaseResp(status.Success)
-	resp.IsFavorite = flag
+	resp.IsFavorite = &flag
 	return resp, nil
 }

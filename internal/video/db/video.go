@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/CharmingCharm/DouSheng/pkg/constants"
@@ -106,7 +105,6 @@ func VideoCommentCountSubtract(vId int64) error {
 
 func VideoFavoriteCountAdd(vId int64) error {
 	// TODO
-	fmt.Println(vId)
 	res := DB.Model(&Video{}).Where("Id = ?", vId).UpdateColumn("favorite_count", gorm.Expr("favorite_count + ?", 1))
 	if res.Error != nil {
 		return res.Error

@@ -58,7 +58,7 @@ func (s *GetVideoListService) GetVideoList(req *video.GetVideoListRequest) ([]*b
 			if favoriteInfo.BaseResp.StatusCode != status.SuccessCode {
 				return nil, status.NewStatus(favoriteInfo.BaseResp.StatusCode, favoriteInfo.BaseResp.StatusMessage)
 			}
-			flag = favoriteInfo.IsFavorite
+			flag = *favoriteInfo.IsFavorite
 		}
 
 		videoList[index] = &base.Video{

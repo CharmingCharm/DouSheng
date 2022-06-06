@@ -43,7 +43,7 @@ func (s *GetUserInfoService) GetUserInfo(req *user.GetUserInfoRequest) (*base.Us
 		if relationInfo.BaseResp.StatusCode != status.SuccessCode {
 			return nil, status.NewStatus(relationInfo.BaseResp.StatusCode, relationInfo.BaseResp.StatusMessage)
 		}
-		flag = relationInfo.IsFollow
+		flag = *relationInfo.IsFollow
 	}
 
 	user := base.User{

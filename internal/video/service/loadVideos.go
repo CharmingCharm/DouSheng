@@ -67,7 +67,7 @@ func (s *LoadVideosService) LoadVideos(req *video.LoadVideosRequest) ([]*base.Vi
 			if favoriteInfo.BaseResp.StatusCode != status.SuccessCode {
 				return nil, -1, status.NewStatus(favoriteInfo.BaseResp.StatusCode, favoriteInfo.BaseResp.StatusMessage)
 			}
-			flag = favoriteInfo.IsFavorite
+			flag = *favoriteInfo.IsFavorite
 		}
 
 		videoList[index] = &base.Video{

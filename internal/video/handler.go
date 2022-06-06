@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/CharmingCharm/DouSheng/internal/video/service"
 	"github.com/CharmingCharm/DouSheng/kitex_gen/video"
@@ -49,7 +48,6 @@ func (s *VideoServiceImpl) LoadVideos(ctx context.Context, req *video.LoadVideos
 		resp.NextTime = &nextTime
 		// fmt.Println("lala")
 	}
-	fmt.Println(resp)
 	return resp, nil
 }
 

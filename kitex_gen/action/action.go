@@ -5,10 +5,9 @@ package action
 import (
 	"context"
 	"fmt"
-	"strings"
-
 	"github.com/CharmingCharm/DouSheng/kitex_gen/base"
 	"github.com/apache/thrift/lib/go/thrift"
+	"strings"
 )
 
 type UpdateFavoriteRequest struct {
@@ -3898,7 +3897,7 @@ func (p *CheckRelationRequest) Field2DeepEqual(src int64) bool {
 
 type CheckRelationResponse struct {
 	BaseResp *base.BaseResp `thrift:"base_resp,1,required" json:"base_resp"`
-	IsFollow bool           `thrift:"is_follow,2,required" json:"is_follow"`
+	IsFollow *bool          `thrift:"is_follow,2" json:"is_follow,omitempty"`
 }
 
 func NewCheckRelationResponse() *CheckRelationResponse {
@@ -3914,13 +3913,18 @@ func (p *CheckRelationResponse) GetBaseResp() (v *base.BaseResp) {
 	return p.BaseResp
 }
 
+var CheckRelationResponse_IsFollow_DEFAULT bool
+
 func (p *CheckRelationResponse) GetIsFollow() (v bool) {
-	return p.IsFollow
+	if !p.IsSetIsFollow() {
+		return CheckRelationResponse_IsFollow_DEFAULT
+	}
+	return *p.IsFollow
 }
 func (p *CheckRelationResponse) SetBaseResp(val *base.BaseResp) {
 	p.BaseResp = val
 }
-func (p *CheckRelationResponse) SetIsFollow(val bool) {
+func (p *CheckRelationResponse) SetIsFollow(val *bool) {
 	p.IsFollow = val
 }
 
@@ -3933,12 +3937,15 @@ func (p *CheckRelationResponse) IsSetBaseResp() bool {
 	return p.BaseResp != nil
 }
 
+func (p *CheckRelationResponse) IsSetIsFollow() bool {
+	return p.IsFollow != nil
+}
+
 func (p *CheckRelationResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetBaseResp bool = false
-	var issetIsFollow bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -3970,7 +3977,6 @@ func (p *CheckRelationResponse) Read(iprot thrift.TProtocol) (err error) {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
-				issetIsFollow = true
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -3992,11 +3998,6 @@ func (p *CheckRelationResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	if !issetBaseResp {
 		fieldId = 1
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetIsFollow {
-		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return nil
@@ -4029,7 +4030,7 @@ func (p *CheckRelationResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadBool(); err != nil {
 		return err
 	} else {
-		p.IsFollow = v
+		p.IsFollow = &v
 	}
 	return nil
 }
@@ -4085,14 +4086,16 @@ WriteFieldEndError:
 }
 
 func (p *CheckRelationResponse) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("is_follow", thrift.BOOL, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteBool(p.IsFollow); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
+	if p.IsSetIsFollow() {
+		if err = oprot.WriteFieldBegin("is_follow", thrift.BOOL, 2); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteBool(*p.IsFollow); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
 	}
 	return nil
 WriteFieldBeginError:
@@ -4130,9 +4133,14 @@ func (p *CheckRelationResponse) Field1DeepEqual(src *base.BaseResp) bool {
 	}
 	return true
 }
-func (p *CheckRelationResponse) Field2DeepEqual(src bool) bool {
+func (p *CheckRelationResponse) Field2DeepEqual(src *bool) bool {
 
-	if p.IsFollow != src {
+	if p.IsFollow == src {
+		return true
+	} else if p.IsFollow == nil || src == nil {
+		return false
+	}
+	if *p.IsFollow != *src {
 		return false
 	}
 	return true
@@ -4374,7 +4382,7 @@ func (p *CheckFavoriteRequest) Field2DeepEqual(src int64) bool {
 
 type CheckFavoriteResponse struct {
 	BaseResp   *base.BaseResp `thrift:"base_resp,1,required" json:"base_resp"`
-	IsFavorite bool           `thrift:"is_favorite,2,required" json:"is_favorite"`
+	IsFavorite *bool          `thrift:"is_favorite,2" json:"is_favorite,omitempty"`
 }
 
 func NewCheckFavoriteResponse() *CheckFavoriteResponse {
@@ -4390,13 +4398,18 @@ func (p *CheckFavoriteResponse) GetBaseResp() (v *base.BaseResp) {
 	return p.BaseResp
 }
 
+var CheckFavoriteResponse_IsFavorite_DEFAULT bool
+
 func (p *CheckFavoriteResponse) GetIsFavorite() (v bool) {
-	return p.IsFavorite
+	if !p.IsSetIsFavorite() {
+		return CheckFavoriteResponse_IsFavorite_DEFAULT
+	}
+	return *p.IsFavorite
 }
 func (p *CheckFavoriteResponse) SetBaseResp(val *base.BaseResp) {
 	p.BaseResp = val
 }
-func (p *CheckFavoriteResponse) SetIsFavorite(val bool) {
+func (p *CheckFavoriteResponse) SetIsFavorite(val *bool) {
 	p.IsFavorite = val
 }
 
@@ -4409,12 +4422,15 @@ func (p *CheckFavoriteResponse) IsSetBaseResp() bool {
 	return p.BaseResp != nil
 }
 
+func (p *CheckFavoriteResponse) IsSetIsFavorite() bool {
+	return p.IsFavorite != nil
+}
+
 func (p *CheckFavoriteResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetBaseResp bool = false
-	var issetIsFavorite bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -4446,7 +4462,6 @@ func (p *CheckFavoriteResponse) Read(iprot thrift.TProtocol) (err error) {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
-				issetIsFavorite = true
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -4468,11 +4483,6 @@ func (p *CheckFavoriteResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	if !issetBaseResp {
 		fieldId = 1
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetIsFavorite {
-		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return nil
@@ -4505,7 +4515,7 @@ func (p *CheckFavoriteResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadBool(); err != nil {
 		return err
 	} else {
-		p.IsFavorite = v
+		p.IsFavorite = &v
 	}
 	return nil
 }
@@ -4561,14 +4571,16 @@ WriteFieldEndError:
 }
 
 func (p *CheckFavoriteResponse) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("is_favorite", thrift.BOOL, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteBool(p.IsFavorite); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
+	if p.IsSetIsFavorite() {
+		if err = oprot.WriteFieldBegin("is_favorite", thrift.BOOL, 2); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteBool(*p.IsFavorite); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
 	}
 	return nil
 WriteFieldBeginError:
@@ -4606,9 +4618,14 @@ func (p *CheckFavoriteResponse) Field1DeepEqual(src *base.BaseResp) bool {
 	}
 	return true
 }
-func (p *CheckFavoriteResponse) Field2DeepEqual(src bool) bool {
+func (p *CheckFavoriteResponse) Field2DeepEqual(src *bool) bool {
 
-	if p.IsFavorite != src {
+	if p.IsFavorite == src {
+		return true
+	} else if p.IsFavorite == nil || src == nil {
+		return false
+	}
+	if *p.IsFavorite != *src {
 		return false
 	}
 	return true

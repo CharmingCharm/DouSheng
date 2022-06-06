@@ -2,7 +2,6 @@ package controller
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 
 	"github.com/CharmingCharm/DouSheng/internal/api/rpc"
@@ -22,29 +21,26 @@ import (
 
 type UserRegisterResponse struct {
 	constants.Response
-	Token  string `json:"token"`
-	UserID int64  `json:"user_id"`
+	Token  *string `json:"token,omitempty"`
+	UserID *int64  `json:"user_id,omitempty"`
 }
 
 type UserLoginResponse struct {
 	constants.Response
-	Token  string `json:"token"`
-	UserID int64  `json:"user_id"`
+	Token  *string `json:"token,omitempty"`
+	UserID *int64  `json:"user_id,omitempty"`
 }
 
 type UserInfoResponse struct {
 	constants.Response
-	User base.User `json:"user"`
+	User *base.User `json:"user,omitempty"`
 }
 
 func Register(c *gin.Context) {
 	username := c.Query("username")
 	password := c.Query("password")
 
-	res := UserRegisterResponse{
-		UserID: constants.DefaultErrPosInt64,
-		Token:  constants.DefaultErrString,
-	}
+	res := UserRegisterResponse{}
 
 	if len(username) == 0 || len(password) == 0 {
 		send.SendStatus(c, status.ParamErr, &res)
@@ -60,20 +56,20 @@ func Register(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
+	if resp.BaseResp.StatusCode != status.SuccessCode {
+		send.SendResp(c, *resp.BaseResp, &res)
+		return
+	}
 
-	token, err := middleware.GenToken(username, resp.UserId)
+	token, err := middleware.GenToken(username, *resp.UserId)
 
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
 	}
 
-	if resp.BaseResp.StatusCode != status.SuccessCode {
-		send.SendResp(c, *resp.BaseResp, &res)
-		return
-	}
 	res.UserID = resp.UserId
-	res.Token = token
+	res.Token = &token
 	send.SendResp(c, *resp.BaseResp, &res)
 
 	// if _, exist := usersLoginInfo[token]; exist {
@@ -120,12 +116,7 @@ func Login(c *gin.Context) {
 	username := c.Query("username")
 	password := c.Query("password")
 
-	res := UserLoginResponse{
-		UserID: constants.DefaultErrPosInt64,
-		Token:  constants.DefaultErrString,
-	}
-	res.StatusCode = constants.DefaultStatusCode
-	res.StatusMsg = constants.DefaultStatusMsg
+	res := UserLoginResponse{}
 
 	if len(username) == 0 || len(password) == 0 {
 		send.SendStatus(c, status.ParamErr, &res)
@@ -140,35 +131,25 @@ func Login(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
+	if resp.BaseResp.StatusCode != status.SuccessCode {
+		send.SendResp(c, *resp.BaseResp, &res)
+		return
+	}
 
-	token, err := middleware.GenToken(username, resp.UserId)
+	token, err := middleware.GenToken(username, *resp.UserId)
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
 	}
 
-	if resp.BaseResp.StatusCode != status.SuccessCode {
-		send.SendResp(c, *resp.BaseResp, &res)
-		return
-	}
 	res.UserID = resp.UserId
-	res.Token = token
+	res.Token = &token
 	send.SendResp(c, *resp.BaseResp, &res)
 }
 
 func UserInfo(c *gin.Context) {
 
-	res := UserInfoResponse{
-		User: base.User{
-			Id:            constants.DefaultErrPosInt64,
-			Name:          constants.DefaultErrString,
-			FollowCount:   0,
-			FollowerCount: 0,
-			IsFollow:      false,
-		},
-	}
-	res.StatusCode = constants.DefaultStatusCode
-	res.StatusMsg = constants.DefaultStatusMsg
+	res := UserInfoResponse{}
 
 	uIdInString := c.Query("user_id")
 	token := c.Query("token")
@@ -202,12 +183,11 @@ func UserInfo(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	if resp.BaseResp.StatusCode != status.SuccessCode {
 		send.SendResp(c, *resp.BaseResp, &res)
 		return
 	}
-	res.User = *resp.User
-	fmt.Println(*resp.BaseResp)
+
+	res.User = resp.User
 	send.SendResp(c, *resp.BaseResp, &res)
 }
