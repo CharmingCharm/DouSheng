@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/CharmingCharm/DouSheng/kitex_gen/action"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/base"
 
 	"github.com/CharmingCharm/DouSheng/internal/api/rpc"
 
@@ -70,6 +71,47 @@ func FavoriteAction(c *gin.Context) {
 
 // FavoriteList all users have same favorite video list
 func FavoriteList(c *gin.Context) {
+
+	res := VideoListResponse{
+		VideoList: make([]*base.Video, 0),
+	}
+
+	token := c.Query("token")
+	uIdInString := c.Query("user_id")
+
+	if len(uIdInString) == 0 || len(token) == 0 {
+		send.SendStatus(c, status.ParamErr, &res)
+		return
+	}
+
+	uId, err := strconv.ParseInt(uIdInString, 10, 64)
+
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+
+	claims, err := middleware.ParseToken(token)
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+
+	myId := claims.Id
+	if myId == uId {
+		myId = -1
+	}
+
+	resp, err := rpc.GetFavoriteVideos(context.Background(), &action.GetFavoriteVideosRequest{
+		UserId: uId,
+		MyId:   myId,
+	})
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+	res.VideoList = resp.VideoList
+	send.SendResp(c, *resp.BaseResp, &res)
 	// c.JSON(http.StatusOK, VideoListResponse{
 	// 	Response: Response{
 	// 		StatusCode: 0,

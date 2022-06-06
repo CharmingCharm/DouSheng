@@ -3,12 +3,12 @@ package controller
 import (
 	"context"
 	"fmt"
-	"net/http"
 	"strconv"
 
 	"github.com/CharmingCharm/DouSheng/internal/api/rpc"
 
-	"github.com/CharmingCharm/DouSheng/kitex_gen/user"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/action"
+	"github.com/CharmingCharm/DouSheng/kitex_gen/base"
 	"github.com/CharmingCharm/DouSheng/pkg/constants"
 	"github.com/CharmingCharm/DouSheng/pkg/middleware"
 	"github.com/CharmingCharm/DouSheng/pkg/send"
@@ -18,7 +18,7 @@ import (
 
 type UserListResponse struct {
 	constants.Response
-	UserList []User `json:"user_list"`
+	UserList []*base.User `json:"user_list"`
 }
 
 // RelationAction no practical effect, just check if token is valid
@@ -60,9 +60,7 @@ func RelationAction(c *gin.Context) {
 
 	myId := claims.Id
 
-	// rpc.action.UpdateRelationship()
-
-	resp, err := rpc.UpdateUserFollow(context.Background(), &user.UpdateUserFollowRequest{
+	resp, err := rpc.UpdateRelationship(context.Background(), &action.UpdateRelationshipRequest{
 		UserId:     myId,
 		ToUserId:   toUId,
 		ActionType: actionType,
@@ -77,20 +75,80 @@ func RelationAction(c *gin.Context) {
 
 // FollowList all users have same follow list
 func FollowList(c *gin.Context) {
-	c.JSON(http.StatusOK, UserListResponse{
-		Response: constants.Response{
-			StatusCode: 0,
-		},
-		UserList: []User{DemoUser},
+	token := c.Query("token")
+	uIdString := c.Query("user_id")
+
+	res := UserListResponse{
+		UserList: make([]*base.User, 0),
+	}
+
+	if len(token) == 0 || len(uIdString) == 0 {
+		send.SendStatus(c, status.ParamErr, &res)
+		return
+	}
+
+	uId, err := strconv.ParseInt(uIdString, 10, 64)
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+
+	claims, err := middleware.ParseToken(token)
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+
+	myId := claims.Id
+
+	resp, err := rpc.GetUserFollowList(context.Background(), &action.GetUserFollowListRequest{
+		UserId: uId,
+		MyId:   myId,
 	})
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+	res.UserList = resp.UserList
+	send.SendResp(c, *resp.BaseResp, &res)
 }
 
 // FollowerList all users have same follower list
 func FollowerList(c *gin.Context) {
-	c.JSON(http.StatusOK, UserListResponse{
-		Response: constants.Response{
-			StatusCode: 0,
-		},
-		UserList: []User{DemoUser},
+	token := c.Query("token")
+	uIdString := c.Query("user_id")
+
+	res := UserListResponse{
+		UserList: make([]*base.User, 0),
+	}
+
+	if len(token) == 0 || len(uIdString) == 0 {
+		send.SendStatus(c, status.ParamErr, &res)
+		return
+	}
+
+	uId, err := strconv.ParseInt(uIdString, 10, 64)
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+
+	claims, err := middleware.ParseToken(token)
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+
+	myId := claims.Id
+
+	resp, err := rpc.GetUserFollowerList(context.Background(), &action.GetUserFollowerListRequest{
+		UserId: uId,
+		MyId:   myId,
 	})
+	if err != nil {
+		send.SendStatus(c, err, &res)
+		return
+	}
+	res.UserList = resp.UserList
+	send.SendResp(c, *resp.BaseResp, &res)
 }

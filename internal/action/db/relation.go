@@ -22,7 +22,7 @@ func (r *Relation) TableName() string {
 
 func FindRelationRecord(ctx context.Context, userId int64, toUserId int64) (bool, error) {
 	// TODO
-	res := DB.Where(&Relation{UserId: userId, ToUserId: toUserId}).First(&Relation{})
+	res := DB.Model(&Relation{}).Where(&Relation{UserId: userId, ToUserId: toUserId}).First(&Relation{})
 	if res.Error != nil {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return false, nil
@@ -35,7 +35,7 @@ func FindRelationRecord(ctx context.Context, userId int64, toUserId int64) (bool
 func GetFollowerList(ctx context.Context, toUserId int64) ([]int64, error) {
 	// TODO
 	followerList := make([]int64, 0)
-	res := DB.Where(&Relation{ToUserId: toUserId}).Select("user_id").Find(&followerList)
+	res := DB.Model(&Relation{}).Where(&Relation{ToUserId: toUserId}).Select("user_id").Find(&followerList)
 	if res.Error != nil {
 		return nil, res.Error
 	}
@@ -45,7 +45,7 @@ func GetFollowerList(ctx context.Context, toUserId int64) ([]int64, error) {
 func GetFollowList(ctx context.Context, userId int64) ([]int64, error) {
 	// TODO
 	followList := make([]int64, 0)
-	res := DB.Where(&Relation{UserId: userId}).Select("to_user_id").Find(&followList)
+	res := DB.Model(&Relation{}).Where(&Relation{UserId: userId}).Select("to_user_id").Find(&followList)
 	if res.Error != nil {
 		return nil, res.Error
 	}

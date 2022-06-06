@@ -52,8 +52,9 @@ func (s *UpdateRelationshipService) UpdateRelationship(req *action.UpdateRelatio
 	}
 
 	resp, err := rpc.UpdateUserFollow(s.ctx, &user.UpdateUserFollowRequest{
-		UserId:   req.UserId,
-		ToUserId: req.ToUserId,
+		UserId:     req.UserId,
+		ToUserId:   req.ToUserId,
+		ActionType: req.ActionType,
 	})
 	if err != nil {
 		return err

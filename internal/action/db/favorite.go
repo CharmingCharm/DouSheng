@@ -21,7 +21,7 @@ func (f *Favorite) TableName() string {
 }
 
 func CheckFavoriteRecord(cts context.Context, userId int64, videoId int64) (bool, error) {
-	res := DB.Where(&Favorite{UserId: userId, VideoId: videoId}).First(&Favorite{})
+	res := DB.Model(&Favorite{}).Where(&Favorite{UserId: userId, VideoId: videoId}).First(&Favorite{})
 	if res.Error != nil {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return false, nil
@@ -34,7 +34,7 @@ func CheckFavoriteRecord(cts context.Context, userId int64, videoId int64) (bool
 func GetFavoriteVideoIdsByUserId(ctx context.Context, userId int64) ([]int64, error) {
 	// TODO
 	vIds := make([]int64, 0)
-	res := DB.Where(&Favorite{UserId: userId}).Select("video_id").Find(&vIds)
+	res := DB.Model(&Favorite{}).Where(&Favorite{UserId: userId}).Select("video_id").Find(&vIds)
 	if res.Error != nil {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return nil, nil
@@ -59,7 +59,7 @@ func CreateFavoriteRecord(ctx context.Context, userId int64, videoId int64) erro
 
 func DeleteFavoriteRecord(ctx context.Context, userId int64, videoId int64) error {
 	// TODO
-	res := DB.Where("user_id = ? AND video_id = ?", userId, videoId).Delete(&Favorite{})
+	res := DB.Model(&Favorite{}).Where("user_id = ? AND video_id = ?", userId, videoId).Delete(&Favorite{})
 	if res.Error != nil {
 		return res.Error
 	}

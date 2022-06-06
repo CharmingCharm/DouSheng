@@ -105,13 +105,13 @@ func Publish(c *gin.Context) {
 // PublishList all users have same publish video list
 func PublishList(c *gin.Context) {
 	res := VideoListResponse{
-		VideoList: nil,
+		VideoList: make([]*base.Video, 0),
 	}
 
 	token := c.Query("token")
 	uIdInString := c.Query("user_id")
 
-	if uIdInString == "" || token == "" {
+	if len(uIdInString) == 0 || len(token) == 0 {
 		send.SendStatus(c, status.ParamErr, &res)
 		return
 	}
@@ -136,7 +136,7 @@ func PublishList(c *gin.Context) {
 
 	resp, err := rpc.GetPublishedVideos(context.Background(), &video.GetPublishedVideosRequest{
 		UserId: uId,
-		MyId:   &myId,
+		MyId:   myId,
 	})
 
 	if err != nil {

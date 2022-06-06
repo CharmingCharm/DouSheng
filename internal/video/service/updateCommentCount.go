@@ -30,6 +30,8 @@ func (s *UpdateCommentCountService) UpdateCommentCount(req *video.UpdateCommentC
 		if err != nil {
 			return err
 		}
+	} else {
+		return status.ParamErr
 	}
-	return status.ParamErr
+	return nil
 }

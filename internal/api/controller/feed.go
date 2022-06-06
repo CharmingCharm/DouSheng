@@ -51,7 +51,7 @@ func Feed(c *gin.Context) {
 			send.SendStatus(c, err, &res)
 			return
 		}
-		req.MyId = &claims.Id
+		req.MyId = claims.Id
 	}
 
 	resp, err := rpc.LoadVideos(context.Background(), &req)

@@ -29,6 +29,8 @@ func (s *UpdateFavoriteCountService) UpdateFavoriteCount(req *video.UpdateFavori
 		if err != nil {
 			return err
 		}
+	} else {
+		return status.ParamErr
 	}
-	return status.ParamErr
+	return nil
 }

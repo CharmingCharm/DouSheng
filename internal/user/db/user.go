@@ -36,7 +36,7 @@ func CreateUser(ctx context.Context, name string, password string) (user_id int6
 func GetUserByUsername(ctx context.Context, username string) (*User, error) {
 	// TODO
 	user := User{}
-	res := DB.Where(&User{Name: username}).First(&user)
+	res := DB.Model(&User{}).Where(&User{Name: username}).First(&user)
 	if res.Error != nil {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return nil, nil
@@ -49,7 +49,7 @@ func GetUserByUsername(ctx context.Context, username string) (*User, error) {
 func GetUserById(ctx context.Context, user_id int64) (*User, error) {
 	// TODO
 	user := User{}
-	res := DB.Where(&User{Id: user_id}).First(&user)
+	res := DB.Model(&User{}).Where(&User{Id: user_id}).First(&user)
 	if res.Error != nil {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return nil, nil
@@ -62,7 +62,7 @@ func GetUserById(ctx context.Context, user_id int64) (*User, error) {
 func GetUserListByIds(ctx context.Context, user_id []int64) ([]*User, error) {
 	//TODO
 	users := make([]*User, 0)
-	res := DB.Find(&users, user_id)
+	res := DB.Model(&User{}).Find(&users, user_id)
 	if res.Error != nil {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return nil, nil

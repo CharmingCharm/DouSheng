@@ -32,10 +32,10 @@ struct UpdateCommentRequest {
 
 struct UpdateCommentResponse {
     1:required base.BaseResp base_resp
+    2:optional base.Comment  comment
 }
 
 struct GetCommentListRequest {
-    1:required i64  user_id
     2:required i64  my_id
     3:required i64  video_id
 }

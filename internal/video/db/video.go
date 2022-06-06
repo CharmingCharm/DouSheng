@@ -33,7 +33,7 @@ func GetVideoListByIds(vIds []int64) ([]*Video, error) {
 		return videoList, nil
 	}
 
-	res := DB.Where("id IN ?", vIds).Order("create_time desc").Find(&videoList)
+	res := DB.Model(&Video{}).Where("id IN ?", vIds).Order("create_time desc").Find(&videoList)
 	if res.Error != nil {
 		return nil, res.Error
 	}
@@ -43,7 +43,7 @@ func GetVideoListByIds(vIds []int64) ([]*Video, error) {
 func GetVideoListByAuthorId(authorId int64) ([]*Video, error) {
 	// TODO
 	videoList := make([]*Video, 0)
-	res := DB.Where("auth_id = ?", authorId).Order("create_time desc").Find(&videoList)
+	res := DB.Model(&Video{}).Where("auth_id = ?", authorId).Order("create_time desc").Find(&videoList)
 	if res.Error != nil {
 		return nil, res.Error
 	}
@@ -54,7 +54,7 @@ func GetVideoListInOrder(lastTime int64) ([]*Video, error) {
 	// TODO
 	videoList := make([]*Video, 0)
 	if lastTime == -1 {
-		res := DB.Order("create_time desc").Limit(30).Find(&videoList)
+		res := DB.Model(&Video{}).Order("create_time desc").Limit(30).Find(&videoList)
 
 		if res.Error != nil {
 			return nil, res.Error

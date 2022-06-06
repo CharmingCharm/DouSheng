@@ -26,7 +26,6 @@ func NewGetCommentListService(ctx context.Context) *GetCommentListService {
 func (s *GetCommentListService) GetCommentList(req *action.GetCommentListRequest) ([]*base.Comment, error) {
 
 	// type GetCommentListRequest struct {
-	// 	UserId  int64 `thrift:"user_id,1,required" json:"user_id"`
 	// 	MyId    int64 `thrift:"my_id,2,required" json:"my_id"`
 	// 	VideoId int64 `thrift:"video_id,3,required" json:"video_id"`
 	// }

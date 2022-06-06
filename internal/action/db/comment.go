@@ -3,6 +3,8 @@ package db
 import (
 	"context"
 
+	"github.com/CharmingCharm/DouSheng/pkg/status"
+
 	"github.com/CharmingCharm/DouSheng/pkg/constants"
 
 	"gorm.io/gorm"
@@ -31,7 +33,7 @@ func GetCommentListByVideoId(ctx context.Context, videoId int64) ([]*Comment, er
 	return commentList, nil
 }
 
-func CreateCommentRecord(ctx context.Context, userId int64, videoId int64, commentText string) error {
+func CreateCommentRecord(ctx context.Context, userId int64, videoId int64, commentText string) (Comment, error) {
 	// TODO
 	comment := Comment{
 		UserId:  userId,
@@ -40,14 +42,24 @@ func CreateCommentRecord(ctx context.Context, userId int64, videoId int64, comme
 	}
 	res := DB.WithContext(ctx).Create(&comment)
 	if res.Error != nil {
-		return res.Error
+		return comment, res.Error
 	}
-	return nil
+	return comment, nil
 }
 
 func DeleteCommentRecord(ctx context.Context, userId int64, videoId int64, commentId int64) error {
 	// TODO
-	res := DB.Where("user_id = ? AND video_id = ?", userId, videoId).Delete(&Comment{}, commentId)
+	comment := Comment{}
+	searchRes := DB.Model(&Comment{}).Where(&Comment{Id: commentId})
+	searchRes.First(&comment)
+
+	if comment.UserId != userId || comment.VideoId != videoId {
+		return status.ParamControdictErr
+	}
+
+	res := searchRes.Delete(&Comment{})
+
+	// res := DB.Where("user_id = ? AND video_id = ?", userId, videoId).Delete(&Comment{}, commentId)
 	if res.Error != nil {
 		return res.Error
 	}

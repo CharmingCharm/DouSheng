@@ -19,6 +19,7 @@ func NewUpdateUserFollowService(ctx context.Context) *UpdateUserFollowService {
 
 // CreateUser create user info.
 func (s *UpdateUserFollowService) UpdateUserFollow(req *user.UpdateUserFollowRequest) error {
+
 	fromUser, err1 := db.GetUserById(s.ctx, req.UserId)
 	toUser, err2 := db.GetUserById(s.ctx, req.ToUserId)
 	if err1 != nil {
@@ -50,6 +51,8 @@ func (s *UpdateUserFollowService) UpdateUserFollow(req *user.UpdateUserFollowReq
 		if err != nil {
 			return err
 		}
+	} else {
+		return status.ActionTypeErr
 	}
-	return status.ActionTypeErr
+	return nil
 }

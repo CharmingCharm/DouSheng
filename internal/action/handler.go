@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	action "github.com/CharmingCharm/DouSheng/kitex_gen/action"
 
@@ -81,12 +82,14 @@ func (s *ActionServiceImpl) UpdateComment(ctx context.Context, req *action.Updat
 		return resp, nil
 	}
 
-	err = service.NewUpdateCommentService(ctx).UpdateComment(req)
+	comment, err := service.NewUpdateCommentService(ctx).UpdateComment(req)
 	if err != nil {
 		resp.BaseResp = response.BuildBaseResp(status.ConvertErrorToStatus(err))
 		return resp, nil
 	}
 	resp.BaseResp = response.BuildBaseResp(status.Success)
+	resp.Comment = comment
+	fmt.Println(resp)
 	return resp, nil
 }
 
@@ -101,7 +104,7 @@ func (s *ActionServiceImpl) GetCommentList(ctx context.Context, req *action.GetC
 	// 	VideoId int64 `thrift:"video_id,3,required" json:"video_id"`
 	// }
 
-	if req.UserId <= 0 || req.VideoId <= 0 {
+	if req.MyId <= 0 || req.VideoId <= 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
 		return resp, nil
 	}
@@ -224,6 +227,7 @@ func (s *ActionServiceImpl) CheckFavorite(ctx context.Context, req *action.Check
 	// 	MyId    int64 `thrift:"my_id,1,required" json:"my_id"`
 	// 	VideoId int64 `thrift:"video_id,2,required" json:"video_id"`
 	// }
+	resp = new(action.CheckFavoriteResponse)
 
 	if req.MyId <= 0 || req.VideoId <= 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
