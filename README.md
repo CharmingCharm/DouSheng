@@ -22,7 +22,7 @@ go build && ./simple-demo
 测试数据写在 demo_data.go 中，用于列表接口的 mock 测试
 
 ### How to run
-* Start three terminal in DouSheng
+* Start 5 terminals in DouSheng
 * Terminal 1: docker-compose up
 * Terminal 2: 
 1. cd internal/user
