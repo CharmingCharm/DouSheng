@@ -5,6 +5,7 @@ import (
 	"net"
 
 	"github.com/CharmingCharm/DouSheng/internal/user/db"
+	"github.com/CharmingCharm/DouSheng/internal/user/rpc"
 	user "github.com/CharmingCharm/DouSheng/kitex_gen/user/userservice"
 	"github.com/CharmingCharm/DouSheng/pkg/constants"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
@@ -23,6 +24,7 @@ func main() {
 	}
 
 	db.Init()
+	rpc.InitRPC()
 
 	svr := user.NewServer(
 		new(UserServiceImpl),

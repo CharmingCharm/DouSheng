@@ -1,15 +1,18 @@
 package ostg
 
 import (
-	"context"
-	"github.com/CharmingCharm/DouSheng/pkg/constants"
 	"mime/multipart"
+
+	"github.com/CharmingCharm/DouSheng/pkg/constants"
+	"github.com/minio/minio-go"
+	"github.com/minio/minio-go/pkg/credentials"
 )
 
 var MinIOClient *minio.Client
 
 func Init() {
-	MinioClient, err = minio.New(constants.MinIOEndpoint, &minio.Options{
+	var err error
+	MinIOClient, err = minio.NewWithOptions(constants.MinIOEndpoint, &minio.Options{
 		Creds:  credentials.NewStaticV4(constants.MinIOId, constants.MinIOSecret, ""),
 		Secure: false,
 	})
@@ -24,7 +27,7 @@ func UploadVideo(objectName string, fileHeader *multipart.FileHeader) error {
 		return err
 	}
 	defer src.Close()
-	_, err = MinioClient.PutObject(context.TODO(), "video", objectName, src, -1, minio.PutObjectOptions{
+	_, err = MinIOClient.PutObject("video", objectName, src, -1, minio.PutObjectOptions{
 		ContentType: ""})
 	return err
 }

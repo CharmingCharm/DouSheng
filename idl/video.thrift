@@ -14,7 +14,7 @@ struct GetVideoListResponse {
 
 struct LoadVideosRequest {
     1:optional i64   last_time
-    2:optional i64   my_id
+    2:required i64   my_id
 }
 
 struct LoadVideosResponse {
@@ -35,7 +35,7 @@ struct PublishVideoResponse {
 
 struct GetPublishedVideosRequest {
     1:required i64  user_id
-    2:optional i64  my_id
+    2:required i64  my_id
 }
 
 struct GetPublishedVideosResponse {

@@ -7,6 +7,7 @@ import (
 	video "github.com/CharmingCharm/DouSheng/kitex_gen/video/videoservice"
 
 	"github.com/CharmingCharm/DouSheng/internal/video/db"
+	"github.com/CharmingCharm/DouSheng/internal/video/rpc"
 	"github.com/CharmingCharm/DouSheng/pkg/constants"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
@@ -24,6 +25,7 @@ func main() {
 	}
 
 	db.Init()
+	rpc.InitRPC()
 
 	svr := video.NewServer(
 		new(VideoServiceImpl),

@@ -3,6 +3,9 @@ package service
 import (
 	"context"
 
+	"github.com/CharmingCharm/DouSheng/internal/video/db"
+	"github.com/CharmingCharm/DouSheng/pkg/status"
+
 	"github.com/CharmingCharm/DouSheng/kitex_gen/video"
 )
 
@@ -17,9 +20,16 @@ func NewUpdateCommentCountService(ctx context.Context) *UpdateCommentCountServic
 
 // CreateUser create user info.
 func (s *UpdateCommentCountService) UpdateCommentCount(req *video.UpdateCommentCountRequest) error {
-	// db.VideoCommentCountAdd
-	// db.VideoCommentCountSubtract
-
-	// for v in videoList { rpc.user.GetUserInfo }
-	return nil
+	if req.ActionType == 1 {
+		err := db.VideoCommentCountAdd(req.VideoId)
+		if err != nil {
+			return err
+		}
+	} else if req.ActionType == 2 {
+		err := db.VideoCommentCountSubtract(req.VideoId)
+		if err != nil {
+			return err
+		}
+	}
+	return status.ParamErr
 }

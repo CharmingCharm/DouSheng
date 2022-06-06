@@ -3,7 +3,9 @@ package service
 import (
 	"context"
 
+	"github.com/CharmingCharm/DouSheng/internal/video/db"
 	"github.com/CharmingCharm/DouSheng/kitex_gen/video"
+	"github.com/CharmingCharm/DouSheng/pkg/status"
 )
 
 type UpdateFavoriteCountService struct {
@@ -17,9 +19,16 @@ func NewUpdateFavoriteCountService(ctx context.Context) *UpdateFavoriteCountServ
 
 // CreateUser create user info.
 func (s *UpdateFavoriteCountService) UpdateFavoriteCount(req *video.UpdateFavoriteCountRequest) error {
-	// db.VideoFavoriteCountAdd
-	// db.VideoFavoriteCountSubtract
-
-	// for v in videoList { rpc.user.GetUserInfo }
-	return nil
+	if req.ActionType == 1 {
+		err := db.VideoFavoriteCountAdd(req.VideoId)
+		if err != nil {
+			return err
+		}
+	} else if req.ActionType == 2 {
+		err := db.VideoFavoriteCountSubtract(req.VideoId)
+		if err != nil {
+			return err
+		}
+	}
+	return status.ParamErr
 }

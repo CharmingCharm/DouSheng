@@ -2,6 +2,11 @@ package service
 
 import (
 	"context"
+
+	"github.com/CharmingCharm/DouSheng/pkg/constants"
+
+	"github.com/CharmingCharm/DouSheng/internal/video/db"
+
 	"github.com/CharmingCharm/DouSheng/kitex_gen/video"
 )
 
@@ -17,7 +22,10 @@ func NewPublishVideoService(ctx context.Context) *PublishVideoService {
 // CreateUser create user info.
 func (s *PublishVideoService) PublishVideo(req *video.PublishVideoRequest) error {
 	// TODO
-	// db.CreateVideo
+	err := db.CreateVideo(s.ctx, req.MyId, req.DataUrl, constants.DefaultCoverUrl, req.Title)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

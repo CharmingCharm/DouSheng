@@ -9,18 +9,20 @@ const (
 	SuccessCode             = 0
 	ServiceErrCode          = 10001
 	ParamErrCode            = 10002
-	LoginErrCode            = 10003
-	RegisterErrCode         = 10004
-	UserNotExistErrCode     = 10005
-	UserAlreadyExistErrCode = 10006
-	ActionTypeErrCode       = 10007
-	TokenErrCode            = 10008
+	ParamControdictErrCode  = 10003
+	LoginErrCode            = 10004
+	RegisterErrCode         = 10005
+	UserNotExistErrCode     = 10006
+	UserAlreadyExistErrCode = 10007
+	ActionTypeErrCode       = 10008
+	TokenErrCode            = 10009
 )
 
 const (
 	SuccessMsg             = "Success"
 	ServiceErrMsg          = "Service is unable to start successfully"
 	ParamErrMsg            = "Wrong Parameter has been given"
+	ParamControdictErrMsg  = "Contradictory input parameters in record"
 	LoginErrMsg            = "Wrong username or password"
 	RegisterErrMsg         = "Register Error"
 	UserNotExistErrMsg     = "User does not exists"
@@ -51,6 +53,7 @@ var (
 	Success             = NewStatus(SuccessCode, SuccessMsg)
 	ServiceErr          = NewStatus(ServiceErrCode, ServiceErrMsg)
 	ParamErr            = NewStatus(ParamErrCode, ParamErrMsg)
+	ParamControdictErr  = NewStatus(ParamControdictErrCode, ParamControdictErrMsg)
 	LoginErr            = NewStatus(LoginErrCode, LoginErrMsg)
 	RegisterErr         = NewStatus(RegisterErrCode, RegisterErrMsg)
 	UserNotExistErr     = NewStatus(UserNotExistErrCode, UserNotExistErrMsg)

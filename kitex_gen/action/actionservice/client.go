@@ -14,11 +14,12 @@ type Client interface {
 	UpdateFavorite(ctx context.Context, req *action.UpdateFavoriteRequest, callOptions ...callopt.Option) (r *action.UpdateFavoriteResponse, err error)
 	GetFavoriteVideos(ctx context.Context, req *action.GetFavoriteVideosRequest, callOptions ...callopt.Option) (r *action.GetFavoriteVideosResponse, err error)
 	UpdateComment(ctx context.Context, req *action.UpdateCommentRequest, callOptions ...callopt.Option) (r *action.UpdateCommentResponse, err error)
-	GetCommentLists(ctx context.Context, req *action.GetCommentListsRequest, callOptions ...callopt.Option) (r *action.GetCommentListsResponse, err error)
+	GetCommentList(ctx context.Context, req *action.GetCommentListRequest, callOptions ...callopt.Option) (r *action.GetCommentListResponse, err error)
 	UpdateRelationship(ctx context.Context, req *action.UpdateRelationshipRequest, callOptions ...callopt.Option) (r *action.UpdateRelationshipResponse, err error)
 	GetUserFollowList(ctx context.Context, req *action.GetUserFollowListRequest, callOptions ...callopt.Option) (r *action.GetUserFollowListResponse, err error)
 	GetUserFollowerList(ctx context.Context, req *action.GetUserFollowerListRequest, callOptions ...callopt.Option) (r *action.GetUserFollowerListResponse, err error)
 	CheckRelation(ctx context.Context, req *action.CheckRelationRequest, callOptions ...callopt.Option) (r *action.CheckRelationResponse, err error)
+	CheckFavorite(ctx context.Context, req *action.CheckFavoriteRequest, callOptions ...callopt.Option) (r *action.CheckFavoriteResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -65,9 +66,9 @@ func (p *kActionServiceClient) UpdateComment(ctx context.Context, req *action.Up
 	return p.kClient.UpdateComment(ctx, req)
 }
 
-func (p *kActionServiceClient) GetCommentLists(ctx context.Context, req *action.GetCommentListsRequest, callOptions ...callopt.Option) (r *action.GetCommentListsResponse, err error) {
+func (p *kActionServiceClient) GetCommentList(ctx context.Context, req *action.GetCommentListRequest, callOptions ...callopt.Option) (r *action.GetCommentListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetCommentLists(ctx, req)
+	return p.kClient.GetCommentList(ctx, req)
 }
 
 func (p *kActionServiceClient) UpdateRelationship(ctx context.Context, req *action.UpdateRelationshipRequest, callOptions ...callopt.Option) (r *action.UpdateRelationshipResponse, err error) {
@@ -88,4 +89,9 @@ func (p *kActionServiceClient) GetUserFollowerList(ctx context.Context, req *act
 func (p *kActionServiceClient) CheckRelation(ctx context.Context, req *action.CheckRelationRequest, callOptions ...callopt.Option) (r *action.CheckRelationResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.CheckRelation(ctx, req)
+}
+
+func (p *kActionServiceClient) CheckFavorite(ctx context.Context, req *action.CheckFavoriteRequest, callOptions ...callopt.Option) (r *action.CheckFavoriteResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CheckFavorite(ctx, req)
 }

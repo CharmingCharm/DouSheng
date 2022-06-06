@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+	"fmt"
 	"strconv"
 
 	"github.com/CharmingCharm/DouSheng/internal/api/rpc"
@@ -191,9 +192,6 @@ func UserInfo(c *gin.Context) {
 	}
 
 	myId := claims.Id
-	if myId == uId {
-		myId = -1
-	}
 
 	resp, err := rpc.GetUserInfo(context.Background(), &user.GetUserInfoRequest{
 		UserId: uId,
@@ -210,5 +208,6 @@ func UserInfo(c *gin.Context) {
 		return
 	}
 	res.User = *resp.User
+	fmt.Println(*resp.BaseResp)
 	send.SendResp(c, *resp.BaseResp, &res)
 }

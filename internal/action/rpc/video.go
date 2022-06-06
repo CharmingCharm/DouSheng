@@ -41,24 +41,6 @@ func GetVideoList(ctx context.Context, req *video.GetVideoListRequest) (*video.G
 	return resp, err
 }
 
-func LoadVideos(ctx context.Context, req *video.LoadVideosRequest) (*video.LoadVideosResponse, error) {
-	// TODO
-	resp, err := videoClient.LoadVideos(ctx, req)
-	return resp, err
-}
-
-func PublishVideo(ctx context.Context, req *video.PublishVideoRequest) (*video.PublishVideoResponse, error) {
-	// TODO
-	resp, err := videoClient.PublishVideo(ctx, req)
-	return resp, err
-}
-
-func GetPublishedVideos(ctx context.Context, req *video.GetPublishedVideosRequest) (*video.GetPublishedVideosResponse, error) {
-	// TODO
-	resp, err := videoClient.GetPublishedVideos(ctx, req)
-	return resp, err
-}
-
 func UpdateFavoriteCount(ctx context.Context, req *video.UpdateFavoriteCountRequest) (*video.UpdateFavoriteCountResponse, error) {
 	// TODO
 	resp, err := videoClient.UpdateFavoriteCount(ctx, req)

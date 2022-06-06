@@ -34,13 +34,13 @@ struct UpdateCommentResponse {
     1:required base.BaseResp base_resp
 }
 
-struct GetCommentListsRequest {
+struct GetCommentListRequest {
     1:required i64  user_id
     2:required i64  my_id
     3:required i64  video_id
 }
 
-struct GetCommentListsResponse {
+struct GetCommentListResponse {
     1:required base.BaseResp     base_resp
     2:required list<base.Comment>  comment_list
 }
@@ -77,7 +77,7 @@ struct GetUserFollowerListResponse {
 
 struct CheckRelationRequest {
     1:required i64 my_id
-    2:required i64 u_id
+    2:required i64 user_id
 }
 
 struct CheckRelationResponse {
@@ -85,13 +85,24 @@ struct CheckRelationResponse {
     2:required bool     is_follow
 }
 
+struct CheckFavoriteRequest {
+    1:required i64 my_id
+    2:required i64 video_id
+}
+
+struct CheckFavoriteResponse {
+    1:required base.BaseResp base_resp
+    2:required bool     is_favorite
+}
+
 service ActionService {
     UpdateFavoriteResponse UpdateFavorite(UpdateFavoriteRequest req)
     GetFavoriteVideosResponse GetFavoriteVideos(GetFavoriteVideosRequest req)
     UpdateCommentResponse UpdateComment(UpdateCommentRequest req)
-    GetCommentListsResponse GetCommentLists(GetCommentListsRequest req)
+    GetCommentListResponse GetCommentList(GetCommentListRequest req)
     UpdateRelationshipResponse UpdateRelationship(UpdateRelationshipRequest req)
     GetUserFollowListResponse GetUserFollowList(GetUserFollowListRequest req)
     GetUserFollowerListResponse GetUserFollowerList(GetUserFollowerListRequest req)
     CheckRelationResponse CheckRelation(CheckRelationRequest req)
+    CheckFavoriteResponse CheckFavorite(CheckFavoriteRequest req)
 }

@@ -22,11 +22,12 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"UpdateFavorite":      kitex.NewMethodInfo(updateFavoriteHandler, newActionServiceUpdateFavoriteArgs, newActionServiceUpdateFavoriteResult, false),
 		"GetFavoriteVideos":   kitex.NewMethodInfo(getFavoriteVideosHandler, newActionServiceGetFavoriteVideosArgs, newActionServiceGetFavoriteVideosResult, false),
 		"UpdateComment":       kitex.NewMethodInfo(updateCommentHandler, newActionServiceUpdateCommentArgs, newActionServiceUpdateCommentResult, false),
-		"GetCommentLists":     kitex.NewMethodInfo(getCommentListsHandler, newActionServiceGetCommentListsArgs, newActionServiceGetCommentListsResult, false),
+		"GetCommentList":      kitex.NewMethodInfo(getCommentListHandler, newActionServiceGetCommentListArgs, newActionServiceGetCommentListResult, false),
 		"UpdateRelationship":  kitex.NewMethodInfo(updateRelationshipHandler, newActionServiceUpdateRelationshipArgs, newActionServiceUpdateRelationshipResult, false),
 		"GetUserFollowList":   kitex.NewMethodInfo(getUserFollowListHandler, newActionServiceGetUserFollowListArgs, newActionServiceGetUserFollowListResult, false),
 		"GetUserFollowerList": kitex.NewMethodInfo(getUserFollowerListHandler, newActionServiceGetUserFollowerListArgs, newActionServiceGetUserFollowerListResult, false),
 		"CheckRelation":       kitex.NewMethodInfo(checkRelationHandler, newActionServiceCheckRelationArgs, newActionServiceCheckRelationResult, false),
+		"CheckFavorite":       kitex.NewMethodInfo(checkFavoriteHandler, newActionServiceCheckFavoriteArgs, newActionServiceCheckFavoriteResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "action",
@@ -96,22 +97,22 @@ func newActionServiceUpdateCommentResult() interface{} {
 	return action.NewActionServiceUpdateCommentResult()
 }
 
-func getCommentListsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*action.ActionServiceGetCommentListsArgs)
-	realResult := result.(*action.ActionServiceGetCommentListsResult)
-	success, err := handler.(action.ActionService).GetCommentLists(ctx, realArg.Req)
+func getCommentListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*action.ActionServiceGetCommentListArgs)
+	realResult := result.(*action.ActionServiceGetCommentListResult)
+	success, err := handler.(action.ActionService).GetCommentList(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newActionServiceGetCommentListsArgs() interface{} {
-	return action.NewActionServiceGetCommentListsArgs()
+func newActionServiceGetCommentListArgs() interface{} {
+	return action.NewActionServiceGetCommentListArgs()
 }
 
-func newActionServiceGetCommentListsResult() interface{} {
-	return action.NewActionServiceGetCommentListsResult()
+func newActionServiceGetCommentListResult() interface{} {
+	return action.NewActionServiceGetCommentListResult()
 }
 
 func updateRelationshipHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -186,6 +187,24 @@ func newActionServiceCheckRelationResult() interface{} {
 	return action.NewActionServiceCheckRelationResult()
 }
 
+func checkFavoriteHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*action.ActionServiceCheckFavoriteArgs)
+	realResult := result.(*action.ActionServiceCheckFavoriteResult)
+	success, err := handler.(action.ActionService).CheckFavorite(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newActionServiceCheckFavoriteArgs() interface{} {
+	return action.NewActionServiceCheckFavoriteArgs()
+}
+
+func newActionServiceCheckFavoriteResult() interface{} {
+	return action.NewActionServiceCheckFavoriteResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -226,11 +245,11 @@ func (p *kClient) UpdateComment(ctx context.Context, req *action.UpdateCommentRe
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetCommentLists(ctx context.Context, req *action.GetCommentListsRequest) (r *action.GetCommentListsResponse, err error) {
-	var _args action.ActionServiceGetCommentListsArgs
+func (p *kClient) GetCommentList(ctx context.Context, req *action.GetCommentListRequest) (r *action.GetCommentListResponse, err error) {
+	var _args action.ActionServiceGetCommentListArgs
 	_args.Req = req
-	var _result action.ActionServiceGetCommentListsResult
-	if err = p.c.Call(ctx, "GetCommentLists", &_args, &_result); err != nil {
+	var _result action.ActionServiceGetCommentListResult
+	if err = p.c.Call(ctx, "GetCommentList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -271,6 +290,16 @@ func (p *kClient) CheckRelation(ctx context.Context, req *action.CheckRelationRe
 	_args.Req = req
 	var _result action.ActionServiceCheckRelationResult
 	if err = p.c.Call(ctx, "CheckRelation", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CheckFavorite(ctx context.Context, req *action.CheckFavoriteRequest) (r *action.CheckFavoriteResponse, err error) {
+	var _args action.ActionServiceCheckFavoriteArgs
+	_args.Req = req
+	var _result action.ActionServiceCheckFavoriteResult
+	if err = p.c.Call(ctx, "CheckFavorite", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

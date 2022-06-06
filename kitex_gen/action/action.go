@@ -5,9 +5,10 @@ package action
 import (
 	"context"
 	"fmt"
+	"strings"
+
 	"github.com/CharmingCharm/DouSheng/kitex_gen/base"
 	"github.com/apache/thrift/lib/go/thrift"
-	"strings"
 )
 
 type UpdateFavoriteRequest struct {
@@ -1613,44 +1614,44 @@ func (p *UpdateCommentResponse) Field1DeepEqual(src *base.BaseResp) bool {
 	return true
 }
 
-type GetCommentListsRequest struct {
+type GetCommentListRequest struct {
 	UserId  int64 `thrift:"user_id,1,required" json:"user_id"`
 	MyId    int64 `thrift:"my_id,2,required" json:"my_id"`
 	VideoId int64 `thrift:"video_id,3,required" json:"video_id"`
 }
 
-func NewGetCommentListsRequest() *GetCommentListsRequest {
-	return &GetCommentListsRequest{}
+func NewGetCommentListRequest() *GetCommentListRequest {
+	return &GetCommentListRequest{}
 }
 
-func (p *GetCommentListsRequest) GetUserId() (v int64) {
+func (p *GetCommentListRequest) GetUserId() (v int64) {
 	return p.UserId
 }
 
-func (p *GetCommentListsRequest) GetMyId() (v int64) {
+func (p *GetCommentListRequest) GetMyId() (v int64) {
 	return p.MyId
 }
 
-func (p *GetCommentListsRequest) GetVideoId() (v int64) {
+func (p *GetCommentListRequest) GetVideoId() (v int64) {
 	return p.VideoId
 }
-func (p *GetCommentListsRequest) SetUserId(val int64) {
+func (p *GetCommentListRequest) SetUserId(val int64) {
 	p.UserId = val
 }
-func (p *GetCommentListsRequest) SetMyId(val int64) {
+func (p *GetCommentListRequest) SetMyId(val int64) {
 	p.MyId = val
 }
-func (p *GetCommentListsRequest) SetVideoId(val int64) {
+func (p *GetCommentListRequest) SetVideoId(val int64) {
 	p.VideoId = val
 }
 
-var fieldIDToName_GetCommentListsRequest = map[int16]string{
+var fieldIDToName_GetCommentListRequest = map[int16]string{
 	1: "user_id",
 	2: "my_id",
 	3: "video_id",
 }
 
-func (p *GetCommentListsRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *GetCommentListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -1739,7 +1740,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetCommentListsRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetCommentListRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -1748,10 +1749,10 @@ ReadFieldEndError:
 ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 RequiredFieldNotSetError:
-	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_GetCommentListsRequest[fieldId]))
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_GetCommentListRequest[fieldId]))
 }
 
-func (p *GetCommentListsRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *GetCommentListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -1760,7 +1761,7 @@ func (p *GetCommentListsRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *GetCommentListsRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *GetCommentListRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -1769,7 +1770,7 @@ func (p *GetCommentListsRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *GetCommentListsRequest) ReadField3(iprot thrift.TProtocol) error {
+func (p *GetCommentListRequest) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -1778,9 +1779,9 @@ func (p *GetCommentListsRequest) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *GetCommentListsRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *GetCommentListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("GetCommentListsRequest"); err != nil {
+	if err = oprot.WriteStructBegin("GetCommentListRequest"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1815,7 +1816,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *GetCommentListsRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *GetCommentListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1832,7 +1833,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *GetCommentListsRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *GetCommentListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("my_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1849,7 +1850,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *GetCommentListsRequest) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *GetCommentListRequest) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_id", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1866,14 +1867,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *GetCommentListsRequest) String() string {
+func (p *GetCommentListRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("GetCommentListsRequest(%+v)", *p)
+	return fmt.Sprintf("GetCommentListRequest(%+v)", *p)
 }
 
-func (p *GetCommentListsRequest) DeepEqual(ano *GetCommentListsRequest) bool {
+func (p *GetCommentListRequest) DeepEqual(ano *GetCommentListRequest) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -1891,21 +1892,21 @@ func (p *GetCommentListsRequest) DeepEqual(ano *GetCommentListsRequest) bool {
 	return true
 }
 
-func (p *GetCommentListsRequest) Field1DeepEqual(src int64) bool {
+func (p *GetCommentListRequest) Field1DeepEqual(src int64) bool {
 
 	if p.UserId != src {
 		return false
 	}
 	return true
 }
-func (p *GetCommentListsRequest) Field2DeepEqual(src int64) bool {
+func (p *GetCommentListRequest) Field2DeepEqual(src int64) bool {
 
 	if p.MyId != src {
 		return false
 	}
 	return true
 }
-func (p *GetCommentListsRequest) Field3DeepEqual(src int64) bool {
+func (p *GetCommentListRequest) Field3DeepEqual(src int64) bool {
 
 	if p.VideoId != src {
 		return false
@@ -1913,44 +1914,44 @@ func (p *GetCommentListsRequest) Field3DeepEqual(src int64) bool {
 	return true
 }
 
-type GetCommentListsResponse struct {
+type GetCommentListResponse struct {
 	BaseResp    *base.BaseResp  `thrift:"base_resp,1,required" json:"base_resp"`
 	CommentList []*base.Comment `thrift:"comment_list,2,required" json:"comment_list"`
 }
 
-func NewGetCommentListsResponse() *GetCommentListsResponse {
-	return &GetCommentListsResponse{}
+func NewGetCommentListResponse() *GetCommentListResponse {
+	return &GetCommentListResponse{}
 }
 
-var GetCommentListsResponse_BaseResp_DEFAULT *base.BaseResp
+var GetCommentListResponse_BaseResp_DEFAULT *base.BaseResp
 
-func (p *GetCommentListsResponse) GetBaseResp() (v *base.BaseResp) {
+func (p *GetCommentListResponse) GetBaseResp() (v *base.BaseResp) {
 	if !p.IsSetBaseResp() {
-		return GetCommentListsResponse_BaseResp_DEFAULT
+		return GetCommentListResponse_BaseResp_DEFAULT
 	}
 	return p.BaseResp
 }
 
-func (p *GetCommentListsResponse) GetCommentList() (v []*base.Comment) {
+func (p *GetCommentListResponse) GetCommentList() (v []*base.Comment) {
 	return p.CommentList
 }
-func (p *GetCommentListsResponse) SetBaseResp(val *base.BaseResp) {
+func (p *GetCommentListResponse) SetBaseResp(val *base.BaseResp) {
 	p.BaseResp = val
 }
-func (p *GetCommentListsResponse) SetCommentList(val []*base.Comment) {
+func (p *GetCommentListResponse) SetCommentList(val []*base.Comment) {
 	p.CommentList = val
 }
 
-var fieldIDToName_GetCommentListsResponse = map[int16]string{
+var fieldIDToName_GetCommentListResponse = map[int16]string{
 	1: "base_resp",
 	2: "comment_list",
 }
 
-func (p *GetCommentListsResponse) IsSetBaseResp() bool {
+func (p *GetCommentListResponse) IsSetBaseResp() bool {
 	return p.BaseResp != nil
 }
 
-func (p *GetCommentListsResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *GetCommentListResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2022,7 +2023,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetCommentListsResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetCommentListResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2031,10 +2032,10 @@ ReadFieldEndError:
 ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 RequiredFieldNotSetError:
-	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_GetCommentListsResponse[fieldId]))
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_GetCommentListResponse[fieldId]))
 }
 
-func (p *GetCommentListsResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *GetCommentListResponse) ReadField1(iprot thrift.TProtocol) error {
 	p.BaseResp = base.NewBaseResp()
 	if err := p.BaseResp.Read(iprot); err != nil {
 		return err
@@ -2042,7 +2043,7 @@ func (p *GetCommentListsResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *GetCommentListsResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *GetCommentListResponse) ReadField2(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -2062,9 +2063,9 @@ func (p *GetCommentListsResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *GetCommentListsResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *GetCommentListResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("GetCommentListsResponse"); err != nil {
+	if err = oprot.WriteStructBegin("GetCommentListResponse"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2095,7 +2096,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *GetCommentListsResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *GetCommentListResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2112,7 +2113,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *GetCommentListsResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *GetCommentListResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("comment_list", thrift.LIST, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2137,14 +2138,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *GetCommentListsResponse) String() string {
+func (p *GetCommentListResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("GetCommentListsResponse(%+v)", *p)
+	return fmt.Sprintf("GetCommentListResponse(%+v)", *p)
 }
 
-func (p *GetCommentListsResponse) DeepEqual(ano *GetCommentListsResponse) bool {
+func (p *GetCommentListResponse) DeepEqual(ano *GetCommentListResponse) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -2159,14 +2160,14 @@ func (p *GetCommentListsResponse) DeepEqual(ano *GetCommentListsResponse) bool {
 	return true
 }
 
-func (p *GetCommentListsResponse) Field1DeepEqual(src *base.BaseResp) bool {
+func (p *GetCommentListResponse) Field1DeepEqual(src *base.BaseResp) bool {
 
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *GetCommentListsResponse) Field2DeepEqual(src []*base.Comment) bool {
+func (p *GetCommentListResponse) Field2DeepEqual(src []*base.Comment) bool {
 
 	if len(p.CommentList) != len(src) {
 		return false
@@ -3659,8 +3660,8 @@ func (p *GetUserFollowerListResponse) Field2DeepEqual(src []*base.User) bool {
 }
 
 type CheckRelationRequest struct {
-	MyId int64 `thrift:"my_id,1,required" json:"my_id"`
-	UId  int64 `thrift:"u_id,2,required" json:"u_id"`
+	MyId   int64 `thrift:"my_id,1,required" json:"my_id"`
+	UserId int64 `thrift:"user_id,2,required" json:"user_id"`
 }
 
 func NewCheckRelationRequest() *CheckRelationRequest {
@@ -3671,19 +3672,19 @@ func (p *CheckRelationRequest) GetMyId() (v int64) {
 	return p.MyId
 }
 
-func (p *CheckRelationRequest) GetUId() (v int64) {
-	return p.UId
+func (p *CheckRelationRequest) GetUserId() (v int64) {
+	return p.UserId
 }
 func (p *CheckRelationRequest) SetMyId(val int64) {
 	p.MyId = val
 }
-func (p *CheckRelationRequest) SetUId(val int64) {
-	p.UId = val
+func (p *CheckRelationRequest) SetUserId(val int64) {
+	p.UserId = val
 }
 
 var fieldIDToName_CheckRelationRequest = map[int16]string{
 	1: "my_id",
-	2: "u_id",
+	2: "user_id",
 }
 
 func (p *CheckRelationRequest) Read(iprot thrift.TProtocol) (err error) {
@@ -3691,7 +3692,7 @@ func (p *CheckRelationRequest) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetMyId bool = false
-	var issetUId bool = false
+	var issetUserId bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -3723,7 +3724,7 @@ func (p *CheckRelationRequest) Read(iprot thrift.TProtocol) (err error) {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
-				issetUId = true
+				issetUserId = true
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -3748,7 +3749,7 @@ func (p *CheckRelationRequest) Read(iprot thrift.TProtocol) (err error) {
 		goto RequiredFieldNotSetError
 	}
 
-	if !issetUId {
+	if !issetUserId {
 		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
@@ -3783,7 +3784,7 @@ func (p *CheckRelationRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
-		p.UId = v
+		p.UserId = v
 	}
 	return nil
 }
@@ -3839,10 +3840,10 @@ WriteFieldEndError:
 }
 
 func (p *CheckRelationRequest) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("u_id", thrift.I64, 2); err != nil {
+	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.UId); err != nil {
+	if err := oprot.WriteI64(p.UserId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3871,7 +3872,7 @@ func (p *CheckRelationRequest) DeepEqual(ano *CheckRelationRequest) bool {
 	if !p.Field1DeepEqual(ano.MyId) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.UId) {
+	if !p.Field2DeepEqual(ano.UserId) {
 		return false
 	}
 	return true
@@ -3886,7 +3887,7 @@ func (p *CheckRelationRequest) Field1DeepEqual(src int64) bool {
 }
 func (p *CheckRelationRequest) Field2DeepEqual(src int64) bool {
 
-	if p.UId != src {
+	if p.UserId != src {
 		return false
 	}
 	return true
@@ -4134,6 +4135,482 @@ func (p *CheckRelationResponse) Field2DeepEqual(src bool) bool {
 	return true
 }
 
+type CheckFavoriteRequest struct {
+	MyId    int64 `thrift:"my_id,1,required" json:"my_id"`
+	VideoId int64 `thrift:"video_id,2,required" json:"video_id"`
+}
+
+func NewCheckFavoriteRequest() *CheckFavoriteRequest {
+	return &CheckFavoriteRequest{}
+}
+
+func (p *CheckFavoriteRequest) GetMyId() (v int64) {
+	return p.MyId
+}
+
+func (p *CheckFavoriteRequest) GetVideoId() (v int64) {
+	return p.VideoId
+}
+func (p *CheckFavoriteRequest) SetMyId(val int64) {
+	p.MyId = val
+}
+func (p *CheckFavoriteRequest) SetVideoId(val int64) {
+	p.VideoId = val
+}
+
+var fieldIDToName_CheckFavoriteRequest = map[int16]string{
+	1: "my_id",
+	2: "video_id",
+}
+
+func (p *CheckFavoriteRequest) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+	var issetMyId bool = false
+	var issetVideoId bool = false
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetMyId = true
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetVideoId = true
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	if !issetMyId {
+		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetVideoId {
+		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CheckFavoriteRequest[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+RequiredFieldNotSetError:
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_CheckFavoriteRequest[fieldId]))
+}
+
+func (p *CheckFavoriteRequest) ReadField1(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.MyId = v
+	}
+	return nil
+}
+
+func (p *CheckFavoriteRequest) ReadField2(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.VideoId = v
+	}
+	return nil
+}
+
+func (p *CheckFavoriteRequest) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CheckFavoriteRequest"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CheckFavoriteRequest) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("my_id", thrift.I64, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.MyId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CheckFavoriteRequest) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("video_id", thrift.I64, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.VideoId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *CheckFavoriteRequest) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CheckFavoriteRequest(%+v)", *p)
+}
+
+func (p *CheckFavoriteRequest) DeepEqual(ano *CheckFavoriteRequest) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.MyId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.VideoId) {
+		return false
+	}
+	return true
+}
+
+func (p *CheckFavoriteRequest) Field1DeepEqual(src int64) bool {
+
+	if p.MyId != src {
+		return false
+	}
+	return true
+}
+func (p *CheckFavoriteRequest) Field2DeepEqual(src int64) bool {
+
+	if p.VideoId != src {
+		return false
+	}
+	return true
+}
+
+type CheckFavoriteResponse struct {
+	BaseResp   *base.BaseResp `thrift:"base_resp,1,required" json:"base_resp"`
+	IsFavorite bool           `thrift:"is_favorite,2,required" json:"is_favorite"`
+}
+
+func NewCheckFavoriteResponse() *CheckFavoriteResponse {
+	return &CheckFavoriteResponse{}
+}
+
+var CheckFavoriteResponse_BaseResp_DEFAULT *base.BaseResp
+
+func (p *CheckFavoriteResponse) GetBaseResp() (v *base.BaseResp) {
+	if !p.IsSetBaseResp() {
+		return CheckFavoriteResponse_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+
+func (p *CheckFavoriteResponse) GetIsFavorite() (v bool) {
+	return p.IsFavorite
+}
+func (p *CheckFavoriteResponse) SetBaseResp(val *base.BaseResp) {
+	p.BaseResp = val
+}
+func (p *CheckFavoriteResponse) SetIsFavorite(val bool) {
+	p.IsFavorite = val
+}
+
+var fieldIDToName_CheckFavoriteResponse = map[int16]string{
+	1: "base_resp",
+	2: "is_favorite",
+}
+
+func (p *CheckFavoriteResponse) IsSetBaseResp() bool {
+	return p.BaseResp != nil
+}
+
+func (p *CheckFavoriteResponse) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+	var issetBaseResp bool = false
+	var issetIsFavorite bool = false
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetBaseResp = true
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetIsFavorite = true
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	if !issetBaseResp {
+		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetIsFavorite {
+		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CheckFavoriteResponse[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+RequiredFieldNotSetError:
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_CheckFavoriteResponse[fieldId]))
+}
+
+func (p *CheckFavoriteResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewBaseResp()
+	if err := p.BaseResp.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *CheckFavoriteResponse) ReadField2(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		p.IsFavorite = v
+	}
+	return nil
+}
+
+func (p *CheckFavoriteResponse) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CheckFavoriteResponse"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CheckFavoriteResponse) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.BaseResp.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CheckFavoriteResponse) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_favorite", thrift.BOOL, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.IsFavorite); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *CheckFavoriteResponse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CheckFavoriteResponse(%+v)", *p)
+}
+
+func (p *CheckFavoriteResponse) DeepEqual(ano *CheckFavoriteResponse) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.BaseResp) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.IsFavorite) {
+		return false
+	}
+	return true
+}
+
+func (p *CheckFavoriteResponse) Field1DeepEqual(src *base.BaseResp) bool {
+
+	if !p.BaseResp.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *CheckFavoriteResponse) Field2DeepEqual(src bool) bool {
+
+	if p.IsFavorite != src {
+		return false
+	}
+	return true
+}
+
 type ActionService interface {
 	UpdateFavorite(ctx context.Context, req *UpdateFavoriteRequest) (r *UpdateFavoriteResponse, err error)
 
@@ -4141,7 +4618,7 @@ type ActionService interface {
 
 	UpdateComment(ctx context.Context, req *UpdateCommentRequest) (r *UpdateCommentResponse, err error)
 
-	GetCommentLists(ctx context.Context, req *GetCommentListsRequest) (r *GetCommentListsResponse, err error)
+	GetCommentList(ctx context.Context, req *GetCommentListRequest) (r *GetCommentListResponse, err error)
 
 	UpdateRelationship(ctx context.Context, req *UpdateRelationshipRequest) (r *UpdateRelationshipResponse, err error)
 
@@ -4150,6 +4627,8 @@ type ActionService interface {
 	GetUserFollowerList(ctx context.Context, req *GetUserFollowerListRequest) (r *GetUserFollowerListResponse, err error)
 
 	CheckRelation(ctx context.Context, req *CheckRelationRequest) (r *CheckRelationResponse, err error)
+
+	CheckFavorite(ctx context.Context, req *CheckFavoriteRequest) (r *CheckFavoriteResponse, err error)
 }
 
 type ActionServiceClient struct {
@@ -4208,11 +4687,11 @@ func (p *ActionServiceClient) UpdateComment(ctx context.Context, req *UpdateComm
 	return _result.GetSuccess(), nil
 }
 
-func (p *ActionServiceClient) GetCommentLists(ctx context.Context, req *GetCommentListsRequest) (r *GetCommentListsResponse, err error) {
-	var _args ActionServiceGetCommentListsArgs
+func (p *ActionServiceClient) GetCommentList(ctx context.Context, req *GetCommentListRequest) (r *GetCommentListResponse, err error) {
+	var _args ActionServiceGetCommentListArgs
 	_args.Req = req
-	var _result ActionServiceGetCommentListsResult
-	if err = p.Client_().Call(ctx, "GetCommentLists", &_args, &_result); err != nil {
+	var _result ActionServiceGetCommentListResult
+	if err = p.Client_().Call(ctx, "GetCommentList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -4258,6 +4737,16 @@ func (p *ActionServiceClient) CheckRelation(ctx context.Context, req *CheckRelat
 	return _result.GetSuccess(), nil
 }
 
+func (p *ActionServiceClient) CheckFavorite(ctx context.Context, req *CheckFavoriteRequest) (r *CheckFavoriteResponse, err error) {
+	var _args ActionServiceCheckFavoriteArgs
+	_args.Req = req
+	var _result ActionServiceCheckFavoriteResult
+	if err = p.Client_().Call(ctx, "CheckFavorite", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
 type ActionServiceProcessor struct {
 	processorMap map[string]thrift.TProcessorFunction
 	handler      ActionService
@@ -4281,11 +4770,12 @@ func NewActionServiceProcessor(handler ActionService) *ActionServiceProcessor {
 	self.AddToProcessorMap("UpdateFavorite", &actionServiceProcessorUpdateFavorite{handler: handler})
 	self.AddToProcessorMap("GetFavoriteVideos", &actionServiceProcessorGetFavoriteVideos{handler: handler})
 	self.AddToProcessorMap("UpdateComment", &actionServiceProcessorUpdateComment{handler: handler})
-	self.AddToProcessorMap("GetCommentLists", &actionServiceProcessorGetCommentLists{handler: handler})
+	self.AddToProcessorMap("GetCommentList", &actionServiceProcessorGetCommentList{handler: handler})
 	self.AddToProcessorMap("UpdateRelationship", &actionServiceProcessorUpdateRelationship{handler: handler})
 	self.AddToProcessorMap("GetUserFollowList", &actionServiceProcessorGetUserFollowList{handler: handler})
 	self.AddToProcessorMap("GetUserFollowerList", &actionServiceProcessorGetUserFollowerList{handler: handler})
 	self.AddToProcessorMap("CheckRelation", &actionServiceProcessorCheckRelation{handler: handler})
+	self.AddToProcessorMap("CheckFavorite", &actionServiceProcessorCheckFavorite{handler: handler})
 	return self
 }
 func (p *ActionServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -4450,16 +4940,16 @@ func (p *actionServiceProcessorUpdateComment) Process(ctx context.Context, seqId
 	return true, err
 }
 
-type actionServiceProcessorGetCommentLists struct {
+type actionServiceProcessorGetCommentList struct {
 	handler ActionService
 }
 
-func (p *actionServiceProcessorGetCommentLists) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := ActionServiceGetCommentListsArgs{}
+func (p *actionServiceProcessorGetCommentList) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ActionServiceGetCommentListArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("GetCommentLists", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("GetCommentList", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -4468,11 +4958,11 @@ func (p *actionServiceProcessorGetCommentLists) Process(ctx context.Context, seq
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := ActionServiceGetCommentListsResult{}
-	var retval *GetCommentListsResponse
-	if retval, err2 = p.handler.GetCommentLists(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCommentLists: "+err2.Error())
-		oprot.WriteMessageBegin("GetCommentLists", thrift.EXCEPTION, seqId)
+	result := ActionServiceGetCommentListResult{}
+	var retval *GetCommentListResponse
+	if retval, err2 = p.handler.GetCommentList(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCommentList: "+err2.Error())
+		oprot.WriteMessageBegin("GetCommentList", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -4480,7 +4970,7 @@ func (p *actionServiceProcessorGetCommentLists) Process(ctx context.Context, seq
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("GetCommentLists", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("GetCommentList", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -4673,6 +5163,54 @@ func (p *actionServiceProcessorCheckRelation) Process(ctx context.Context, seqId
 		result.Success = retval
 	}
 	if err2 = oprot.WriteMessageBegin("CheckRelation", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type actionServiceProcessorCheckFavorite struct {
+	handler ActionService
+}
+
+func (p *actionServiceProcessorCheckFavorite) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ActionServiceCheckFavoriteArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("CheckFavorite", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := ActionServiceCheckFavoriteResult{}
+	var retval *CheckFavoriteResponse
+	if retval, err2 = p.handler.CheckFavorite(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing CheckFavorite: "+err2.Error())
+		oprot.WriteMessageBegin("CheckFavorite", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("CheckFavorite", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -5704,35 +6242,35 @@ func (p *ActionServiceUpdateCommentResult) Field0DeepEqual(src *UpdateCommentRes
 	return true
 }
 
-type ActionServiceGetCommentListsArgs struct {
-	Req *GetCommentListsRequest `thrift:"req,1" json:"req"`
+type ActionServiceGetCommentListArgs struct {
+	Req *GetCommentListRequest `thrift:"req,1" json:"req"`
 }
 
-func NewActionServiceGetCommentListsArgs() *ActionServiceGetCommentListsArgs {
-	return &ActionServiceGetCommentListsArgs{}
+func NewActionServiceGetCommentListArgs() *ActionServiceGetCommentListArgs {
+	return &ActionServiceGetCommentListArgs{}
 }
 
-var ActionServiceGetCommentListsArgs_Req_DEFAULT *GetCommentListsRequest
+var ActionServiceGetCommentListArgs_Req_DEFAULT *GetCommentListRequest
 
-func (p *ActionServiceGetCommentListsArgs) GetReq() (v *GetCommentListsRequest) {
+func (p *ActionServiceGetCommentListArgs) GetReq() (v *GetCommentListRequest) {
 	if !p.IsSetReq() {
-		return ActionServiceGetCommentListsArgs_Req_DEFAULT
+		return ActionServiceGetCommentListArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *ActionServiceGetCommentListsArgs) SetReq(val *GetCommentListsRequest) {
+func (p *ActionServiceGetCommentListArgs) SetReq(val *GetCommentListRequest) {
 	p.Req = val
 }
 
-var fieldIDToName_ActionServiceGetCommentListsArgs = map[int16]string{
+var fieldIDToName_ActionServiceGetCommentListArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *ActionServiceGetCommentListsArgs) IsSetReq() bool {
+func (p *ActionServiceGetCommentListArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *ActionServiceGetCommentListsArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ActionServiceGetCommentListArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -5781,7 +6319,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ActionServiceGetCommentListsArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ActionServiceGetCommentListArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -5791,17 +6329,17 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ActionServiceGetCommentListsArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewGetCommentListsRequest()
+func (p *ActionServiceGetCommentListArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewGetCommentListRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *ActionServiceGetCommentListsArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ActionServiceGetCommentListArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("GetCommentLists_args"); err != nil {
+	if err = oprot.WriteStructBegin("GetCommentList_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -5828,7 +6366,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *ActionServiceGetCommentListsArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ActionServiceGetCommentListArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5845,14 +6383,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *ActionServiceGetCommentListsArgs) String() string {
+func (p *ActionServiceGetCommentListArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("ActionServiceGetCommentListsArgs(%+v)", *p)
+	return fmt.Sprintf("ActionServiceGetCommentListArgs(%+v)", *p)
 }
 
-func (p *ActionServiceGetCommentListsArgs) DeepEqual(ano *ActionServiceGetCommentListsArgs) bool {
+func (p *ActionServiceGetCommentListArgs) DeepEqual(ano *ActionServiceGetCommentListArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -5864,7 +6402,7 @@ func (p *ActionServiceGetCommentListsArgs) DeepEqual(ano *ActionServiceGetCommen
 	return true
 }
 
-func (p *ActionServiceGetCommentListsArgs) Field1DeepEqual(src *GetCommentListsRequest) bool {
+func (p *ActionServiceGetCommentListArgs) Field1DeepEqual(src *GetCommentListRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -5872,35 +6410,35 @@ func (p *ActionServiceGetCommentListsArgs) Field1DeepEqual(src *GetCommentListsR
 	return true
 }
 
-type ActionServiceGetCommentListsResult struct {
-	Success *GetCommentListsResponse `thrift:"success,0" json:"success,omitempty"`
+type ActionServiceGetCommentListResult struct {
+	Success *GetCommentListResponse `thrift:"success,0" json:"success,omitempty"`
 }
 
-func NewActionServiceGetCommentListsResult() *ActionServiceGetCommentListsResult {
-	return &ActionServiceGetCommentListsResult{}
+func NewActionServiceGetCommentListResult() *ActionServiceGetCommentListResult {
+	return &ActionServiceGetCommentListResult{}
 }
 
-var ActionServiceGetCommentListsResult_Success_DEFAULT *GetCommentListsResponse
+var ActionServiceGetCommentListResult_Success_DEFAULT *GetCommentListResponse
 
-func (p *ActionServiceGetCommentListsResult) GetSuccess() (v *GetCommentListsResponse) {
+func (p *ActionServiceGetCommentListResult) GetSuccess() (v *GetCommentListResponse) {
 	if !p.IsSetSuccess() {
-		return ActionServiceGetCommentListsResult_Success_DEFAULT
+		return ActionServiceGetCommentListResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *ActionServiceGetCommentListsResult) SetSuccess(x interface{}) {
-	p.Success = x.(*GetCommentListsResponse)
+func (p *ActionServiceGetCommentListResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetCommentListResponse)
 }
 
-var fieldIDToName_ActionServiceGetCommentListsResult = map[int16]string{
+var fieldIDToName_ActionServiceGetCommentListResult = map[int16]string{
 	0: "success",
 }
 
-func (p *ActionServiceGetCommentListsResult) IsSetSuccess() bool {
+func (p *ActionServiceGetCommentListResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *ActionServiceGetCommentListsResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ActionServiceGetCommentListResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -5949,7 +6487,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ActionServiceGetCommentListsResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ActionServiceGetCommentListResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -5959,17 +6497,17 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ActionServiceGetCommentListsResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewGetCommentListsResponse()
+func (p *ActionServiceGetCommentListResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewGetCommentListResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *ActionServiceGetCommentListsResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ActionServiceGetCommentListResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("GetCommentLists_result"); err != nil {
+	if err = oprot.WriteStructBegin("GetCommentList_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -5996,7 +6534,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *ActionServiceGetCommentListsResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ActionServiceGetCommentListResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -6015,14 +6553,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *ActionServiceGetCommentListsResult) String() string {
+func (p *ActionServiceGetCommentListResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("ActionServiceGetCommentListsResult(%+v)", *p)
+	return fmt.Sprintf("ActionServiceGetCommentListResult(%+v)", *p)
 }
 
-func (p *ActionServiceGetCommentListsResult) DeepEqual(ano *ActionServiceGetCommentListsResult) bool {
+func (p *ActionServiceGetCommentListResult) DeepEqual(ano *ActionServiceGetCommentListResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -6034,7 +6572,7 @@ func (p *ActionServiceGetCommentListsResult) DeepEqual(ano *ActionServiceGetComm
 	return true
 }
 
-func (p *ActionServiceGetCommentListsResult) Field0DeepEqual(src *GetCommentListsResponse) bool {
+func (p *ActionServiceGetCommentListResult) Field0DeepEqual(src *GetCommentListResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -7387,6 +7925,344 @@ func (p *ActionServiceCheckRelationResult) DeepEqual(ano *ActionServiceCheckRela
 }
 
 func (p *ActionServiceCheckRelationResult) Field0DeepEqual(src *CheckRelationResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ActionServiceCheckFavoriteArgs struct {
+	Req *CheckFavoriteRequest `thrift:"req,1" json:"req"`
+}
+
+func NewActionServiceCheckFavoriteArgs() *ActionServiceCheckFavoriteArgs {
+	return &ActionServiceCheckFavoriteArgs{}
+}
+
+var ActionServiceCheckFavoriteArgs_Req_DEFAULT *CheckFavoriteRequest
+
+func (p *ActionServiceCheckFavoriteArgs) GetReq() (v *CheckFavoriteRequest) {
+	if !p.IsSetReq() {
+		return ActionServiceCheckFavoriteArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ActionServiceCheckFavoriteArgs) SetReq(val *CheckFavoriteRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ActionServiceCheckFavoriteArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ActionServiceCheckFavoriteArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ActionServiceCheckFavoriteArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ActionServiceCheckFavoriteArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ActionServiceCheckFavoriteArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewCheckFavoriteRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ActionServiceCheckFavoriteArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CheckFavorite_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ActionServiceCheckFavoriteArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ActionServiceCheckFavoriteArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ActionServiceCheckFavoriteArgs(%+v)", *p)
+}
+
+func (p *ActionServiceCheckFavoriteArgs) DeepEqual(ano *ActionServiceCheckFavoriteArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ActionServiceCheckFavoriteArgs) Field1DeepEqual(src *CheckFavoriteRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ActionServiceCheckFavoriteResult struct {
+	Success *CheckFavoriteResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewActionServiceCheckFavoriteResult() *ActionServiceCheckFavoriteResult {
+	return &ActionServiceCheckFavoriteResult{}
+}
+
+var ActionServiceCheckFavoriteResult_Success_DEFAULT *CheckFavoriteResponse
+
+func (p *ActionServiceCheckFavoriteResult) GetSuccess() (v *CheckFavoriteResponse) {
+	if !p.IsSetSuccess() {
+		return ActionServiceCheckFavoriteResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ActionServiceCheckFavoriteResult) SetSuccess(x interface{}) {
+	p.Success = x.(*CheckFavoriteResponse)
+}
+
+var fieldIDToName_ActionServiceCheckFavoriteResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ActionServiceCheckFavoriteResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ActionServiceCheckFavoriteResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ActionServiceCheckFavoriteResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ActionServiceCheckFavoriteResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewCheckFavoriteResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ActionServiceCheckFavoriteResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CheckFavorite_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ActionServiceCheckFavoriteResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ActionServiceCheckFavoriteResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ActionServiceCheckFavoriteResult(%+v)", *p)
+}
+
+func (p *ActionServiceCheckFavoriteResult) DeepEqual(ano *ActionServiceCheckFavoriteResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ActionServiceCheckFavoriteResult) Field0DeepEqual(src *CheckFavoriteResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

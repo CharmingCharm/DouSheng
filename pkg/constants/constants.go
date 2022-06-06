@@ -9,7 +9,7 @@ const (
 	VideoTableName    = "video"
 	FavorateTableName = "favorate"
 	CommentTableName  = "comment"
-	FollowTableName   = "follow"
+	RelationTableName = "relation"
 	// SecretKey               = "secret key"
 	// IdentityKey             = "id"
 	// Total                   = "total"
@@ -30,6 +30,9 @@ const (
 	DefaultStatusMsg   = status.ServiceErrMsg
 	DefaultErrPosInt64 = -1
 	DefaultErrString   = ""
+	DefaultVideoTitle  = "MyVideo"
+	DefaultCoverUrl    = "https://cdn.pixabay.com/photo/2016/03/27/18/10/bear-1283347_1280.jpg"
+
 	// minio监听的地址
 	MinIOEndpoint = "127.0.0.1:9000"
 	// minio的用户名

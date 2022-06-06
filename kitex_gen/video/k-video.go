@@ -461,6 +461,7 @@ func (p *LoadVideosRequest) FastRead(buf []byte) (int, error) {
 	var l int
 	var fieldTypeId thrift.TType
 	var fieldId int16
+	var issetMyId bool = false
 	_, l, err = bthrift.Binary.ReadStructBegin(buf)
 	offset += l
 	if err != nil {
@@ -498,6 +499,7 @@ func (p *LoadVideosRequest) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
+				issetMyId = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -525,6 +527,10 @@ func (p *LoadVideosRequest) FastRead(buf []byte) (int, error) {
 		goto ReadStructEndError
 	}
 
+	if !issetMyId {
+		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
 	return offset, nil
 ReadStructBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
@@ -538,6 +544,8 @@ ReadFieldEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
 ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+RequiredFieldNotSetError:
+	return offset, thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_LoadVideosRequest[fieldId]))
 }
 
 func (p *LoadVideosRequest) FastReadField1(buf []byte) (int, error) {
@@ -560,7 +568,8 @@ func (p *LoadVideosRequest) FastReadField2(buf []byte) (int, error) {
 		return offset, err
 	} else {
 		offset += l
-		p.MyId = &v
+
+		p.MyId = v
 
 	}
 	return offset, nil
@@ -608,12 +617,10 @@ func (p *LoadVideosRequest) fastWriteField1(buf []byte, binaryWriter bthrift.Bin
 
 func (p *LoadVideosRequest) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	if p.IsSetMyId() {
-		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "my_id", thrift.I64, 2)
-		offset += bthrift.Binary.WriteI64(buf[offset:], *p.MyId)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "my_id", thrift.I64, 2)
+	offset += bthrift.Binary.WriteI64(buf[offset:], p.MyId)
 
-		offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
-	}
+	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
 }
 
@@ -630,12 +637,10 @@ func (p *LoadVideosRequest) field1Length() int {
 
 func (p *LoadVideosRequest) field2Length() int {
 	l := 0
-	if p.IsSetMyId() {
-		l += bthrift.Binary.FieldBeginLength("my_id", thrift.I64, 2)
-		l += bthrift.Binary.I64Length(*p.MyId)
+	l += bthrift.Binary.FieldBeginLength("my_id", thrift.I64, 2)
+	l += bthrift.Binary.I64Length(p.MyId)
 
-		l += bthrift.Binary.FieldEndLength()
-	}
+	l += bthrift.Binary.FieldEndLength()
 	return l
 }
 
@@ -1289,6 +1294,7 @@ func (p *GetPublishedVideosRequest) FastRead(buf []byte) (int, error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetUserId bool = false
+	var issetMyId bool = false
 	_, l, err = bthrift.Binary.ReadStructBegin(buf)
 	offset += l
 	if err != nil {
@@ -1327,6 +1333,7 @@ func (p *GetPublishedVideosRequest) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
+				issetMyId = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -1356,6 +1363,11 @@ func (p *GetPublishedVideosRequest) FastRead(buf []byte) (int, error) {
 
 	if !issetUserId {
 		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetMyId {
+		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return offset, nil
@@ -1396,7 +1408,8 @@ func (p *GetPublishedVideosRequest) FastReadField2(buf []byte) (int, error) {
 		return offset, err
 	} else {
 		offset += l
-		p.MyId = &v
+
+		p.MyId = v
 
 	}
 	return offset, nil
@@ -1442,12 +1455,10 @@ func (p *GetPublishedVideosRequest) fastWriteField1(buf []byte, binaryWriter bth
 
 func (p *GetPublishedVideosRequest) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	if p.IsSetMyId() {
-		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "my_id", thrift.I64, 2)
-		offset += bthrift.Binary.WriteI64(buf[offset:], *p.MyId)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "my_id", thrift.I64, 2)
+	offset += bthrift.Binary.WriteI64(buf[offset:], p.MyId)
 
-		offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
-	}
+	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
 }
 
@@ -1462,12 +1473,10 @@ func (p *GetPublishedVideosRequest) field1Length() int {
 
 func (p *GetPublishedVideosRequest) field2Length() int {
 	l := 0
-	if p.IsSetMyId() {
-		l += bthrift.Binary.FieldBeginLength("my_id", thrift.I64, 2)
-		l += bthrift.Binary.I64Length(*p.MyId)
+	l += bthrift.Binary.FieldBeginLength("my_id", thrift.I64, 2)
+	l += bthrift.Binary.I64Length(p.MyId)
 
-		l += bthrift.Binary.FieldEndLength()
-	}
+	l += bthrift.Binary.FieldEndLength()
 	return l
 }
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/CharmingCharm/DouSheng/internal/video/service"
 	"github.com/CharmingCharm/DouSheng/kitex_gen/video"
@@ -17,7 +18,7 @@ func (s *VideoServiceImpl) GetVideoList(ctx context.Context, req *video.GetVideo
 	// TODO: Your code here...
 	resp = new(video.GetVideoListResponse)
 
-	if len(req.VideoIds) == 0 || req.UserId <= 0 {
+	if len(req.VideoIds) == 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
 		return resp, nil
 	}
@@ -46,7 +47,9 @@ func (s *VideoServiceImpl) LoadVideos(ctx context.Context, req *video.LoadVideos
 	resp.VideoList = videoList
 	if nextTime != -1 {
 		resp.NextTime = &nextTime
+		// fmt.Println("lala")
 	}
+	fmt.Println(resp)
 	return resp, nil
 }
 
@@ -55,7 +58,7 @@ func (s *VideoServiceImpl) PublishVideo(ctx context.Context, req *video.PublishV
 	// TODO: Your code here...
 	resp = new(video.PublishVideoResponse)
 
-	if req.MyId <= 0 || len(req.DataUrl) == 0 || len(req.Title) == 0 {
+	if len(req.DataUrl) == 0 || len(req.Title) == 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
 		return resp, nil
 	}

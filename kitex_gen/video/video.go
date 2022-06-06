@@ -540,7 +540,7 @@ func (p *GetVideoListResponse) Field2DeepEqual(src []*base.Video) bool {
 
 type LoadVideosRequest struct {
 	LastTime *int64 `thrift:"last_time,1" json:"last_time,omitempty"`
-	MyId     *int64 `thrift:"my_id,2" json:"my_id,omitempty"`
+	MyId     int64  `thrift:"my_id,2,required" json:"my_id"`
 }
 
 func NewLoadVideosRequest() *LoadVideosRequest {
@@ -556,18 +556,13 @@ func (p *LoadVideosRequest) GetLastTime() (v int64) {
 	return *p.LastTime
 }
 
-var LoadVideosRequest_MyId_DEFAULT int64
-
 func (p *LoadVideosRequest) GetMyId() (v int64) {
-	if !p.IsSetMyId() {
-		return LoadVideosRequest_MyId_DEFAULT
-	}
-	return *p.MyId
+	return p.MyId
 }
 func (p *LoadVideosRequest) SetLastTime(val *int64) {
 	p.LastTime = val
 }
-func (p *LoadVideosRequest) SetMyId(val *int64) {
+func (p *LoadVideosRequest) SetMyId(val int64) {
 	p.MyId = val
 }
 
@@ -580,14 +575,11 @@ func (p *LoadVideosRequest) IsSetLastTime() bool {
 	return p.LastTime != nil
 }
 
-func (p *LoadVideosRequest) IsSetMyId() bool {
-	return p.MyId != nil
-}
-
 func (p *LoadVideosRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
+	var issetMyId bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -618,6 +610,7 @@ func (p *LoadVideosRequest) Read(iprot thrift.TProtocol) (err error) {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
+				issetMyId = true
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -637,6 +630,10 @@ func (p *LoadVideosRequest) Read(iprot thrift.TProtocol) (err error) {
 		goto ReadStructEndError
 	}
 
+	if !issetMyId {
+		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
 	return nil
 ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
@@ -651,6 +648,8 @@ ReadFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
 ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+RequiredFieldNotSetError:
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_LoadVideosRequest[fieldId]))
 }
 
 func (p *LoadVideosRequest) ReadField1(iprot thrift.TProtocol) error {
@@ -666,7 +665,7 @@ func (p *LoadVideosRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
-		p.MyId = &v
+		p.MyId = v
 	}
 	return nil
 }
@@ -724,16 +723,14 @@ WriteFieldEndError:
 }
 
 func (p *LoadVideosRequest) writeField2(oprot thrift.TProtocol) (err error) {
-	if p.IsSetMyId() {
-		if err = oprot.WriteFieldBegin("my_id", thrift.I64, 2); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := oprot.WriteI64(*p.MyId); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
+	if err = oprot.WriteFieldBegin("my_id", thrift.I64, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.MyId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
 	}
 	return nil
 WriteFieldBeginError:
@@ -776,14 +773,9 @@ func (p *LoadVideosRequest) Field1DeepEqual(src *int64) bool {
 	}
 	return true
 }
-func (p *LoadVideosRequest) Field2DeepEqual(src *int64) bool {
+func (p *LoadVideosRequest) Field2DeepEqual(src int64) bool {
 
-	if p.MyId == src {
-		return true
-	} else if p.MyId == nil || src == nil {
-		return false
-	}
-	if *p.MyId != *src {
+	if p.MyId != src {
 		return false
 	}
 	return true
@@ -1608,8 +1600,8 @@ func (p *PublishVideoResponse) Field1DeepEqual(src *base.BaseResp) bool {
 }
 
 type GetPublishedVideosRequest struct {
-	UserId int64  `thrift:"user_id,1,required" json:"user_id"`
-	MyId   *int64 `thrift:"my_id,2" json:"my_id,omitempty"`
+	UserId int64 `thrift:"user_id,1,required" json:"user_id"`
+	MyId   int64 `thrift:"my_id,2,required" json:"my_id"`
 }
 
 func NewGetPublishedVideosRequest() *GetPublishedVideosRequest {
@@ -1620,18 +1612,13 @@ func (p *GetPublishedVideosRequest) GetUserId() (v int64) {
 	return p.UserId
 }
 
-var GetPublishedVideosRequest_MyId_DEFAULT int64
-
 func (p *GetPublishedVideosRequest) GetMyId() (v int64) {
-	if !p.IsSetMyId() {
-		return GetPublishedVideosRequest_MyId_DEFAULT
-	}
-	return *p.MyId
+	return p.MyId
 }
 func (p *GetPublishedVideosRequest) SetUserId(val int64) {
 	p.UserId = val
 }
-func (p *GetPublishedVideosRequest) SetMyId(val *int64) {
+func (p *GetPublishedVideosRequest) SetMyId(val int64) {
 	p.MyId = val
 }
 
@@ -1640,15 +1627,12 @@ var fieldIDToName_GetPublishedVideosRequest = map[int16]string{
 	2: "my_id",
 }
 
-func (p *GetPublishedVideosRequest) IsSetMyId() bool {
-	return p.MyId != nil
-}
-
 func (p *GetPublishedVideosRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetUserId bool = false
+	var issetMyId bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -1680,6 +1664,7 @@ func (p *GetPublishedVideosRequest) Read(iprot thrift.TProtocol) (err error) {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
+				issetMyId = true
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -1701,6 +1686,11 @@ func (p *GetPublishedVideosRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	if !issetUserId {
 		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetMyId {
+		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return nil
@@ -1734,7 +1724,7 @@ func (p *GetPublishedVideosRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
-		p.MyId = &v
+		p.MyId = v
 	}
 	return nil
 }
@@ -1790,16 +1780,14 @@ WriteFieldEndError:
 }
 
 func (p *GetPublishedVideosRequest) writeField2(oprot thrift.TProtocol) (err error) {
-	if p.IsSetMyId() {
-		if err = oprot.WriteFieldBegin("my_id", thrift.I64, 2); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := oprot.WriteI64(*p.MyId); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
+	if err = oprot.WriteFieldBegin("my_id", thrift.I64, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.MyId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
 	}
 	return nil
 WriteFieldBeginError:
@@ -1837,14 +1825,9 @@ func (p *GetPublishedVideosRequest) Field1DeepEqual(src int64) bool {
 	}
 	return true
 }
-func (p *GetPublishedVideosRequest) Field2DeepEqual(src *int64) bool {
+func (p *GetPublishedVideosRequest) Field2DeepEqual(src int64) bool {
 
-	if p.MyId == src {
-		return true
-	} else if p.MyId == nil || src == nil {
-		return false
-	}
-	if *p.MyId != *src {
+	if p.MyId != src {
 		return false
 	}
 	return true
