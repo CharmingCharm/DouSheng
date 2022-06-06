@@ -28,7 +28,15 @@ go build && ./simple-demo
 1. cd internal/user
 2. sh build.sh
 3. sh output/bootstrap.sh
-* Terminal 3:
+* Terminal 3: 
+1. cd internal/video
+2. sh build.sh
+3. sh output/bootstrap.sh
+* Terminal 4: 
+1. cd internal/action
+2. sh build.sh
+3. sh output/bootstrap.sh
+* Terminal 5:
 1. cd internal/api
 2. go build && ./api
 * Try http://127.0.0.1:8080/douyin/user/register/?username=Jinzhu&password=123 in postman
