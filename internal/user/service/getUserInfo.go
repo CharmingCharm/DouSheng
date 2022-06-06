@@ -53,6 +53,5 @@ func (s *GetUserInfoService) GetUserInfo(req *user.GetUserInfoRequest) (*base.Us
 		FollowerCount: user_data.FollowerCount,
 		IsFollow:      flag,
 	}
-	// Call rpc.action.CheckRelation
 	return &user, nil
 }

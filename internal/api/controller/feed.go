@@ -2,7 +2,6 @@ package controller
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 
 	"github.com/CharmingCharm/DouSheng/pkg/constants"
@@ -34,7 +33,9 @@ func Feed(c *gin.Context) {
 	token := c.Query("token")
 	lastTimeString := c.Query("last_time")
 
-	req := video.LoadVideosRequest{}
+	req := video.LoadVideosRequest{
+		MyId: -1,
+	}
 
 	if len(lastTimeString) != 0 {
 		lastTime, err := strconv.ParseInt(lastTimeString, 10, 64)
@@ -65,6 +66,5 @@ func Feed(c *gin.Context) {
 	if resp.NextTime != nil {
 		res.NextTime = *resp.NextTime
 	}
-	fmt.Println(resp)
 	send.SendResp(c, *resp.BaseResp, &res)
 }
