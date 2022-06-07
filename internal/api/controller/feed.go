@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+	"fmt"
 	"strconv"
 
 	"github.com/CharmingCharm/DouSheng/pkg/constants"
@@ -44,6 +45,7 @@ func Feed(c *gin.Context) {
 		req.LastTime = &lastTime
 	}
 
+	req.MyId = -1
 	if len(token) != 0 {
 		claims, err := middleware.ParseToken(token)
 		if err != nil {
@@ -56,6 +58,7 @@ func Feed(c *gin.Context) {
 	resp, err := rpc.LoadVideos(context.Background(), &req)
 
 	if err != nil {
+		fmt.Println()
 		send.SendStatus(c, err, &res)
 		return
 	}
