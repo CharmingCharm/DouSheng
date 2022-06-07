@@ -10,21 +10,12 @@ const (
 	FavorateTableName = "favorate"
 	CommentTableName  = "comment"
 	RelationTableName = "relation"
-	// SecretKey               = "secret key"
-	// IdentityKey             = "id"
-	// Total                   = "total"
-	// Notes                   = "notes"
-	// NoteID                  = "note_id"
 	ApiServiceName    = "ApiService"
 	UserServiceName   = "UserService"
 	VideoServiceName  = "VideoService"
 	ActionServiceName = "ActionService"
-	// MySQLDefaultDSN			= "gorm:gorm@tcp(localhost:9910)/gorm?charset=utf8&parseTime=True&loc=Local"
-	MySQLDefaultDSN = "gorm:gorm@tcp(localhost:9910)/gorm?charset=utf8&parseTime=True&loc=Local"
-	EtcdAddress     = "127.0.0.1:2379"
-	// EtcdAddress = ""
-	// CPURateLimit float64 = 80.0
-	// DefaultLimit         = 10
+	MySQLDefaultDSN   = "gorm:gorm@tcp(localhost:9910)/gorm?charset=utf8&parseTime=True&loc=Local"
+	EtcdAddress       = "127.0.0.1:2379"
 
 	DefaultStatusCode  = status.ServiceErrCode
 	DefaultStatusMsg   = status.ServiceErrMsg
@@ -35,6 +26,7 @@ const (
 
 	// minio监听的地址
 	MinIOEndpoint = "127.0.0.1:9000"
+	MinIOPos      = "http://192.168.1.68:9000"
 	// minio的用户名
 	MinIOId = "minioadmin"
 	// minio的密码

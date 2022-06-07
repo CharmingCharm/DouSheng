@@ -58,7 +58,7 @@ func Publish(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
-	playUrl := constants.MinIOEndpoint + "/video/" + timestamp + "." + fileType
+	playUrl := constants.MinIOPos + "/video/" + timestamp + "." + fileType
 
 	resp, err := rpc.PublishVideo(context.Background(), &video.PublishVideoRequest{
 		MyId:    myId,
