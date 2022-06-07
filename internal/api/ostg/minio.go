@@ -45,6 +45,6 @@ func UploadVideo(objectName string, username string, fileHeader *multipart.FileH
 		return err
 	}
 	defer src.Close()
-	_, err = MinIOClient.PutObject(context.TODO(), "video", objectName, src, -1, minio.PutObjectOptions{ContentType: "video/*"})
+	_, err = MinIOClient.PutObject(context.TODO(), "video", objectName, src, -1, minio.PutObjectOptions{ContentType: "video/mp4"})
 	return err
 }
