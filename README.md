@@ -2,9 +2,9 @@
 
 ## 技术选型
 
-数据库：mysql、ETCD
-
-主要框架：gin+gorm+kitex
+数据库：mysql + minio
+微服务：kitex + ETCD
+主要框架：gin + gorm + kitex
 
 ## 数据表
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `video_count` (
 
 采用微服务的项目架构，拆分为User、Video、Action三个微服务。使用Thrift作为RPC的通信协议。
 
-通过ETCD进行服务的注册发现，通过jaeger进行分布式链路追踪。
+通过ETCD进行服务的注册发现，通过jaeger进行分布式链路追踪，通过minio上传并存储视频数据。
 
 通过gin在api目录下对每个功能设置了一个路由，对应相应的请求在路由handler处通过jwt中间件进行用户身份的认证，接着对请求进行解析将其通过RPC调用对应的微服务，得到结果后返回给客户端。
 
