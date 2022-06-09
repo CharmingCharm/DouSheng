@@ -22,12 +22,6 @@ func NewUpdateRelationshipService(ctx context.Context) *UpdateRelationshipServic
 
 // CreateUser create user info.
 func (s *UpdateRelationshipService) UpdateRelationship(req *action.UpdateRelationshipRequest) error {
-
-	// type UpdateRelationshipRequest struct {
-	// 	UserId     int64 `thrift:"user_id,1,required" json:"user_id"`
-	// 	ToUserId   int64 `thrift:"to_user_id,2,required" json:"to_user_id"`
-	// 	ActionType int32 `thrift:"action_type,3,required" json:"action_type"`
-	// }
 	flag, err := db.FindRelationRecord(s.ctx, req.UserId, req.ToUserId)
 	if err != nil {
 		return err

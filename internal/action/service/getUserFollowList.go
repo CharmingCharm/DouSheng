@@ -24,12 +24,6 @@ func NewGetUserFollowListService(ctx context.Context) *GetUserFollowListService 
 
 // CreateUser create user info.
 func (s *GetUserFollowListService) GetUserFollowList(req *action.GetUserFollowListRequest) ([]*base.User, error) {
-
-	// type GetUserFollowListRequest struct {
-	// 	UserId int64 `thrift:"user_id,1,required" json:"user_id"`
-	// 	MyId   int64 `thrift:"my_id,2,required" json:"my_id"`
-	// }
-
 	followDBList, err := db.GetFollowList(s.ctx, req.UserId)
 	if err != nil {
 		return nil, err

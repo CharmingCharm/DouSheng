@@ -26,7 +26,6 @@ type CommentActionResponse struct {
 
 // CommentAction no practical effect, just check if token is valid
 func CommentAction(c *gin.Context) {
-	// token := c.Query("token")
 	res := CommentActionResponse{}
 
 	token := c.Query("token")
@@ -98,16 +97,10 @@ func CommentAction(c *gin.Context) {
 		res.Comment = resp.Comment
 	}
 	send.SendResp(c, *resp.BaseResp, &res)
-
-	// if _, exist := usersLoginInfo[token]; exist {
-	// } else {
-	// 	c.JSON(http.StatusOK, Response{StatusCode: 1, StatusMsg: "User doesn't exist"})
-	// }
 }
 
 // CommentList all videos have same demo comment list
 func CommentList(c *gin.Context) {
-
 	res := GetCommentListResponse{}
 
 	token := c.Query("token")
@@ -141,9 +134,4 @@ func CommentList(c *gin.Context) {
 	}
 	res.CommentList = resp.CommentList
 	send.SendResp(c, *resp.BaseResp, &res)
-
-	// c.JSON(http.StatusOK, GetCommentListResponse{
-	// 	Response:    Response{StatusCode: 0},
-	// 	CommentList: DemoComments,
-	// })
 }

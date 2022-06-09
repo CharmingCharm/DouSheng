@@ -24,12 +24,6 @@ func NewGetCommentListService(ctx context.Context) *GetCommentListService {
 
 // CreateUser create user info.
 func (s *GetCommentListService) GetCommentList(req *action.GetCommentListRequest) ([]*base.Comment, error) {
-
-	// type GetCommentListRequest struct {
-	// 	MyId    int64 `thrift:"my_id,2,required" json:"my_id"`
-	// 	VideoId int64 `thrift:"video_id,3,required" json:"video_id"`
-	// }
-
 	commentDBList, err := db.GetCommentListByVideoId(s.ctx, req.VideoId)
 	if err != nil {
 		return nil, err

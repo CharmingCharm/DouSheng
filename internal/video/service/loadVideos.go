@@ -25,8 +25,6 @@ func NewLoadVideosService(ctx context.Context) *LoadVideosService {
 
 // CreateUser create user info.
 func (s *LoadVideosService) LoadVideos(req *video.LoadVideosRequest) ([]*base.Video, int64, error) {
-	// videoList := db.GetVideoListInOrder
-
 	var lastTime int64
 	var myId int64
 

@@ -23,12 +23,6 @@ type FeedResponse struct {
 
 // Feed same demo video list for every request
 func Feed(c *gin.Context) {
-	// my_id := checkToken(token)
-	// var Vs []Video
-	// Vs, lastTime, err = rpc.LoadVideos(context.Background(), &video.LoadVideosRequest {
-	// 	LastTime: lastTime,
-	// 	MyId: my_id
-	// })
 	res := FeedResponse{}
 
 	token := c.Query("token")

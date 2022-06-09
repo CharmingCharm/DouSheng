@@ -71,52 +71,13 @@ func Register(c *gin.Context) {
 	res.UserID = resp.UserId
 	res.Token = &token
 	send.SendResp(c, *resp.BaseResp, &res)
-
-	// if _, exist := usersLoginInfo[token]; exist {
-	// 	c.JSON(http.StatusOK, UserLoginResponse{
-	// 		Response: Response{StatusCode: 1, StatusMsg: "User already exist"},
-	// 	})
-	// } else {
-	// 	atomic.AddInt64(&userIdSequence, 1)
-	// 	newUser := User{
-	// 		Id:   userIdSequence,
-	// 		Name: username,
-	// 	}
-	// 	usersLoginInfo[token] = newUser
-	// 	c.JSON(http.StatusOK, UserLoginResponse{
-	// 		Response: Response{StatusCode: 0},
-	// 		UserId:   userIdSequence,
-	// 		Token:    username + password,
-	// 	})
-	// }
-
-	// var registerVar UserParam
-	// if err := c.ShouldBind(&registerVar); err != nil {
-	// 	SendResponse(c, errno.ConvertErr(err), nil)
-	// 	return
-	// }
-
-	// if len(registerVar.UserName) == 0 || len(registerVar.PassWord) == 0 {
-	// 	SendResponse(c, errno.ParamErr, nil)
-	// 	return
-	// }
-
-	// err := rpc.CreateUser(context.Background(), &userdemo.CreateUserRequest{
-	// 	UserName: registerVar.UserName,
-	// 	Password: registerVar.PassWord,
-	// })
-	// if err != nil {
-	// 	SendResponse(c, errno.ConvertErr(err), nil)
-	// 	return
-	// }
-	// SendResponse(c, errno.Success, nil)
 }
 
 func Login(c *gin.Context) {
+	res := UserLoginResponse{}
+
 	username := c.Query("username")
 	password := c.Query("password")
-
-	res := UserLoginResponse{}
 
 	if len(username) == 0 || len(password) == 0 {
 		send.SendStatus(c, status.ParamErr, &res)
@@ -148,7 +109,6 @@ func Login(c *gin.Context) {
 }
 
 func UserInfo(c *gin.Context) {
-
 	res := UserInfoResponse{}
 
 	uIdInString := c.Query("user_id")

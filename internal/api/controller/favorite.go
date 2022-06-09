@@ -20,9 +20,6 @@ import (
 func FavoriteAction(c *gin.Context) {
 	res := constants.Response{}
 
-	// token := c.Query("token")
-	// uIdInString := c.Query("user_id")
-
 	token := c.Query("token")
 	videoIdString := c.Query("video_id")
 	actionTypeString := c.Query("action_type")
@@ -109,10 +106,4 @@ func FavoriteList(c *gin.Context) {
 	}
 	res.VideoList = resp.VideoList
 	send.SendResp(c, *resp.BaseResp, &res)
-	// c.JSON(http.StatusOK, VideoListResponse{
-	// 	Response: Response{
-	// 		StatusCode: 0,
-	// 	},
-	// 	VideoList: DemoVideos,
-	// })
 }

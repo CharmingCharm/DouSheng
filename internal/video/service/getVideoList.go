@@ -23,10 +23,6 @@ func NewGetVideoListService(ctx context.Context) *GetVideoListService {
 
 // CreateUser create user info.
 func (s *GetVideoListService) GetVideoList(req *video.GetVideoListRequest) ([]*base.Video, error) {
-	// videoList := db.GetVideoListByIds
-	// VideoIds []int64 `thrift:"video_ids,1,required" json:"video_ids"`
-	// UserId   int64   `thrift:"user_id,2,required" json:"user_id"`
-
 	videoDBList, err := db.GetVideoListByIds(req.VideoIds)
 	if err != nil {
 		return nil, err
@@ -73,6 +69,5 @@ func (s *GetVideoListService) GetVideoList(req *video.GetVideoListRequest) ([]*b
 		}
 	}
 
-	// for v in videoList { rpc.user.GetUserInfo }
 	return videoList, nil
 }

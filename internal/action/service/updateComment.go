@@ -25,15 +25,6 @@ func NewUpdateCommentService(ctx context.Context) *UpdateCommentService {
 
 // CreateUser create user info.
 func (s *UpdateCommentService) UpdateComment(req *action.UpdateCommentRequest) (*base.Comment, error) {
-
-	// type UpdateCommentRequest struct {
-	// 	UserId      int64   `thrift:"user_id,1,required" json:"user_id"`
-	// 	VideoId     int64   `thrift:"video_id,2,required" json:"video_id"`
-	// 	ActionType  int32   `thrift:"action_type,3,required" json:"action_type"`
-	// 	CommentText *string `thrift:"comment_text,4" json:"comment_text,omitempty"`
-	// 	CommentId   *int64  `thrift:"comment_id,5" json:"comment_id,omitempty"`
-	// }
-
 	var comment base.Comment
 	if req.ActionType == 1 {
 		if req.CommentText == nil {

@@ -22,12 +22,6 @@ func NewGetFavoriteVideosService(ctx context.Context) *GetFavoriteVideosService 
 
 // CreateUser create user info.
 func (s *GetFavoriteVideosService) GetFavoriteVideos(req *action.GetFavoriteVideosRequest) ([]*base.Video, error) {
-
-	// type GetFavoriteVideosRequest struct {
-	// 	UserId int64 `thrift:"user_id,1,required" json:"user_id"`
-	// 	MyId   int64 `thrift:"my_id,2,required" json:"my_id"`
-	// }
-
 	vIds, err := db.GetFavoriteVideoIdsByUserId(s.ctx, req.UserId)
 	if err != nil {
 		return nil, err

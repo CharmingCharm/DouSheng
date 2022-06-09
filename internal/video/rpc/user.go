@@ -21,11 +21,6 @@ func initUserRpc() {
 
 	c, err := userservice.NewClient(
 		constants.UserServiceName,
-		// client.WithMiddleware(middleware.CommonMiddleware),
-		// client.WithInstanceMW(middleware.ClientMiddleware),
-		// client.WithMuxConnection(1),                     // mux
-		// client.WithRPCTimeout(3*time.Second),            // rpc timeout
-		// client.WithConnectTimeout(50*time.Millisecond),  // conn timeout、
 		client.WithSuite(trace.NewDefaultClientSuite()), // tracer
 		client.WithResolver(r),                          // resolver
 	)
@@ -35,23 +30,7 @@ func initUserRpc() {
 	userClient = c
 }
 
-// // CreateUser create user info
-// func CreateUser(ctx context.Context, req *user.CreateUserRequest) (*user.CreateUserResponse, error) {
-// 	resp, err := userClient.CreateUser(ctx, req)
-// 	return resp, err
-// }
-
-// func CheckUser(ctx context.Context, req *user.CheckUserRequest) (*user.CheckUserResponse, error) {
-// 	resp, err := userClient.CheckUser(ctx, req)
-// 	return resp, err
-// }
-
 func GetUserInfo(ctx context.Context, req *user.GetUserInfoRequest) (*user.GetUserInfoResponse, error) {
 	resp, err := userClient.GetUserInfo(ctx, req)
 	return resp, err
 }
-
-// func UpdateUserFollow(ctx context.Context, req *user.UpdateUserFollowRequest) (*user.UpdateUserFollowResponse, error) {
-// 	resp, err := userClient.UpdateUserFollow(ctx, req)
-// 	return resp, err
-// }

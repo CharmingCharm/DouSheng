@@ -23,11 +23,6 @@ func NewGetPublishedVideosService(ctx context.Context) *GetPublishedVideosServic
 
 // CreateUser create user info.
 func (s *GetPublishedVideosService) GetPublishedVideos(req *video.GetPublishedVideosRequest) ([]*base.Video, error) {
-	// videoList := db.GetVideoListByAuthorId
-
-	// UserId int64  `thrift:"user_id,1,required" json:"user_id"`
-	// MyId   *int64 `thrift:"my_id,2" json:"my_id,omitempty"`
-
 	videoDBList, err := db.GetVideoListByAuthorId(req.UserId)
 	if err != nil {
 		return nil, err
@@ -71,11 +66,10 @@ func (s *GetPublishedVideosService) GetPublishedVideos(req *video.GetPublishedVi
 			CoverUrl:      v.CoverUrl,
 			FavoriteCount: v.FavoriteCount,
 			CommentCount:  v.CommentCount,
-			IsFavorite:    flag, // TODO
+			IsFavorite:    flag,
 			Title:         v.Title,
 		}
 	}
 
-	// for v in videoList { rpc.user.GetUserInfo }
 	return videoList, nil
 }

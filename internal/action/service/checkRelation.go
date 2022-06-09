@@ -20,11 +20,6 @@ func NewCheckRelationService(ctx context.Context) *CheckRelationService {
 
 // CreateUser create user info.
 func (s *CheckRelationService) CheckRelation(req *action.CheckRelationRequest) (bool, error) {
-
-	// type CheckRelationRequest struct {
-	// 	MyId    int64 `thrift:"my_id,1,required" json:"my_id"`
-	// 	UserId  int64 `thrift:"u_id,2,required" json:"user_id"`
-	// }
 	flag, err := db.FindRelationRecord(s.ctx, req.MyId, req.UserId)
 	if err != nil {
 		return false, err

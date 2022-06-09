@@ -18,12 +18,6 @@ func (s *ActionServiceImpl) UpdateFavorite(ctx context.Context, req *action.Upda
 	// TODO: Your code here...
 	resp = new(action.UpdateFavoriteResponse)
 
-	// type UpdateFavoriteRequest struct {
-	// 	UserId     int64 `thrift:"user_id,1,required" json:"user_id"`
-	// 	VideoId    int64 `thrift:"video_id,2,required" json:"video_id"`
-	// 	ActionType int32 `thrift:"action_type,3,required" json:"action_type"`
-	// }
-
 	if req.VideoId <= 0 || req.UserId <= 0 || (req.ActionType != 1 && req.ActionType != 2) {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
 		return resp, nil
@@ -42,11 +36,6 @@ func (s *ActionServiceImpl) UpdateFavorite(ctx context.Context, req *action.Upda
 func (s *ActionServiceImpl) GetFavoriteVideos(ctx context.Context, req *action.GetFavoriteVideosRequest) (resp *action.GetFavoriteVideosResponse, err error) {
 	// TODO: Your code here...
 	resp = new(action.GetFavoriteVideosResponse)
-
-	// type GetFavoriteVideosRequest struct {
-	// 	UserId int64 `thrift:"user_id,1,required" json:"user_id"`
-	// 	MyId   int64 `thrift:"my_id,2,required" json:"my_id"`
-	// }
 
 	if req.UserId <= 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
@@ -68,14 +57,6 @@ func (s *ActionServiceImpl) UpdateComment(ctx context.Context, req *action.Updat
 	// TODO: Your code here...
 	resp = new(action.UpdateCommentResponse)
 
-	// type UpdateCommentRequest struct {
-	// 	UserId      int64   `thrift:"user_id,1,required" json:"user_id"`
-	// 	VideoId     int64   `thrift:"video_id,2,required" json:"video_id"`
-	// 	ActionType  int32   `thrift:"action_type,3,required" json:"action_type"`
-	// 	CommentText *string `thrift:"comment_text,4" json:"comment_text,omitempty"`
-	// 	CommentId   *int64  `thrift:"comment_id,5" json:"comment_id,omitempty"`
-	// }
-
 	if req.UserId <= 0 || req.VideoId <= 0 || (req.ActionType != 1 && req.ActionType != 2) {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
 		return resp, nil
@@ -95,12 +76,6 @@ func (s *ActionServiceImpl) UpdateComment(ctx context.Context, req *action.Updat
 func (s *ActionServiceImpl) GetCommentList(ctx context.Context, req *action.GetCommentListRequest) (resp *action.GetCommentListResponse, err error) {
 	// TODO: Your code here...
 	resp = new(action.GetCommentListResponse)
-
-	// type GetCommentListRequest struct {
-	// 	UserId  int64 `thrift:"user_id,1,required" json:"user_id"`
-	// 	MyId    int64 `thrift:"my_id,2,required" json:"my_id"`
-	// 	VideoId int64 `thrift:"video_id,3,required" json:"video_id"`
-	// }
 
 	if req.MyId <= 0 || req.VideoId <= 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
@@ -122,12 +97,6 @@ func (s *ActionServiceImpl) UpdateRelationship(ctx context.Context, req *action.
 	// TODO: Your code here...
 	resp = new(action.UpdateRelationshipResponse)
 
-	// type UpdateRelationshipRequest struct {
-	// 	UserId     int64 `thrift:"user_id,1,required" json:"user_id"`
-	// 	ToUserId   int64 `thrift:"to_user_id,2,required" json:"to_user_id"`
-	// 	ActionType int32 `thrift:"action_type,3,required" json:"action_type"`
-	// }
-
 	if req.UserId <= 0 || req.ToUserId <= 0 || (req.ActionType != 1 && req.ActionType != 2) {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
 		return resp, nil
@@ -146,11 +115,6 @@ func (s *ActionServiceImpl) UpdateRelationship(ctx context.Context, req *action.
 func (s *ActionServiceImpl) GetUserFollowList(ctx context.Context, req *action.GetUserFollowListRequest) (resp *action.GetUserFollowListResponse, err error) {
 	// TODO: Your code here...
 	resp = new(action.GetUserFollowListResponse)
-
-	// type GetUserFollowListRequest struct {
-	// 	UserId int64 `thrift:"user_id,1,required" json:"user_id"`
-	// 	MyId   int64 `thrift:"my_id,2,required" json:"my_id"`
-	// }
 
 	if req.UserId <= 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
@@ -172,11 +136,6 @@ func (s *ActionServiceImpl) GetUserFollowerList(ctx context.Context, req *action
 	// TODO: Your code here...
 	resp = new(action.GetUserFollowerListResponse)
 
-	// type GetUserFollowerListRequest struct {
-	// 	UserId int64 `thrift:"user_id,1,required" json:"user_id"`
-	// 	MyId   int64 `thrift:"my_id,2,required" json:"my_id"`
-	// }
-
 	if req.UserId <= 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
 		return resp, nil
@@ -197,11 +156,6 @@ func (s *ActionServiceImpl) CheckRelation(ctx context.Context, req *action.Check
 	// TODO: Your code here...
 	resp = new(action.CheckRelationResponse)
 
-	// type CheckRelationRequest struct {
-	// 	MyId   int64 `thrift:"my_id,1,required" json:"my_id"`
-	// 	UserId int64 `thrift:"user_id,2,required" json:"user_id"`
-	// }
-
 	if req.MyId <= 0 || req.UserId <= 0 {
 		resp.BaseResp = response.BuildBaseResp(status.ParamErr)
 		return resp, nil
@@ -220,11 +174,6 @@ func (s *ActionServiceImpl) CheckRelation(ctx context.Context, req *action.Check
 // CheckFavorite implements the ActionServiceImpl interface.
 func (s *ActionServiceImpl) CheckFavorite(ctx context.Context, req *action.CheckFavoriteRequest) (resp *action.CheckFavoriteResponse, err error) {
 	// TODO: Your code here...
-
-	// type CheckFavoriteRequest struct {
-	// 	MyId    int64 `thrift:"my_id,1,required" json:"my_id"`
-	// 	VideoId int64 `thrift:"video_id,2,required" json:"video_id"`
-	// }
 	resp = new(action.CheckFavoriteResponse)
 
 	if req.MyId <= 0 || req.VideoId <= 0 {

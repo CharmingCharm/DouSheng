@@ -22,11 +22,11 @@ type UserListResponse struct {
 
 // RelationAction no practical effect, just check if token is valid
 func RelationAction(c *gin.Context) {
+	res := constants.Response{}
+
 	token := c.Query("token")
 	toUIdString := c.Query("to_user_id")
 	actionTypeString := c.Query("action_type")
-
-	res := constants.Response{}
 
 	if token == "" || toUIdString == "" || actionTypeString == "" {
 		send.SendStatus(c, status.ParamErr, &res)
@@ -112,12 +112,12 @@ func FollowList(c *gin.Context) {
 
 // FollowerList all users have same follower list
 func FollowerList(c *gin.Context) {
-	token := c.Query("token")
-	uIdString := c.Query("user_id")
-
 	res := UserListResponse{
 		UserList: make([]*base.User, 0),
 	}
+
+	token := c.Query("token")
+	uIdString := c.Query("user_id")
 
 	if len(token) == 0 || len(uIdString) == 0 {
 		send.SendStatus(c, status.ParamErr, &res)

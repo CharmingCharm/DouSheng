@@ -20,12 +20,6 @@ func NewCheckFavoriteService(ctx context.Context) *CheckFavoriteService {
 
 // CreateUser create user info.
 func (s *CheckFavoriteService) CheckFavorite(req *action.CheckFavoriteRequest) (bool, error) {
-
-	// type CheckFavoriteRequest struct {
-	// 	MyId    int64 `thrift:"my_id,1,required" json:"my_id"`
-	// 	VideoId int64 `thrift:"video_id,2,required" json:"video_id"`
-	// }
-
 	flag, err := db.CheckFavoriteRecord(s.ctx, req.MyId, req.VideoId)
 	if err != nil {
 		return false, err

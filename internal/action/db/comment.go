@@ -59,7 +59,6 @@ func DeleteCommentRecord(ctx context.Context, userId int64, videoId int64, comme
 
 	res := searchRes.Delete(&Comment{})
 
-	// res := DB.Where("user_id = ? AND video_id = ?", userId, videoId).Delete(&Comment{}, commentId)
 	if res.Error != nil {
 		return res.Error
 	}

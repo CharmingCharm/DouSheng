@@ -23,13 +23,6 @@ func NewUpdateFavoriteService(ctx context.Context) *UpdateFavoriteService {
 
 // CreateUser create user info.
 func (s *UpdateFavoriteService) UpdateFavorite(req *action.UpdateFavoriteRequest) error {
-
-	// type UpdateFavoriteRequest struct {
-	// 	UserId     int64 `thrift:"user_id,1,required" json:"user_id"`
-	// 	VideoId    int64 `thrift:"video_id,2,required" json:"video_id"`
-	// 	ActionType int32 `thrift:"action_type,3,required" json:"action_type"`
-	// }
-
 	flag, err := db.CheckFavoriteRecord(context.Background(), req.UserId, req.VideoId)
 	if err != nil {
 		return err
