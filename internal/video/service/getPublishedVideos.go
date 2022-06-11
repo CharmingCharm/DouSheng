@@ -21,7 +21,7 @@ func NewGetPublishedVideosService(ctx context.Context) *GetPublishedVideosServic
 	return &GetPublishedVideosService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Get the published videos
 func (s *GetPublishedVideosService) GetPublishedVideos(req *video.GetPublishedVideosRequest) ([]*base.Video, error) {
 	videoDBList, err := db.GetVideoListByAuthorId(req.UserId)
 	if err != nil {

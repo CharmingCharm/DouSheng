@@ -21,7 +21,7 @@ func NewGetVideoListService(ctx context.Context) *GetVideoListService {
 	return &GetVideoListService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Get the video list
 func (s *GetVideoListService) GetVideoList(req *video.GetVideoListRequest) ([]*base.Video, error) {
 	videoDBList, err := db.GetVideoListByIds(req.VideoIds)
 	if err != nil {

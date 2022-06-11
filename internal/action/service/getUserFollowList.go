@@ -22,7 +22,7 @@ func NewGetUserFollowListService(ctx context.Context) *GetUserFollowListService 
 	return &GetUserFollowListService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Get the follow list
 func (s *GetUserFollowListService) GetUserFollowList(req *action.GetUserFollowListRequest) ([]*base.User, error) {
 	followDBList, err := db.GetFollowList(s.ctx, req.UserId)
 	if err != nil {

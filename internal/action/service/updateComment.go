@@ -23,7 +23,7 @@ func NewUpdateCommentService(ctx context.Context) *UpdateCommentService {
 	return &UpdateCommentService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Update the comments
 func (s *UpdateCommentService) UpdateComment(req *action.UpdateCommentRequest) (*base.Comment, error) {
 	var comment base.Comment
 	if req.ActionType == 1 {

@@ -20,7 +20,7 @@ func NewGetFavoriteVideosService(ctx context.Context) *GetFavoriteVideosService 
 	return &GetFavoriteVideosService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Get the "Favorite" videos
 func (s *GetFavoriteVideosService) GetFavoriteVideos(req *action.GetFavoriteVideosRequest) ([]*base.Video, error) {
 	vIds, err := db.GetFavoriteVideoIdsByUserId(s.ctx, req.UserId)
 	if err != nil {

@@ -21,7 +21,7 @@ func NewUpdateFavoriteService(ctx context.Context) *UpdateFavoriteService {
 	return &UpdateFavoriteService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Update the "Favorite"
 func (s *UpdateFavoriteService) UpdateFavorite(req *action.UpdateFavoriteRequest) error {
 	flag, err := db.CheckFavoriteRecord(context.Background(), req.UserId, req.VideoId)
 	if err != nil {

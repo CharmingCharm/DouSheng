@@ -23,7 +23,7 @@ func NewLoadVideosService(ctx context.Context) *LoadVideosService {
 	return &LoadVideosService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Load the videos
 func (s *LoadVideosService) LoadVideos(req *video.LoadVideosRequest) ([]*base.Video, int64, error) {
 	var lastTime int64
 	var myId int64
