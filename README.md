@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `video_count` (
 通过ETCD进行服务的注册发现，通过jaeger进行分布式链路追踪，通过MinIO上传并存储视频数据。
 
 通过gin在api目录下对每个功能设置了一个路由，对应相应的请求在路由handler处通过jwt中间件进行用户身份的认证，接着对请求进行解析将其通过RPC调用对应的微服务，得到结果后返回给客户端。
-'''
+```
 .
 ├─idl
 │      action.thrift
@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `video_count` (
 └─public
         bear.mp4
         data
-'''
+```
 
 ## 如何运行
 
