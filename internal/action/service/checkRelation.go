@@ -18,7 +18,7 @@ func NewCheckRelationService(ctx context.Context) *CheckRelationService {
 	return &CheckRelationService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Check the relationship between two users
 func (s *CheckRelationService) CheckRelation(req *action.CheckRelationRequest) (bool, error) {
 	flag, err := db.FindRelationRecord(s.ctx, req.MyId, req.UserId)
 	if err != nil {

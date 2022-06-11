@@ -98,6 +98,174 @@ CREATE TABLE IF NOT EXISTS `video_count` (
 通过ETCD进行服务的注册发现，通过jaeger进行分布式链路追踪，通过MinIO上传并存储视频数据。
 
 通过gin在api目录下对每个功能设置了一个路由，对应相应的请求在路由handler处通过jwt中间件进行用户身份的认证，接着对请求进行解析将其通过RPC调用对应的微服务，得到结果后返回给客户端。
+```
+.
+├─idl
+│      action.thrift
+│      base.thrift
+│      user.thrift
+│      video.thrift
+│      
+├─internal
+│  │  .DS_Store
+│  │  
+│  ├─action
+│  │  │  build.sh
+│  │  │  handler.go
+│  │  │  main.go
+│  │  │  
+│  │  ├─db
+│  │  │      comment.go
+│  │  │      favorite.go
+│  │  │      init.go
+│  │  │      relation.go
+│  │  │      
+│  │  ├─rpc
+│  │  │      init.go
+│  │  │      user.go
+│  │  │      video.go
+│  │  │      
+│  │  ├─script
+│  │  │      bootstrap.sh
+│  │  │      
+│  │  └─service
+│  │          checkFavorite.go
+│  │          checkRelation.go
+│  │          getCommentList.go
+│  │          getFavoriteVideos.go
+│  │          getUserFollowerList.go
+│  │          getUserFollowList.go
+│  │          updateComment.go
+│  │          updateFavorite.go
+│  │          updateRelationship.go
+│  │          
+│  ├─api
+│  │  │  main.go
+│  │  │  router.go
+│  │  │  
+│  │  ├─controller
+│  │  │      comment.go
+│  │  │      favorite.go
+│  │  │      feed.go
+│  │  │      publish.go
+│  │  │      relation.go
+│  │  │      user.go
+│  │  │      
+│  │  ├─ostg
+│  │  │      minio.go
+│  │  │      
+│  │  └─rpc
+│  │          action.go
+│  │          init.go
+│  │          user.go
+│  │          video.go
+│  │          
+│  ├─user
+│  │  │  build.sh
+│  │  │  handler.go
+│  │  │  main.go
+│  │  │  
+│  │  ├─db
+│  │  │      init.go
+│  │  │      user.go
+│  │  │      
+│  │  ├─rpc
+│  │  │      action.go
+│  │  │      init.go
+│  │  │      
+│  │  ├─script
+│  │  │      bootstrap.sh
+│  │  │      
+│  │  └─service
+│  │          checkUser.go
+│  │          createUser.go
+│  │          getUserInfo.go
+│  │          updateUserFollow.go
+│  │          
+│  └─video
+│      │  build.sh
+│      │  handler.go
+│      │  main.go
+│      │  
+│      ├─db
+│      │      init.go
+│      │      video.go
+│      │      
+│      ├─rpc
+│      │      action.go
+│      │      init.go
+│      │      user.go
+│      │      
+│      ├─script
+│      │      bootstrap.sh
+│      │      
+│      └─service
+│              getPublishedVideos.go
+│              getVideoList.go
+│              loadVideos.go
+│              publishVideo.go
+│              updateCommentCount.go
+│              updateFavoriteCount.go
+│              
+├─kitex_gen
+│  ├─action
+│  │  │  action.go
+│  │  │  k-action.go
+│  │  │  k-consts.go
+│  │  │  
+│  │  └─actionservice
+│  │          actionservice.go
+│  │          client.go
+│  │          invoker.go
+│  │          server.go
+│  │          
+│  ├─base
+│  │      base.go
+│  │      k-base.go
+│  │      k-consts.go
+│  │      
+│  ├─user
+│  │  │  k-consts.go
+│  │  │  k-user.go
+│  │  │  user.go
+│  │  │  
+│  │  └─userservice
+│  │          client.go
+│  │          invoker.go
+│  │          server.go
+│  │          userservice.go
+│  │          
+│  └─video
+│      │  k-consts.go
+│      │  k-video.go
+│      │  video.go
+│      │  
+│      └─videoservice
+│              client.go
+│              invoker.go
+│              server.go
+│              videoservice.go
+│              
+├─pkg
+│  ├─constants
+│  │      constants.go
+│  │      
+│  ├─middleware
+│  │      jwt.go
+│  │      
+│  ├─response
+│  │      response.go
+│  │      
+│  ├─send
+│  │      send.go
+│  │      
+│  └─status
+│          status.go
+│          
+└─public
+        bear.mp4
+        data
+```
 
 ## 如何运行
 

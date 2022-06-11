@@ -22,7 +22,7 @@ func NewGetCommentListService(ctx context.Context) *GetCommentListService {
 	return &GetCommentListService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Get the list of video comments
 func (s *GetCommentListService) GetCommentList(req *action.GetCommentListRequest) ([]*base.Comment, error) {
 	commentDBList, err := db.GetCommentListByVideoId(s.ctx, req.VideoId)
 	if err != nil {

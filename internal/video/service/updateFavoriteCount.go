@@ -17,7 +17,7 @@ func NewUpdateFavoriteCountService(ctx context.Context) *UpdateFavoriteCountServ
 	return &UpdateFavoriteCountService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Update the number of "likes"
 func (s *UpdateFavoriteCountService) UpdateFavoriteCount(req *video.UpdateFavoriteCountRequest) error {
 	if req.ActionType == 1 {
 		err := db.VideoFavoriteCountAdd(req.VideoId)

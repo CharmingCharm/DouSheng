@@ -21,7 +21,7 @@ func NewGetUserFollowerListService(ctx context.Context) *GetUserFollowerListServ
 	return &GetUserFollowerListService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Get the list of fans
 func (s *GetUserFollowerListService) GetUserFollowerList(req *action.GetUserFollowerListRequest) ([]*base.User, error) {
 	followerDBList, err := db.GetFollowerList(s.ctx, req.UserId)
 	if err != nil {

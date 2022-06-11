@@ -20,7 +20,7 @@ func NewUpdateRelationshipService(ctx context.Context) *UpdateRelationshipServic
 	return &UpdateRelationshipService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Update "Follow" related data
 func (s *UpdateRelationshipService) UpdateRelationship(req *action.UpdateRelationshipRequest) error {
 	flag, err := db.FindRelationRecord(s.ctx, req.UserId, req.ToUserId)
 	if err != nil {

@@ -18,7 +18,7 @@ func NewUpdateCommentCountService(ctx context.Context) *UpdateCommentCountServic
 	return &UpdateCommentCountService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Update the number of comments
 func (s *UpdateCommentCountService) UpdateCommentCount(req *video.UpdateCommentCountRequest) error {
 	if req.ActionType == 1 {
 		err := db.VideoCommentCountAdd(req.VideoId)

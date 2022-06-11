@@ -19,7 +19,7 @@ func NewPublishVideoService(ctx context.Context) *PublishVideoService {
 	return &PublishVideoService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Publish the video
 func (s *PublishVideoService) PublishVideo(req *video.PublishVideoRequest) error {
 	// TODO
 	err := db.CreateVideo(s.ctx, req.MyId, req.DataUrl, constants.DefaultCoverUrl, req.Title)
