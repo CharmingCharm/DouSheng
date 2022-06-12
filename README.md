@@ -55,24 +55,6 @@ CREATE TABLE IF NOT EXISTS `comment` (
     INDEX `video`(video_id),
     PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='评论表';
-
-CREATE TABLE IF NOT EXISTS `user_count` (
-    `id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `user_id` BIGINT(10) UNSIGNED UNIQUE NOT NULL COMMENT '用户id',
-    `follow_count` BIGINT(10) UNSIGNED NOT NULL COMMENT '关注数',
-    `follower_count` BIGINT(10) UNSIGNED NOT NULL COMMENT '粉丝数',
-    INDEX `user`(user_id),
-    PRIMARY KEY (`id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户数量信息表';
-
-CREATE TABLE IF NOT EXISTS `video_count` (
-    `id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `video_id` BIGINT(10) UNSIGNED UNIQUE NOT NULL COMMENT '视频id',
-    `favorite_count` BIGINT(10) UNSIGNED NOT NULL COMMENT '点赞数',
-    `comment_count` BIGINT(10) UNSIGNED NOT NULL COMMENT '评论数',
-    INDEX `video`(video_id),
-    PRIMARY KEY (`id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='视频数量信息表';
 ```
 
 ## 完成的功能
