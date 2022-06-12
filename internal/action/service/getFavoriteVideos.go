@@ -22,11 +22,13 @@ func NewGetFavoriteVideosService(ctx context.Context) *GetFavoriteVideosService 
 
 // Get the "Favorite" videos
 func (s *GetFavoriteVideosService) GetFavoriteVideos(req *action.GetFavoriteVideosRequest) ([]*base.Video, error) {
+	// Get the ids of the video list that is favorite by the user
 	vIds, err := db.GetFavoriteVideoIdsByUserId(s.ctx, req.UserId)
 	if err != nil {
 		return nil, err
 	}
 
+	// Use rpc call to fetch video list from video server
 	resp, err := rpc.GetVideoList(s.ctx, &video.GetVideoListRequest{
 		VideoIds: vIds,
 		UserId:   req.MyId,

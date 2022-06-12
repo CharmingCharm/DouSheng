@@ -20,6 +20,7 @@ func NewCheckRelationService(ctx context.Context) *CheckRelationService {
 
 // Check the relationship between two users
 func (s *CheckRelationService) CheckRelation(req *action.CheckRelationRequest) (bool, error) {
+	// Check the corresponding (user_id, to_user_id) pair in relation table
 	flag, err := db.FindRelationRecord(s.ctx, req.MyId, req.UserId)
 	if err != nil {
 		return false, err

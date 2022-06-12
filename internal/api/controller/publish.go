@@ -27,8 +27,10 @@ type VideoListResponse struct {
 
 // Publish check token then save upload file to public directory
 func Publish(c *gin.Context) {
+	// Initialize response object
 	res := constants.Response{}
 
+	// Do the argument checking before business logic
 	token := c.PostForm("token")
 	title := c.PostForm("title")
 
@@ -45,22 +47,24 @@ func Publish(c *gin.Context) {
 	myId := claims.Id
 	username := claims.Username
 
+	// Upload the video metadata to MinIO platform
 	_, fileHeader, err := c.Request.FormFile("data")
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
 	}
+	// Upload time is the name of the video to avoid the same video name
 	timestamp := strconv.FormatInt(time.Now().Unix(), 10)
 	split := strings.Split(fileHeader.Filename, ".")
 	fileType := split[len(split)-1]
-	err = ostg.UploadVideo(timestamp+"."+fileType, username, fileHeader)
-
+	err = ostg.UploadVideo(timestamp+"."+fileType, username, fileHeader) // Upload operation
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
 	}
 	playUrl := constants.MinIOPos + "/video/" + timestamp + "." + fileType
 
+	// Upload the newly created video information to database by rpc call
 	resp, err := rpc.PublishVideo(context.Background(), &video.PublishVideoRequest{
 		MyId:    myId,
 		DataUrl: playUrl, // Uncheck
@@ -70,13 +74,17 @@ func Publish(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
+
+	// Respond
 	send.SendResp(c, *resp.BaseResp, &res)
 }
 
 // PublishList all users have same publish video list
 func PublishList(c *gin.Context) {
+	// Initialize response object
 	res := VideoListResponse{}
 
+	// Do the argument checking
 	token := c.Query("token")
 	uIdInString := c.Query("user_id")
 
@@ -86,7 +94,6 @@ func PublishList(c *gin.Context) {
 	}
 
 	uId, err := strconv.ParseInt(uIdInString, 10, 64)
-
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
@@ -97,17 +104,15 @@ func PublishList(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	myId := claims.Id
-	if myId == uId {
-		myId = -1
-	}
 
+	// Do the rpc call to fetch the published videos
 	resp, err := rpc.GetPublishedVideos(context.Background(), &video.GetPublishedVideosRequest{
 		UserId: uId,
 		MyId:   myId,
 	})
 
+	// Error handling and respnond
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return

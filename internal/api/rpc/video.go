@@ -14,11 +14,13 @@ import (
 var videoClient videoservice.Client
 
 func initVideoRpc() {
+	// Register for a video service client
 	r, err := etcd.NewEtcdResolver([]string{constants.EtcdAddress})
 	if err != nil {
 		panic(err)
 	}
 
+	// Create the client
 	c, err := videoservice.NewClient(
 		constants.VideoServiceName,
 		client.WithSuite(trace.NewDefaultClientSuite()), // tracer

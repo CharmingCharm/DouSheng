@@ -20,12 +20,13 @@ func NewUpdateCommentCountService(ctx context.Context) *UpdateCommentCountServic
 
 // Update the number of comments
 func (s *UpdateCommentCountService) UpdateCommentCount(req *video.UpdateCommentCountRequest) error {
-	if req.ActionType == 1 {
+	// Based on the action type, do the add or delete comment count action
+	if req.ActionType == 1 { // Add command:  add the count of comment of the video with 1
 		err := db.VideoCommentCountAdd(req.VideoId)
 		if err != nil {
 			return err
 		}
-	} else if req.ActionType == 2 {
+	} else if req.ActionType == 2 { // Delete command:  sutract the count of comment of the video with 1
 		err := db.VideoCommentCountSubtract(req.VideoId)
 		if err != nil {
 			return err

@@ -15,13 +15,13 @@ type CreateUserService struct {
 	ctx context.Context
 }
 
-// NewCreateUserService new CreateUserService
 func NewCreateUserService(ctx context.Context) *CreateUserService {
 	return &CreateUserService{ctx: ctx}
 }
 
 // CreateUser create user info.
 func (s *CreateUserService) CreateUser(req *user.CreateUserRequest) (int64, error) {
+	// Check if the user is already exist
 	user, err := db.GetUserByUsername(s.ctx, req.Username)
 	if err != nil {
 		return -1, err
@@ -30,6 +30,7 @@ func (s *CreateUserService) CreateUser(req *user.CreateUserRequest) (int64, erro
 		return -1, status.UserAlreadyExistErr
 	}
 
+	// Generate encrypted password and create user record
 	h := md5.New()
 	if _, err = io.WriteString(h, req.Password); err != nil {
 		return -1, err
@@ -40,5 +41,7 @@ func (s *CreateUserService) CreateUser(req *user.CreateUserRequest) (int64, erro
 	if err != nil {
 		return -1, err
 	}
+
+	// Return id
 	return userId, nil
 }

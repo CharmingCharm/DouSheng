@@ -14,11 +14,13 @@ import (
 var userClient userservice.Client
 
 func initUserRpc() {
+	// Register for a user service client
 	r, err := etcd.NewEtcdResolver([]string{constants.EtcdAddress})
 	if err != nil {
 		panic(err)
 	}
 
+	// Create the client
 	c, err := userservice.NewClient(
 		constants.UserServiceName,
 		client.WithSuite(trace.NewDefaultClientSuite()), // tracer

@@ -37,21 +37,24 @@ type UserInfoResponse struct {
 }
 
 func Register(c *gin.Context) {
-	username := c.Query("username")
-	password := c.Query("password")
-
+	// Initialize response object
 	res := UserRegisterResponse{}
 
+	// Do the argument checking
+	username := c.Query("username")
+	password := c.Query("password")
 	if len(username) == 0 || len(password) == 0 {
 		send.SendStatus(c, status.ParamErr, &res)
 		return
 	}
 
+	// Call rpc function to do the actual register logic
 	resp, err := rpc.CreateUser(context.Background(), &user.CreateUserRequest{
 		Username: username,
 		Password: password,
 	})
 
+	// Error checking on rpc call
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
@@ -61,33 +64,36 @@ func Register(c *gin.Context) {
 		return
 	}
 
+	// Fill in response object and return
 	token, err := middleware.GenToken(username, *resp.UserId)
-
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	res.UserID = resp.UserId
 	res.Token = &token
 	send.SendResp(c, *resp.BaseResp, &res)
 }
 
 func Login(c *gin.Context) {
+	// Initialize response object
 	res := UserLoginResponse{}
 
+	// Do the argument checking
 	username := c.Query("username")
 	password := c.Query("password")
-
 	if len(username) == 0 || len(password) == 0 {
 		send.SendStatus(c, status.ParamErr, &res)
 		return
 	}
 
+	// Call rpc function to do the actual register logic
 	resp, err := rpc.CheckUser(context.Background(), &user.CheckUserRequest{
 		Username: username,
 		Password: password,
 	})
+
+	// Error checking on rpc call
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
@@ -97,30 +103,30 @@ func Login(c *gin.Context) {
 		return
 	}
 
+	// Fill in response object and return
 	token, err := middleware.GenToken(username, *resp.UserId)
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	res.UserID = resp.UserId
 	res.Token = &token
 	send.SendResp(c, *resp.BaseResp, &res)
 }
 
 func UserInfo(c *gin.Context) {
+	// Initialize response object
 	res := UserInfoResponse{}
 
+	// Do the argument checking and extracting
 	uIdInString := c.Query("user_id")
 	token := c.Query("token")
-
-	if uIdInString == "" || token == "" {
+	if len(uIdInString) == 0 || len(token) == 0 {
 		send.SendStatus(c, status.ParamErr, &res)
 		return
 	}
 
 	uId, err := strconv.ParseInt(uIdInString, 10, 64)
-
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
@@ -131,14 +137,15 @@ func UserInfo(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	myId := claims.Id
 
+	// Do rpc call to fetch the user information
 	resp, err := rpc.GetUserInfo(context.Background(), &user.GetUserInfoRequest{
 		UserId: uId,
 		MyId:   myId,
 	})
 
+	// Error checking on rpc call
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
@@ -148,6 +155,7 @@ func UserInfo(c *gin.Context) {
 		return
 	}
 
+	// Fill in the response object for return
 	res.User = resp.User
 	send.SendResp(c, *resp.BaseResp, &res)
 }

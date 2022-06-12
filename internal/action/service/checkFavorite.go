@@ -20,6 +20,7 @@ func NewCheckFavoriteService(ctx context.Context) *CheckFavoriteService {
 
 // Check the "like" record sheet
 func (s *CheckFavoriteService) CheckFavorite(req *action.CheckFavoriteRequest) (bool, error) {
+	// Check the corresponding (user_id, video_id) pair in favorite table
 	flag, err := db.CheckFavoriteRecord(s.ctx, req.MyId, req.VideoId)
 	if err != nil {
 		return false, err

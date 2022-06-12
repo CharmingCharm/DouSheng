@@ -14,27 +14,30 @@ import (
 )
 
 func main() {
-	r, err := etcd.NewEtcdRegistry([]string{constants.EtcdAddress}) // r should not be reused.
+	// Register an etcd server for detection
+	r, err := etcd.NewEtcdRegistry([]string{constants.EtcdAddress})
 	if err != nil {
 		panic(err)
 	}
+
+	// Initialize tcp address
 	addr, err := net.ResolveTCPAddr("tcp", "127.0.0.1:8888")
 	if err != nil {
 		panic(err)
 	}
 
+	// Initialize rpc and db for service use
 	db.Init()
 	rpc.InitRPC()
 
+	// Initialize the server and start
 	svr := user.NewServer(
 		new(UserServiceImpl),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: constants.UserServiceName}),
 		server.WithServiceAddr(addr),
 		server.WithRegistry(r),
 	)
-
 	err = svr.Run()
-
 	if err != nil {
 		log.Println(err.Error())
 	}

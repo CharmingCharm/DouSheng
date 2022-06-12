@@ -23,6 +23,7 @@ func NewGetPublishedVideosService(ctx context.Context) *GetPublishedVideosServic
 
 // Get the published videos
 func (s *GetPublishedVideosService) GetPublishedVideos(req *video.GetPublishedVideosRequest) ([]*base.Video, error) {
+	// Get the video list from video table based on author id
 	videoDBList, err := db.GetVideoListByAuthorId(req.UserId)
 	if err != nil {
 		return nil, err
@@ -30,9 +31,12 @@ func (s *GetPublishedVideosService) GetPublishedVideos(req *video.GetPublishedVi
 	var myId int64
 	myId = req.MyId
 
+	// Initialize return video list
 	videoList := make([]*base.Video, len(videoDBList))
 
+	// For each video record, fetch the author info and favorite info by rpc call
 	for index, v := range videoDBList {
+		// Fetch author info
 		userInfo, err := rpc.GetUserInfo(s.ctx, &user.GetUserInfoRequest{
 			UserId: v.AuthId,
 			MyId:   myId,
@@ -44,6 +48,7 @@ func (s *GetPublishedVideosService) GetPublishedVideos(req *video.GetPublishedVi
 			return nil, status.NewStatus(userInfo.BaseResp.StatusCode, userInfo.BaseResp.StatusMessage)
 		}
 
+		// Fetch favorite info, my_id == -1 means the user hasn't login, default favorite status is false
 		flag := false
 		if myId != -1 {
 			favoriteInfo, err := rpc.CheckFavorite(s.ctx, &action.CheckFavoriteRequest{

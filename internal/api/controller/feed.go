@@ -23,8 +23,10 @@ type FeedResponse struct {
 
 // Feed same demo video list for every request
 func Feed(c *gin.Context) {
+	// Initialize the response object
 	res := FeedResponse{}
 
+	// Do the argument checking and generate rpc request object
 	token := c.Query("token")
 	lastTimeString := c.Query("last_time")
 
@@ -49,18 +51,18 @@ func Feed(c *gin.Context) {
 		req.MyId = claims.Id
 	}
 
+	// Fetch videos and handle rpc error
 	resp, err := rpc.LoadVideos(context.Background(), &req)
-
 	if err != nil {
 		fmt.Println()
 		send.SendStatus(c, err, &res)
 		return
 	}
 
+	// Respoonse
 	res.VideoList = resp.VideoList
 	if resp.NextTime != nil {
 		res.NextTime = *resp.NextTime
 	}
-
 	send.SendResp(c, *resp.BaseResp, &res)
 }

@@ -22,13 +22,15 @@ type UserListResponse struct {
 
 // RelationAction no practical effect, just check if token is valid
 func RelationAction(c *gin.Context) {
+	// Initializing response object
 	res := constants.Response{}
 
+	// Do the argument checking and rpc arguments extracting
 	token := c.Query("token")
 	toUIdString := c.Query("to_user_id")
 	actionTypeString := c.Query("action_type")
 
-	if token == "" || toUIdString == "" || actionTypeString == "" {
+	if len(token) == 0 || len(toUIdString) == 0 || len(actionTypeString) == 0 {
 		send.SendStatus(c, status.ParamErr, &res)
 		return
 	}
@@ -55,9 +57,9 @@ func RelationAction(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	myId := claims.Id
 
+	// Call rpc function to do the relationship operation logic
 	resp, err := rpc.UpdateRelationship(context.Background(), &action.UpdateRelationshipRequest{
 		UserId:     myId,
 		ToUserId:   toUId,
@@ -67,17 +69,21 @@ func RelationAction(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
+
+	// Send back response
 	send.SendResp(c, *resp.BaseResp, &res)
 }
 
 // FollowList all users have same follow list
 func FollowList(c *gin.Context) {
-	token := c.Query("token")
-	uIdString := c.Query("user_id")
-
+	// Initialize response object
 	res := UserListResponse{
 		UserList: make([]*base.User, 0),
 	}
+
+	// Do the argument checking
+	token := c.Query("token")
+	uIdString := c.Query("user_id")
 
 	if len(token) == 0 || len(uIdString) == 0 {
 		send.SendStatus(c, status.ParamErr, &res)
@@ -95,9 +101,9 @@ func FollowList(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	myId := claims.Id
 
+	// Call rpc function to fetch the user follow list
 	resp, err := rpc.GetUserFollowList(context.Background(), &action.GetUserFollowListRequest{
 		UserId: uId,
 		MyId:   myId,
@@ -106,16 +112,20 @@ func FollowList(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
+
+	// Fillin the response object and send back to client
 	res.UserList = resp.UserList
 	send.SendResp(c, *resp.BaseResp, &res)
 }
 
 // FollowerList all users have same follower list
 func FollowerList(c *gin.Context) {
+	// Initializing response object
 	res := UserListResponse{
 		UserList: make([]*base.User, 0),
 	}
 
+	// Do the argument checking and rpc arguments extracting
 	token := c.Query("token")
 	uIdString := c.Query("user_id")
 
@@ -135,9 +145,9 @@ func FollowerList(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	myId := claims.Id
 
+	// Call rpc function to fetch the user follower list
 	resp, err := rpc.GetUserFollowerList(context.Background(), &action.GetUserFollowerListRequest{
 		UserId: uId,
 		MyId:   myId,
@@ -146,6 +156,8 @@ func FollowerList(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
+
+	// Fillin the response object and send back to client
 	res.UserList = resp.UserList
 	send.SendResp(c, *resp.BaseResp, &res)
 }

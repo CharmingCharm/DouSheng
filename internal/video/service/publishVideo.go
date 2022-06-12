@@ -21,7 +21,6 @@ func NewPublishVideoService(ctx context.Context) *PublishVideoService {
 
 // Publish the video
 func (s *PublishVideoService) PublishVideo(req *video.PublishVideoRequest) error {
-	// TODO
 	err := db.CreateVideo(s.ctx, req.MyId, req.DataUrl, constants.DefaultCoverUrl, req.Title)
 	if err != nil {
 		return err

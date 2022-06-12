@@ -18,8 +18,10 @@ import (
 
 // FavoriteAction no practical effect, just check if token is valid
 func FavoriteAction(c *gin.Context) {
+	// Initialize response object
 	res := constants.Response{}
 
+	// Argument checking
 	token := c.Query("token")
 	videoIdString := c.Query("video_id")
 	actionTypeString := c.Query("action_type")
@@ -53,12 +55,14 @@ func FavoriteAction(c *gin.Context) {
 		return
 	}
 
+	// Rpc call to update favorite related data
 	resp, err := rpc.UpdateFavorite(context.Background(), &action.UpdateFavoriteRequest{
 		UserId:     myId,
 		VideoId:    vId,
 		ActionType: actionType,
 	})
 
+	// Error handling and response
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
@@ -68,11 +72,12 @@ func FavoriteAction(c *gin.Context) {
 
 // FavoriteList all users have same favorite video list
 func FavoriteList(c *gin.Context) {
-
+	// Initialize response object
 	res := VideoListResponse{
 		VideoList: make([]*base.Video, 0),
 	}
 
+	// Argument checking
 	token := c.Query("token")
 	uIdInString := c.Query("user_id")
 
@@ -82,7 +87,6 @@ func FavoriteList(c *gin.Context) {
 	}
 
 	uId, err := strconv.ParseInt(uIdInString, 10, 64)
-
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
@@ -93,9 +97,9 @@ func FavoriteList(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
-
 	myId := claims.Id
 
+	// Rpc call to get favorite video list
 	resp, err := rpc.GetFavoriteVideos(context.Background(), &action.GetFavoriteVideosRequest{
 		UserId: uId,
 		MyId:   myId,
@@ -104,6 +108,8 @@ func FavoriteList(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
+
+	// Send back response
 	res.VideoList = resp.VideoList
 	send.SendResp(c, *resp.BaseResp, &res)
 }

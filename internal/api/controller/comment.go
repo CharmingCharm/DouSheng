@@ -26,8 +26,10 @@ type CommentActionResponse struct {
 
 // CommentAction no practical effect, just check if token is valid
 func CommentAction(c *gin.Context) {
+	// Initialize response object
 	res := CommentActionResponse{}
 
+	// Do the argument checking
 	token := c.Query("token")
 	videoIdString := c.Query("video_id")
 	actionTypeString := c.Query("action_type")
@@ -67,19 +69,19 @@ func CommentAction(c *gin.Context) {
 		ActionType: actionType,
 	}
 
-	if actionType == 1 {
+	// Based on different operation, the arguments are different
+	if actionType == 1 { // Add comment: check the comment_text and add it as rpc argument
 		if len(c.Query("comment_text")) == 0 {
 			send.SendStatus(c, status.ParamErr, &res)
 			return
 		}
 		commentText := c.Query("comment_text")
 		commentReq.CommentText = &commentText
-	} else if actionType == 2 {
+	} else if actionType == 2 { // Delete comment: check comment_id and add it as rpc argument
 		if len(c.Query("comment_id")) == 0 {
 			send.SendStatus(c, status.ParamErr, &res)
 			return
 		}
-
 		cId, err := strconv.ParseInt(c.Query("comment_id"), 10, 64)
 		if err != nil {
 			send.SendStatus(c, err, &res)
@@ -88,11 +90,14 @@ func CommentAction(c *gin.Context) {
 		commentReq.CommentId = &cId
 	}
 
+	// Rpc call to update comment info
 	resp, err := rpc.UpdateComment(context.Background(), &commentReq)
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
 	}
+
+	// Response
 	if resp.Comment != nil {
 		res.Comment = resp.Comment
 	}
@@ -101,8 +106,10 @@ func CommentAction(c *gin.Context) {
 
 // CommentList all videos have same demo comment list
 func CommentList(c *gin.Context) {
+	// Initialize response object
 	res := GetCommentListResponse{}
 
+	// Do argument checking
 	token := c.Query("token")
 	videoIdString := c.Query("video_id")
 
@@ -123,15 +130,18 @@ func CommentList(c *gin.Context) {
 		send.SendStatus(c, err, &res)
 		return
 	}
+
+	// Rpc call to get the comment list
 	resp, err := rpc.GetCommentList(context.Background(), &action.GetCommentListRequest{
 		MyId:    myId,
 		VideoId: vId,
 	})
-
 	if err != nil {
 		send.SendStatus(c, err, &res)
 		return
 	}
+
+	// Response
 	res.CommentList = resp.CommentList
 	send.SendResp(c, *resp.BaseResp, &res)
 }

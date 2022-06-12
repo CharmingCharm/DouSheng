@@ -12,14 +12,13 @@ type UpdateUserFollowService struct {
 	ctx context.Context
 }
 
-// NewCreateUserService new CreateUserService
 func NewUpdateUserFollowService(ctx context.Context) *UpdateUserFollowService {
 	return &UpdateUserFollowService{ctx: ctx}
 }
 
-// CreateUser create user info.
+// Update user's follow and to_user's follower count
 func (s *UpdateUserFollowService) UpdateUserFollow(req *user.UpdateUserFollowRequest) error {
-
+	// Check if the two user exists
 	fromUser, err1 := db.GetUserById(s.ctx, req.UserId)
 	toUser, err2 := db.GetUserById(s.ctx, req.ToUserId)
 	if err1 != nil {
@@ -32,22 +31,23 @@ func (s *UpdateUserFollowService) UpdateUserFollow(req *user.UpdateUserFollowReq
 		return status.UserNotExistErr
 	}
 
+	// Check action type
 	var err error
-	if req.ActionType == 1 {
-		err = db.UserFollowCountPlus(s.ctx, req.UserId)
+	if req.ActionType == 1 { // Add relationship
+		err = db.UserFollowCountPlus(s.ctx, req.UserId) // Follower's follow count + 1
 		if err != nil {
 			return err
 		}
-		err = db.UserFollowerCountPlus(s.ctx, req.ToUserId)
+		err = db.UserFollowerCountPlus(s.ctx, req.ToUserId) // Followee's follower count + 1
 		if err != nil {
 			return err
 		}
 	} else if req.ActionType == 2 {
-		db.UserFollowCountSubtract(s.ctx, req.UserId)
+		db.UserFollowCountSubtract(s.ctx, req.UserId) // Follower's follow count - 1
 		if err != nil {
 			return err
 		}
-		db.UserFollowerCountSubtract(s.ctx, req.ToUserId)
+		db.UserFollowerCountSubtract(s.ctx, req.ToUserId) // Followee's follower count - 1
 		if err != nil {
 			return err
 		}

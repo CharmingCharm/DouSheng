@@ -23,14 +23,18 @@ func NewGetVideoListService(ctx context.Context) *GetVideoListService {
 
 // Get the video list
 func (s *GetVideoListService) GetVideoList(req *video.GetVideoListRequest) ([]*base.Video, error) {
+	// Get the video list from video table based on video ids
 	videoDBList, err := db.GetVideoListByIds(req.VideoIds)
 	if err != nil {
 		return nil, err
 	}
 
+	// Initialize return video list
 	videoList := make([]*base.Video, len(videoDBList))
 
+	// For each video record, fetch the author info and favorite info by rpc call
 	for index, v := range videoDBList {
+		// Fetch author info
 		userInfo, err := rpc.GetUserInfo(s.ctx, &user.GetUserInfoRequest{
 			UserId: v.AuthId,
 			MyId:   req.UserId,
@@ -42,6 +46,7 @@ func (s *GetVideoListService) GetVideoList(req *video.GetVideoListRequest) ([]*b
 			return nil, status.NewStatus(userInfo.BaseResp.StatusCode, userInfo.BaseResp.StatusMessage)
 		}
 
+		// Fetch favorite info, UserId == -1 means the user hasn't login, default favorite status is false
 		flag := false
 		if req.UserId != -1 {
 			favoriteInfo, err := rpc.CheckFavorite(s.ctx, &action.CheckFavoriteRequest{
@@ -64,7 +69,7 @@ func (s *GetVideoListService) GetVideoList(req *video.GetVideoListRequest) ([]*b
 			CoverUrl:      v.CoverUrl,
 			FavoriteCount: v.FavoriteCount,
 			CommentCount:  v.CommentCount,
-			IsFavorite:    flag, // TODO
+			IsFavorite:    flag,
 			Title:         v.Title,
 		}
 	}

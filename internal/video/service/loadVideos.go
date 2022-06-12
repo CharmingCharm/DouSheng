@@ -28,20 +28,25 @@ func (s *LoadVideosService) LoadVideos(req *video.LoadVideosRequest) ([]*base.Vi
 	var lastTime int64
 	var myId int64
 
+	// If no lastTime in the argument, default is -1
 	lastTime = -1
 	if req.LastTime != nil {
 		lastTime = *req.LastTime
 	}
 	myId = req.MyId
 
+	// Fetch 30 videos based on the lastTime and create time order
 	videoDBList, err := db.GetVideoListInOrder(lastTime)
-	videoList := make([]*base.Video, len(videoDBList))
-
 	if err != nil {
 		return nil, -1, err
 	}
 
+	// Initialize the return video list
+	videoList := make([]*base.Video, len(videoDBList))
+
+	// For each video record, fetch the author info and favorite info by rpc call
 	for index, v := range videoDBList {
+		// Fetch author info
 		userInfo, err := rpc.GetUserInfo(s.ctx, &user.GetUserInfoRequest{
 			UserId: v.AuthId,
 			MyId:   myId,
@@ -53,6 +58,7 @@ func (s *LoadVideosService) LoadVideos(req *video.LoadVideosRequest) ([]*base.Vi
 			return nil, -1, status.NewStatus(userInfo.BaseResp.StatusCode, userInfo.BaseResp.StatusMessage)
 		}
 
+		// Fetch favorite info, UserId == -1 means the user hasn't login, default favorite status is false
 		flag := false
 		if myId != -1 {
 			favoriteInfo, err := rpc.CheckFavorite(s.ctx, &action.CheckFavoriteRequest{
@@ -80,6 +86,7 @@ func (s *LoadVideosService) LoadVideos(req *video.LoadVideosRequest) ([]*base.Vi
 		}
 	}
 
+	// Extract the new lastTime to return
 	if len(videoDBList) != 0 {
 		lastTime = videoDBList[len(videoDBList)-1].CreateTime
 	}

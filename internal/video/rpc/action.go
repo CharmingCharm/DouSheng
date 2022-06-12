@@ -14,11 +14,13 @@ import (
 var actionClient actionservice.Client
 
 func initActionRpc() {
+	// Register for an action service client
 	r, err := etcd.NewEtcdResolver([]string{constants.EtcdAddress})
 	if err != nil {
 		panic(err)
 	}
 
+	// Create the client
 	c, err := actionservice.NewClient(
 		constants.ActionServiceName,
 		client.WithSuite(trace.NewDefaultClientSuite()), // tracer

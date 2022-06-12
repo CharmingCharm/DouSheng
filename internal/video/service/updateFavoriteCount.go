@@ -19,12 +19,13 @@ func NewUpdateFavoriteCountService(ctx context.Context) *UpdateFavoriteCountServ
 
 // Update the number of "likes"
 func (s *UpdateFavoriteCountService) UpdateFavoriteCount(req *video.UpdateFavoriteCountRequest) error {
-	if req.ActionType == 1 {
+	// Based on the action type, do the add or delete favorite count action
+	if req.ActionType == 1 { // Add favorite:  add the count of favorite of the video with 1
 		err := db.VideoFavoriteCountAdd(req.VideoId)
 		if err != nil {
 			return err
 		}
-	} else if req.ActionType == 2 {
+	} else if req.ActionType == 2 { // Delete favorite:  sutract the count of favorite of the video with 1
 		err := db.VideoFavoriteCountSubtract(req.VideoId)
 		if err != nil {
 			return err
